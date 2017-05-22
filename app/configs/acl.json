@@ -1,0 +1,38 @@
+{
+  "controller" : {
+    "user" : {
+      "endpoint" : [
+        {
+          "uri" : "/admin",
+          "description" : "Ventana principal",
+          "rol" : [1]
+        },
+        {
+          "uri" : "/users",
+          "description" : "Lista de usuarios",
+          "rol" : [1]
+        },
+        {
+          "uri" : "/useradd",
+          "description" : "Registar usuario",
+          "rol" : [1]
+        },
+        {
+          "uri" : "/user/add",
+          "description" : "Formulario para registrar usuarios",
+          "rol" : [1]
+        }
+      ]
+    }
+  },
+  "rol" : [
+    {
+      "name" : "ADMINISTRADOR",
+      "id" : 1
+    },
+    {
+      "name" : "GUEST",
+      "id" : 2
+    }
+  ]
+}
