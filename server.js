@@ -62,6 +62,7 @@ let localStrategy = new LocalStrategy({
             token: generatedToken,
             idUser: doc._id,
             idRol: doc.idRol,
+            idBranch: doc.idBranch,
             created: moment(),
             expiration: moment()
          });
@@ -73,7 +74,7 @@ let localStrategy = new LocalStrategy({
             name: doc.name,
             lastName: doc.lastName,
             userImg: doc.userImg,
-            idRol: doc.idRol,
+            idBranch: doc.idBranch,
             token: generatedToken
          });
       }else {
@@ -98,6 +99,12 @@ passport.use(localStrategy);
 passport.use(bearerStrategy);
 passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
+
+import branchController from './app/controllers/branch';
+branchController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import cityController from './app/controllers/city';
+cityController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
 import roleController from './app/controllers/role';
 roleController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});

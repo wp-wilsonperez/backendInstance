@@ -11,6 +11,7 @@ let UserSchema = new mongoose.Schema({
 	phone: {type: String, require: true},
 	dateBirthday: {type: String, require: true},
 	idRol: {type: String, require: true},
+	idBranch: {type: String, require: true},
 	userImg: {type: String, default: ""},
 	Enabled: {type: Number, require: true},
 	dateCreate: {type: Date, require: true},
