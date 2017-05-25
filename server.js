@@ -19,7 +19,7 @@ import {Strategy as BearerStrategy} from 'passport-http-bearer';
 const port = process.env.PORT || 3001;
 const app = express();
 
-mongoose.connect('mongodb://localhost/brokers');
+mongoose.connect('mongodb://localhost/instance1');
 app.set('views', __dirname + '/app/views');
 app.set('view engine', 'ejs');
 app.use(favicon(__dirname + '/public/images/favicon.ico'));

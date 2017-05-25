@@ -1,9 +1,12 @@
 #### CREATE ONE USER AN ROLE
 
 
-db.roles.insert({ "_id" : ObjectId("590e6a126088ddcbc22249cb"), "name" : "admin", "description" : "todos los privilegios", "dateCreate" : ISODate("2017-05-07T00:28:02.064Z"), "userCreate" : "0", "dateUpdate" : ISODate("2017-05-07T00:28:02.064Z"), "userUpdate" : "0", "grant" : "{\"user\":{\"list\":true,\"add\":true,\"delete\":true,\"edit\":true},\"business\":{\"list\":true,\"add\":true,\"delete\":true,\"edit\":true},\"role\":{\"list\":true,\"add\":true,\"delete\":true,\"edit\":true,\"viewgrant\":true,\"addgrant\":true},\"license\":{\"list\":true,\"add\":true,\"delete\":true,\"edit\":true}}"});
+db.roles.insert({ "_id" : ObjectId("590e6a126088ddcbc22249cb"), "name" : "admin", "description" : "todos los privilegios", "dateCreate" : ISODate("2017-05-07T00:28:02.064Z"), "userCreate" : "0", "dateUpdate" : ISODate("2017-05-07T00:28:02.064Z"), "userUpdate" : "0", "grant" : "{\"user\":{\"list\":true,\"add\":true,\"delete\":true,\"edit\":true},\"city\":{\"list\":true,\"add\":true,\"delete\":true,\"edit\":true},\"branch\":{\"list\":true,\"add\":true,\"delete\":true,\"edit\":true},\"business\":{\"list\":true,\"add\":true,\"delete\":true,\"edit\":true},\"role\":{\"list\":true,\"add\":true,\"delete\":true,\"edit\":true,\"viewgrant\":true,\"addgrant\":true},\"license\":{\"list\":true,\"add\":true,\"delete\":true,\"edit\":true}}"});
 
+db.cities.insert({ "_id" : ObjectId("59272d379b037c338437461c"), "name" : "Cuenca","dateCreate" : ISODate("2017-05-18T21:19:13.263Z"), "userCreate" : "0", "dateUpdate" : ISODate("2017-05-18T21:19:13.263Z"), "userUpdate" : "0"});
 
-db.users.insert({ "_id" : ObjectId("591e0fd1c03c1149fc078321"), "name" : "Fabian", "lastName" : "Perez", "cedula" : "2222222222", "password" : "7c4a8d09ca3762af61e59520943dc26494f8941b", "mail" : "fabianperez@gmail.com", "phone" : "123456789", "idRol" : "590e6a126088ddcbc22249cb", "dateCreate" : ISODate("2017-05-18T21:19:13.263Z"), "userCreate" : "0", "dateUpdate" : ISODate("2017-05-18T21:19:13.263Z"), "userUpdate" : "0", "userImg" : ""});
+db.branches.insert({ "_id" : ObjectId("59272d379b037c338437461c"), "name" : "Cuenca", "address" : "direccion", "idCity" : "59272d379b037c338437461c", "phone" : "11111111", "movil" : "22222", "dateCreate" : ISODate("2017-05-18T21:19:13.263Z"), "userCreate" : "0", "dateUpdate" : ISODate("2017-05-18T21:19:13.263Z"), "userUpdate" : "0"});
+
+db.users.insert({ "_id" : ObjectId("591e0fd1c03c1149fc078321"), "name" : "Fabian", "lastName" : "Perez", "cedula" : "2222222222", "password" : "7c4a8d09ca3762af61e59520943dc26494f8941b", "mail" : "fabianperez@gmail.com", "phone" : "123456789", "idRol" : "590e6a126088ddcbc22249cb", "idBranch" : "59272d379b037c338437461c", "dateCreate" : ISODate("2017-05-18T21:19:13.263Z"), "userCreate" : "0", "dateUpdate" : ISODate("2017-05-18T21:19:13.263Z"), "userUpdate" : "0", "userImg" : ""});
 
 cedula:  2222222222, password: 123456
