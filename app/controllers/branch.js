@@ -99,6 +99,24 @@ let branchController = function (app, control={auth, passport, acl}){
 
    });
 
+   app.delete('/branch/delete/:id', [control.auth, controller, control.acl], (req, res) => {
+
+      let filter = {
+         _id: req.params.id
+      }
+
+      Branch.findByIdAndRemove(filter, function (err, doc) {
+         if(!err){
+            findAction(function(docs){
+               res.send({msg: "OK", update: docs});
+            });
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }            
+      });
+
+   });
+
 }
 
 export default branchController

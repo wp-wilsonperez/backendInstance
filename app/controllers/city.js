@@ -91,6 +91,24 @@ let cityController = function (app, control={auth, passport, acl}){
 
    });
 
+   app.delete('/city/delete/:id', [control.auth, controller, control.acl], (req, res) => {
+
+      let filter = {
+         _id: req.params.id
+      }
+
+      City.findByIdAndRemove(filter, function (err, doc) {
+         if(!err){
+            findAction(function(docs){
+               res.send({msg: "OK", update: docs});
+            });
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }            
+      });
+
+   });
+
 }
 
 export default cityController
