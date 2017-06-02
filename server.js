@@ -100,6 +100,13 @@ passport.use(bearerStrategy);
 passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
+
+import accountController from './app/controllers/account';
+accountController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import settingController from './app/controllers/setting';
+settingController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
 import branchController from './app/controllers/branch';
 branchController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
