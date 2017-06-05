@@ -48,9 +48,6 @@ let settingController = function (app, control={auth, passport, acl}){
 
    app.post('/setting/add', [control.auth, controller, control.acl], (req, res) => {
 
-      let $d = req.body;
-      let $key = sha1(`${$d.dateStart}-${$d.years}-${$d.months}-${$d.days}-${$d.numberUsers}`);
-
       let setting = new Setting({
          iva: req.body.iva,
          connectionTime: req.body.connectionTime,
@@ -78,9 +75,6 @@ let settingController = function (app, control={auth, passport, acl}){
       let filter = {
          _id: req.params.id
       }
-
-      let $d = req.body;
-      let $key = sha1(`${$d.dateStart}-${$d.years}-${$d.months}-${$d.days}-${$d.numberUsers}`);
 
       let update = {
          iva: req.body.iva,
