@@ -7,6 +7,7 @@ let SettingSchema = new mongoose.Schema({
 	maxAttached: {type: Number},
 	idSchedule: {type: String},
 	idMacs: [ {
+			name: {type: String},
 			mac: {type: String}
 		}
 	],

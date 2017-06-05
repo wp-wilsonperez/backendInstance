@@ -53,6 +53,7 @@ let branchController = function (app, control={auth, passport, acl}){
          idCity: req.body.idCity,
          phone: req.body.phone,
          movil: req.body.movil,
+         schedule: req.body.schedule,
          dateCreate: moment(),
          userCreate: req.user.idUser,
          dateUpdate: moment(),
@@ -83,6 +84,7 @@ let branchController = function (app, control={auth, passport, acl}){
          idCity: req.body.idCity,
          phone: req.body.phone,
          movil: req.body.movil,
+         schedule: req.body.schedule,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };
