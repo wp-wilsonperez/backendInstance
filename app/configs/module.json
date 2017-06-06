@@ -37,6 +37,18 @@
       ]
     },
     {
+      "name": "log",
+      "show": "Log",
+      "actions" : [
+        {
+          "name": "list",
+          "show": "Listado",
+          "type": "get",
+          "menu": true
+        }
+      ]
+    },
+    {
       "name": "setting",
       "show": "Configuracion",
       "actions" : [

@@ -43,6 +43,7 @@ app.get('/test', function (req, res, next) {
 import User from './app/models/user';
 import Token from './app/models/token';
 import Role from './app/models/role';
+import Log from './app/models/log';
 
 let localStrategy = new LocalStrategy({
       usernameField: 'cedula',
@@ -101,6 +102,12 @@ passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
 
+import maritalStatusController from './app/controllers/maritalStatus';
+maritalStatusController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import logController from './app/controllers/log';
+logController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
 import accountController from './app/controllers/account';
 accountController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
@@ -117,10 +124,32 @@ import roleController from './app/controllers/role';
 roleController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
 import userController from './app/controllers/user';
-userController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+userController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import homeController from './app/controllers/home';
 homeController(app, {auth: passport.authenticate('bearer', { error: "wrong token" })});
+
+
+function logAction (msg, idUser){
+
+   let log = new Log({
+      log: msg,
+      user: {
+         id: idUser,
+         cedula: "cedula",
+         username: "username"
+      },
+      dateLog: moment()
+   });
+
+   log.save((err, doc) => {
+      if(!err){
+         console.log("log saved");
+      } else {
+         console.log("log doesnt save");
+      }            
+   });
+}
 
 function ensureAuth (req, res, next){
 

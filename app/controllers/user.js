@@ -57,6 +57,7 @@ let userController = function (app, control={auth, passport, acl}){
             if (!user) { return res.status(401).send({"login": false}); }
             req.logIn(user, function (err) {
                if (err) { return res.status(401).send({"login": false}); }
+               control.log("Inicio de Session", user._id);
                return res.send({"login": true, "user": user});
             });
 
@@ -65,6 +66,7 @@ let userController = function (app, control={auth, passport, acl}){
    });
    
    app.get('/user/logout', (req, res) => {
+      control.log("Cierre de Session", user._id);
       req.logout();
       res.redirect('/');
    });
@@ -81,9 +83,10 @@ let userController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/user/list', [control.auth, controller, control.acl], (req, res) => {
-      console.log(req.user);
+
       User.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log("Enlisto Usuarios", req.user.idUser);
             res.send({msg: "OK", users: docs});
          } else {
             res.send({
@@ -131,6 +134,7 @@ let userController = function (app, control={auth, passport, acl}){
       User.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log("Edito un Usuario", req.user.idUser);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -163,6 +167,7 @@ let userController = function (app, control={auth, passport, acl}){
       user.save((err, doc) => {
          if(!err){
             findAction(function(docs){
+               control.log("Agrego un Usuario", req.user.idUser);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -181,6 +186,7 @@ let userController = function (app, control={auth, passport, acl}){
       User.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log("Elimino un Usuario", req.user.idUser);
                res.send({msg: "OK", update: docs});
             });
          } else {
