@@ -10,3 +10,10 @@ db.branches.insert({ "_id" : ObjectId("59272d379b037c338437461c"), "name" : "Cue
 db.users.insert({ "_id" : ObjectId("591e0fd1c03c1149fc078321"), "name" : "Fabian", "lastName" : "Perez", "cedula" : "2222222222", "password" : "7c4a8d09ca3762af61e59520943dc26494f8941b", "mail" : "fabianperez@gmail.com", "phone" : "123456789", "idRol" : "590e6a126088ddcbc22249cb", "idBranch" : "59272d379b037c338437461c", "dateCreate" : ISODate("2017-05-18T21:19:13.263Z"), "userCreate" : "0", "dateUpdate" : ISODate("2017-05-18T21:19:13.263Z"), "userUpdate" : "0", "userImg" : ""});
 
 cedula:  2222222222, password: 123456
+
+
+
+//SETTING default data
+db.settings.insert({"_id" : ObjectId("59380531ad9b0b9b445e1b15"), "iva": 18, "connectionTime": 120, "maxAttached": 50, "idSchedule": "", "idMacs": [], "dateCreate" : ISODate("2017-05-18T21:19:13.263Z"), "userCreate" : "0", "dateUpdate" : ISODate("2017-05-18T21:19:13.263Z"), "userUpdate" : "0"});
+
+db.accounts.insert({"_id" : ObjectId("59380531ad9b0b9b445e1b15"), "name": "name", "logo": "", "img1": "", "img2": "", "img3": "", "parking": true, "description":"", "dateCreate" : ISODate("2017-05-18T21:19:13.263Z"), "userCreate" : "0", "dateUpdate" : ISODate("2017-05-18T21:19:13.263Z"), "userUpdate" : "0"});

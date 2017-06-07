@@ -2,7 +2,7 @@
 import mongoose from 'mongoose';
 
 let SettingSchema = new mongoose.Schema({
-	iva: {type: String, require: true},
+	iva: {type: Number, require: true},
 	connectionTime: {type: Number},
 	maxAttached: {type: Number},
 	idSchedule: {type: String},

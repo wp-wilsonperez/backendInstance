@@ -8,7 +8,7 @@ let AccountSchema = new mongoose.Schema({
 	img2: {type: String},
 	img3: {type: String},
 	parking: {type: Boolean},
-	desciption: {type: String},
+	description: {type: String},
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},
