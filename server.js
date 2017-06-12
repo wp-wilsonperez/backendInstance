@@ -161,6 +161,10 @@ function ensureACL (req, res, next){
       "user": {
          "adduserImg": true,
          "deleteuserImg": true
+      },
+      "account": {
+         "addaccountImg": true,
+         "deleteaccountImg": true
       }
    };
    let $controller = req.route.path.split("/")[1];

@@ -19,6 +19,8 @@ bin-release/
 # information for Eclipse / Flash Builder.
 
 public/uploads/user/*
+public/uploads/account/*
+public/uploads/business/*
 nodemailer.json
 node_modules
 ignore

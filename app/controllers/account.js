@@ -1,8 +1,32 @@
 
 import moment from 'moment';
+import multer from 'multer';
+import fs from 'fs';
 import acl from "../configs/acl";
 
 import Account from "../models/account";
+
+const pathRender = `uploads/account`;
+const pathAccount = `./public/${pathRender}`;
+
+if (!fs.existsSync(pathAccount)){
+    fs.mkdirSync(pathAccount);
+}
+
+let storage = multer.diskStorage({
+   destination: function(req, file, callback) {
+      callback(null, pathAccount);
+   },
+   filename: function(req, file, callback){
+      var basename = file.originalname.split(/[\\/]/).pop(),
+      pos = basename.lastIndexOf(".");
+      if (basename === "" || pos < 1)
+         return "";
+      callback(null, file.fieldname + '-' + Date.now() + '.' + basename.slice(pos + 1));
+   }
+});
+
+let upload = multer({storage: storage}).single("accountImg");
 
 let accountController = function (app, control={auth, passport, acl}){
 
@@ -116,6 +140,32 @@ let accountController = function (app, control={auth, passport, acl}){
          } else {
             res.send({msg: 'ERR', err: err});
          }            
+      });
+
+   });
+
+   app.post('/account/addaccountImg', [control.auth, controller, control.acl], (req, res) => {
+
+      upload(req , res , function(err) {
+         if(!err){
+            let $userImg = `${req.file.filename}`;
+            res.send({msg: "OK", userImg: $userImg, path: pathRender});
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }
+      });
+
+   });
+
+   app.delete('/account/deleteaccountImg/:name', [control.auth, controller, control.acl], (req, res) => {
+
+      let $accountImgPath = `${pathAccount}/${req.params.name}`;
+      fs.unlink($accountImgPath, function (err) {
+         if(!err){
+            res.send({msg: "OK"});
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }
       });
 
    });
