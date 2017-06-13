@@ -148,8 +148,8 @@ let accountController = function (app, control={auth, passport, acl}){
 
       upload(req , res , function(err) {
          if(!err){
-            let $userImg = `${req.file.filename}`;
-            res.send({msg: "OK", userImg: $userImg, path: pathRender});
+            let $accountImg = `${req.file.filename}`;
+            res.send({msg: "OK", accountImg: $accountImg, path: pathRender});
          } else {
             res.send({msg: 'ERR', err: err});
          }
