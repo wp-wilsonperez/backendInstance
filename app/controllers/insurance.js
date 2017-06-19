@@ -50,7 +50,7 @@ let insuranceController = function (app, control={auth, passport, acl}){
 
       let insurance = new Insurance({
          name: req.body.name,
-         description: req.body.logo,
+         description: req.body.description,
          Enable: false,
          dateCreate: moment(),
          userCreate: req.user.idUser,
@@ -76,7 +76,7 @@ let insuranceController = function (app, control={auth, passport, acl}){
 
       let update = {
          name: req.body.name,
-         description: req.body.logo,
+         description: req.body.description,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };
