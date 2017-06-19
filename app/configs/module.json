@@ -79,6 +79,42 @@
       ]
     },
     {
+      "name": "deductible",
+      "show": "Deducible",
+      "actions" : [
+        {
+          "name": "list",
+          "show": "Listado",
+          "type": "get",
+          "menu": true
+        },
+        {
+          "name": "view",
+          "show": "Visualizar",
+          "type": "get",
+          "menu": false
+        },
+        {
+          "name": "add",
+          "show": "Crear",
+          "type": "post",
+          "menu": false
+        },
+        {
+          "name": "edit",
+          "show": "Editar",
+          "type": "post",
+          "menu": false
+        },
+        {
+          "name": "delete",
+          "show": "Eliminar",
+          "type": "delete",
+          "menu": false
+        }
+      ]
+    },
+    {
       "name": "maritalStatus",
       "show": "Estado Civil",
       "actions" : [
