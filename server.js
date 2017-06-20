@@ -101,6 +101,10 @@ passport.use(bearerStrategy);
 passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
+
+import paramController from './app/controllers/param';
+paramController(app, {passport: passport});
+
 import bankController from './app/controllers/bank';
 bankController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
