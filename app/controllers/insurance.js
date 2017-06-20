@@ -1,8 +1,31 @@
 
 import moment from 'moment';
+import multer from 'multer';
+import fs from 'fs';
 
 import Insurance from "../models/insurance";
 
+const pathRender = `uploads/insurance`;
+const pathInsurance = `./public/${pathRender}`;
+
+if (!fs.existsSync(pathInsurance)){
+    fs.mkdirSync(pathInsurance);
+}
+
+let storage = multer.diskStorage({
+   destination: function(req, file, callback) {
+      callback(null, pathInsurance);
+   },
+   filename: function(req, file, callback){
+      var basename = file.originalname.split(/[\\/]/).pop(),
+      pos = basename.lastIndexOf(".");
+      if (basename === "" || pos < 1)
+         return "";
+      callback(null, file.fieldname + '-' + Date.now() + '.' + basename.slice(pos + 1));
+   }
+});
+
+let upload = multer({storage: storage}).single("insuranceImg");
 
 let insuranceController = function (app, control={auth, passport, acl}){
 
@@ -49,8 +72,18 @@ let insuranceController = function (app, control={auth, passport, acl}){
    app.post('/insurance/add', [control.auth, controller, control.acl], (req, res) => {
 
       let insurance = new Insurance({
-         name: req.body.name,
-         description: req.body.description,
+         ruc: req.body.ruc,
+         bussinesName: req.body.bussinesName,
+         cellPhone: req.body.cellPhone,
+         phones: req.body.phones,
+         address: req.body.address,
+         img1: req.body.img1,
+         img2: req.body.img2,
+         img3: req.body.img3,
+         parking: req.body.parking,
+         schedules: req.body.schedules,
+         web: req.body.web,
+         mail: req.body.mail,
          Enable: false,
          dateCreate: moment(),
          userCreate: req.user.idUser,
@@ -75,8 +108,18 @@ let insuranceController = function (app, control={auth, passport, acl}){
       }
 
       let update = {
-         name: req.body.name,
-         description: req.body.description,
+         ruc: req.body.ruc,
+         bussinesName: req.body.bussinesName,
+         cellPhone: req.body.cellPhone,
+         phones: req.body.phones,
+         address: req.body.address,
+         img1: req.body.img1,
+         img2: req.body.img2,
+         img3: req.body.img3,
+         parking: req.body.parking,
+         schedules: req.body.schedules,
+         web: req.body.web,
+         mail: req.body.mail,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };
@@ -131,6 +174,32 @@ let insuranceController = function (app, control={auth, passport, acl}){
          } else {
             res.send({msg: 'ERR', err: err});
          }            
+      });
+
+   });
+
+   app.post('/insurance/addinsuranceImg', [control.auth, controller, control.acl], (req, res) => {
+
+      upload(req , res , function(err) {
+         if(!err){
+            let $insuranceImg = `${req.file.filename}`;
+            res.send({msg: "OK", ainsuranceImg: $insuranceImg, path: pathRender});
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }
+      });
+
+   });
+
+   app.delete('/insurance/deleteinsurancetImg/:name', [control.auth, controller, control.acl], (req, res) => {
+
+      let $insuranceImgPath = `${pathInsurance}/${req.params.name}`;
+      fs.unlink($insuranceImgPath, function (err) {
+         if(!err){
+            res.send({msg: "OK"});
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }
       });
 
    });

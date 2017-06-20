@@ -37,7 +37,157 @@
       ]
     },
     {
+      "name": "bank",
+      "show": "Banco",
+      "actions" : [
+        {
+          "name": "list",
+          "show": "Listado",
+          "type": "get",
+          "menu": true
+        },
+        {
+          "name": "view",
+          "show": "Visualizar",
+          "type": "get",
+          "menu": false
+        },
+        {
+          "name": "add",
+          "show": "Crear",
+          "type": "post",
+          "menu": false
+        },
+        {
+          "name": "edit",
+          "show": "Editar",
+          "type": "post",
+          "menu": false
+        },
+        {
+          "name": "delete",
+          "show": "Eliminar",
+          "type": "delete",
+          "menu": false
+        }
+      ]
+    },
+    {
+      "name": "helpLink",
+      "show": "Link de Ayuda",
+      "actions" : [
+        {
+          "name": "list",
+          "show": "Listado",
+          "type": "get",
+          "menu": true
+        },
+        {
+          "name": "view",
+          "show": "Visualizar",
+          "type": "get",
+          "menu": false
+        },
+        {
+          "name": "add",
+          "show": "Crear",
+          "type": "post",
+          "menu": false
+        },
+        {
+          "name": "edit",
+          "show": "Editar",
+          "type": "post",
+          "menu": false
+        },
+        {
+          "name": "delete",
+          "show": "Eliminar",
+          "type": "delete",
+          "menu": false
+        }
+      ]
+    },
+    {
+      "name": "percentageRamo",
+      "show": "Porcentaje Ramo",
+      "actions" : [
+        {
+          "name": "list",
+          "show": "Listado",
+          "type": "get",
+          "menu": true
+        },
+        {
+          "name": "view",
+          "show": "Visualizar",
+          "type": "get",
+          "menu": false
+        },
+        {
+          "name": "add",
+          "show": "Crear",
+          "type": "post",
+          "menu": false
+        },
+        {
+          "name": "edit",
+          "show": "Editar",
+          "type": "post",
+          "menu": false
+        },
+        {
+          "name": "delete",
+          "show": "Eliminar",
+          "type": "delete",
+          "menu": false
+        }
+      ]
+    },
+    {
       "name": "insurance",
+      "show": "Aseguradora",
+      "actions" : [
+        {
+          "name": "list",
+          "show": "Listado",
+          "type": "get",
+          "menu": true
+        },
+        {
+          "name": "view",
+          "show": "Visualizar",
+          "type": "get",
+          "menu": false
+        },
+        {
+          "name": "add",
+          "show": "Crear",
+          "type": "post",
+          "menu": false
+        },
+        {
+          "name": "edit",
+          "show": "Editar",
+          "type": "post",
+          "menu": false
+        },
+        {
+          "name": "delete",
+          "show": "Eliminar",
+          "type": "delete",
+          "menu": false
+        },
+        {
+          "name": "enable",
+          "show": "Habilitar",
+          "type": "post",
+          "menu": false
+        }
+      ]
+    },
+    {
+      "name": "ramo",
       "show": "Ramo",
       "actions" : [
         {

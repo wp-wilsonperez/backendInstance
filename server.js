@@ -101,11 +101,26 @@ passport.use(bearerStrategy);
 passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
+import bankController from './app/controllers/bank';
+bankController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import helpLinkController from './app/controllers/helpLink';
+helpLinkController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import businessController from './app/controllers/business';
+businessController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import percentageRamoController from './app/controllers/percentageRamo';
+percentageRamoController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
 import deductibleController from './app/controllers/deductible';
 deductibleController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
 import insuranceController from './app/controllers/insurance';
 insuranceController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import ramoController from './app/controllers/ramo';
+ramoController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
 import maritalStatusController from './app/controllers/maritalStatus';
 maritalStatusController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
@@ -170,6 +185,10 @@ function ensureACL (req, res, next){
       "account": {
          "addaccountImg": true,
          "deleteaccountImg": true
+      },
+      "account": {
+         "addinsuranceImg": true,
+         "deleteinsuranceImg": true
       }
    };
    let $controller = req.route.path.split("/")[1];
