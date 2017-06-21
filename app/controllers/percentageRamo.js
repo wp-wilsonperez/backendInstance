@@ -1,7 +1,7 @@
 
 import moment from 'moment';
 
-import percentageRamo from "../models/percentageRamo";
+import PercentageRamo from "../models/percentageRamo";
 
 let percentageRamoController = function (app, control={auth, passport, acl}){
 
@@ -11,7 +11,7 @@ let percentageRamoController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      percentageRamo.find({}, function (err, docs) {
+      PercentageRamo.find({}, function (err, docs) {
          if (!err) {
             callback(docs)
          }
@@ -20,7 +20,7 @@ let percentageRamoController = function (app, control={auth, passport, acl}){
 
    app.get('/percentageRamo/list', [control.auth, controller, control.acl], (req, res) => {
 
-      percentageRamo.find({}, function (err, docs) {
+      PercentageRamo.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
             res.send({msg: "OK", percentageRamos: docs});
          } else {
@@ -35,7 +35,7 @@ let percentageRamoController = function (app, control={auth, passport, acl}){
 
    app.get('/percentageRamo/view/:id', [control.auth, controller, control.acl], (req, res) => {
 
-      percentageRamo.findById(req.params.id, function (err, doc) {
+      PercentageRamo.findById(req.params.id, function (err, doc) {
          if (!err) {
             res.send({msg: "OK", percentageRamo: doc});
          } else {
@@ -47,7 +47,7 @@ let percentageRamoController = function (app, control={auth, passport, acl}){
 
    app.post('/percentageRamo/add', [control.auth, controller, control.acl], (req, res) => {
 
-      let percentageRamo = new percentageRamo({
+      let percentageRamo = new PercentageRamo({
          idRamo: req.body.idRamo,
          idInsurance: req.body.idInsurance,
          value: req.body.value,
@@ -82,7 +82,7 @@ let percentageRamoController = function (app, control={auth, passport, acl}){
          userUpdate: req.user.idUser
       };
 
-      percentageRamo.findOneAndUpdate(filter, update, function (err, doc) {
+      PercentageRamo.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
                res.send({msg: "OK", update: docs});
@@ -100,7 +100,7 @@ let percentageRamoController = function (app, control={auth, passport, acl}){
          _id: req.params.id
       }
 
-      percentageRamo.findByIdAndRemove(filter, function (err, doc) {
+      PercentageRamo.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
                res.send({msg: "OK", update: docs});
