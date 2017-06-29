@@ -102,6 +102,12 @@ passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
 
+import clientController from './app/controllers/client';
+clientController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import issueController from './app/controllers/issue';
+issueController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
 import quoteController from './app/controllers/quote';
 quoteController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
@@ -209,6 +215,10 @@ function ensureACL (req, res, next){
       "letterAccident": {
          "addletterAccidentFile": true,
          "deleteletterAccidentFile": true
+      },
+      "client": {
+         "addclientImg": true,
+         "deleteclientImg": true
       }
    };
    let $controller = req.route.path.split("/")[1];
