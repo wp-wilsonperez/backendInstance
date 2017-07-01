@@ -219,6 +219,12 @@ function ensureACL (req, res, next){
       "client": {
          "addclientImg": true,
          "deleteclientImg": true
+      },
+      "tasa": {
+         "value": true
+      },
+      "issue": {
+         "value": true
       }
    };
    let $controller = req.route.path.split("/")[1];

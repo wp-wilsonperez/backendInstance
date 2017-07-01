@@ -113,6 +113,25 @@ let issueController = function (app, control={auth, passport, acl}){
 
    });
 
+   app.get('/issue/value', [control.auth, controller, control.acl], (req, res) => {
+
+      let filter = {
+         start: {$gt: req.query.number},
+         finish: {$lt: req.query.number}
+      }
+
+      Issue.findOne(filter, function (err, doc) {
+         if (!err) {
+            if(doc)
+               return res.send({msg: "OK", value: doc.value});
+            res.send({msg: "OK", value: null});
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }
+      });
+
+   });
+
 }
 
 export default issueController

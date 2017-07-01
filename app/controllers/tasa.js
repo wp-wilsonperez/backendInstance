@@ -117,6 +117,26 @@ let tasaController = function (app, control={auth, passport, acl}){
 
    });
 
+   app.get('/tasa/value', [control.auth, controller, control.acl], (req, res) => {
+
+      let filter = {
+         idInsurance: req.query.idInsurance,
+         idDeductible: req.query.idDeductible,
+         idRamo: req.query.idRamo
+      }
+
+      Tasa.findOne(filter, function (err, doc) {
+         if (!err) {
+            if(doc)
+               return res.send({msg: "OK", value: doc.value});
+            res.send({msg: "OK", value: null});
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }
+      });
+
+   });
+
 }
 
 export default tasaController
