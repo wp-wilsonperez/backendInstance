@@ -48,7 +48,7 @@ let quoteController = function (app, control={auth, passport, acl}){
    app.post('/quote/add', [control.auth, controller, control.acl], (req, res) => {
 
       let quote = new Quote({
-         date: req.body.name,
+         date: req.body.date,
          doc: req.body.doc,
          docType: req.body.docType,
          name: req.body.name,
@@ -95,7 +95,7 @@ let quoteController = function (app, control={auth, passport, acl}){
       }
 
       let update = {
-         date: req.body.name,
+         date: req.body.date,
          doc: req.body.doc,
          docType: req.body.docType,
          name: req.body.name,
