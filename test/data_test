@@ -17,3 +17,8 @@ cedula:  2222222222, password: 123456
 db.settings.insert({"_id" : ObjectId("59380531ad9b0b9b445e1b15"), "iva": 18, "connectionTime": 120, "maxAttached": 50, "idSchedule": "", "idMacs": [], "dateCreate" : ISODate("2017-05-18T21:19:13.263Z"), "userCreate" : "0", "dateUpdate" : ISODate("2017-05-18T21:19:13.263Z"), "userUpdate" : "0"});
 
 db.accounts.insert({"_id" : ObjectId("59380531ad9b0b9b445e1b15"), "name": "name", "logo": "", "img1": "", "img2": "", "img3": "", "parking": true, "description":"", "dateCreate" : ISODate("2017-05-18T21:19:13.263Z"), "userCreate" : "0", "dateUpdate" : ISODate("2017-05-18T21:19:13.263Z"), "userUpdate" : "0"});
+
+
+db.ramos.insert({ "_id" : ObjectId("59587220641440d5d2b9e2ab"), "name" : "vehiculo", "description" : "", "Enable" : true, "dateCreate" : ISODate("2017-05-18T21:19:13.263Z"), "userCreate" : "0", "dateUpdate" : ISODate("2017-05-18T21:19:13.263Z"), "userUpdate" : "0" });
+
+

@@ -122,7 +122,8 @@ let tasaController = function (app, control={auth, passport, acl}){
       let filter = {
          idInsurance: req.query.idInsurance,
          idDeductible: req.query.idDeductible,
-         idRamo: req.query.idRamo
+         idRamo: req.query.idRamo,
+         carUse: req.query.carUse
       }
 
       Tasa.findOne(filter, function (err, doc) {
