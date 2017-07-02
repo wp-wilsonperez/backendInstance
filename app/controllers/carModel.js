@@ -32,7 +32,7 @@ let carModelController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/carModel/list', [control.auth], (req, res) => {
+   app.get('/carModel/list', [control.auth, controller, control.acl], (req, res) => {
 
       CarModel.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
@@ -69,7 +69,7 @@ let carModelController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.post('/carModel/add', [control.auth], (req, res) => {
+   app.post('/carModel/add', [control.auth, controller, control.acl], (req, res) => {
 
       let carModel = new CarModel({
          name: req.body.name,
