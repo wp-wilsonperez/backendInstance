@@ -1,0 +1,115 @@
+
+import moment from 'moment';
+
+import CarColor from "../models/carColor";
+
+let carColorController = function (app, control={auth, passport, acl}){
+
+   function controller (req, res, next) {
+      req.controller = "carColor";
+      return next();
+   }
+
+   function findAction (callback){
+      CarColor.find({}, function (err, docs) {
+         if (!err) {
+            callback(docs)
+         }
+      });
+   }
+
+   app.get('/carColor/list', [control.auth, controller, control.acl], (req, res) => {
+
+      CarColor.find({}, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            res.send({msg: "OK", carColors: docs});
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
+   app.get('/carColor/view/:id', [control.auth, controller, control.acl], (req, res) => {
+
+      CarColor.findById(req.params.id, function (err, doc) {
+         if (!err) {
+            res.send({msg: "OK", carColor: doc});
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }
+      });
+
+   });
+
+   app.post('/carColor/add', [control.auth, controller, control.acl], (req, res) => {
+
+      let carColor = new CarColor({
+         name: req.body.name,
+         dateCreate: moment(),
+         userCreate: req.user.idUser,
+         dateUpdate: moment(),
+         userUpdate: req.user.idUser
+      });
+
+      carColor.save((err, doc) => {
+         if(!err){
+            findAction(function(docs){
+               res.send({msg: "OK", update: docs});
+            });
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }            
+      });
+
+   });
+
+   app.post('/carColor/edit/:id', [control.auth, controller, control.acl], (req, res) => {
+
+      let filter = {
+         _id: req.params.id
+      }
+
+      let update = {
+         name: req.body.name,
+         schedule: req.body.schedule,
+         dateUpdate: moment(),
+         userUpdate: req.user.idUser
+      };
+
+      CarColor.findOneAndUpdate(filter, update, function (err, doc) {
+         if (!err) {
+            findAction(function(docs){
+               res.send({msg: "OK", update: docs});
+            });
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }
+      });
+
+   });
+
+   app.delete('/carColor/delete/:id', [control.auth, controller, control.acl], (req, res) => {
+
+      let filter = {
+         _id: req.params.id
+      }
+
+      CarColor.findByIdAndRemove(filter, function (err, doc) {
+         if(!err){
+            findAction(function(docs){
+               res.send({msg: "OK", update: docs});
+            });
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }            
+      });
+
+   });
+
+}
+
+export default carColorController

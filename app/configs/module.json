@@ -37,6 +37,186 @@
       ]
     },
     {
+      "name": "carModel",
+      "show": "Modelo Carro",
+      "actions" : [
+        {
+          "name": "list",
+          "show": "Listado",
+          "type": "get",
+          "menu": true
+        },
+        {
+          "name": "view",
+          "show": "Visualizar",
+          "type": "get",
+          "menu": false
+        },
+        {
+          "name": "add",
+          "show": "Crear",
+          "type": "post",
+          "menu": false
+        },
+        {
+          "name": "edit",
+          "show": "Editar",
+          "type": "post",
+          "menu": false
+        },
+        {
+          "name": "delete",
+          "show": "Eliminar",
+          "type": "delete",
+          "menu": false
+        }
+      ]
+    },
+    {
+      "name": "carColor",
+      "show": "Color Carro",
+      "actions" : [
+        {
+          "name": "list",
+          "show": "Listado",
+          "type": "get",
+          "menu": true
+        },
+        {
+          "name": "view",
+          "show": "Visualizar",
+          "type": "get",
+          "menu": false
+        },
+        {
+          "name": "add",
+          "show": "Crear",
+          "type": "post",
+          "menu": false
+        },
+        {
+          "name": "edit",
+          "show": "Editar",
+          "type": "post",
+          "menu": false
+        },
+        {
+          "name": "delete",
+          "show": "Eliminar",
+          "type": "delete",
+          "menu": false
+        }
+      ]
+    },
+    {
+      "name": "country",
+      "show": "Pais",
+      "actions" : [
+        {
+          "name": "list",
+          "show": "Listado",
+          "type": "get",
+          "menu": true
+        },
+        {
+          "name": "view",
+          "show": "Visualizar",
+          "type": "get",
+          "menu": false
+        },
+        {
+          "name": "add",
+          "show": "Crear",
+          "type": "post",
+          "menu": false
+        },
+        {
+          "name": "edit",
+          "show": "Editar",
+          "type": "post",
+          "menu": false
+        },
+        {
+          "name": "delete",
+          "show": "Eliminar",
+          "type": "delete",
+          "menu": false
+        }
+      ]
+    },
+    {
+      "name": "carBrand",
+      "show": "Marca Carro",
+      "actions" : [
+        {
+          "name": "list",
+          "show": "Listado",
+          "type": "get",
+          "menu": true
+        },
+        {
+          "name": "view",
+          "show": "Visualizar",
+          "type": "get",
+          "menu": false
+        },
+        {
+          "name": "add",
+          "show": "Crear",
+          "type": "post",
+          "menu": false
+        },
+        {
+          "name": "edit",
+          "show": "Editar",
+          "type": "post",
+          "menu": false
+        },
+        {
+          "name": "delete",
+          "show": "Eliminar",
+          "type": "delete",
+          "menu": false
+        }
+      ]
+    },
+    {
+      "name": "carType",
+      "show": "Tipo de Carro",
+      "actions" : [
+        {
+          "name": "list",
+          "show": "Listado",
+          "type": "get",
+          "menu": true
+        },
+        {
+          "name": "view",
+          "show": "Visualizar",
+          "type": "get",
+          "menu": false
+        },
+        {
+          "name": "add",
+          "show": "Crear",
+          "type": "post",
+          "menu": false
+        },
+        {
+          "name": "edit",
+          "show": "Editar",
+          "type": "post",
+          "menu": false
+        },
+        {
+          "name": "delete",
+          "show": "Eliminar",
+          "type": "delete",
+          "menu": false
+        }
+      ]
+    },
+    {
       "name": "client",
       "show": "Cliente",
       "actions" : [

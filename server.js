@@ -102,6 +102,21 @@ passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
 
+import carModelController from './app/controllers/carModel';
+carModelController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import carColorController from './app/controllers/carColor';
+carColorController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import countryController from './app/controllers/country';
+countryController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import carBrandController from './app/controllers/carBrand';
+carBrandController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import carTypeController from './app/controllers/carType';
+carTypeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
 import clientController from './app/controllers/client';
 clientController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
