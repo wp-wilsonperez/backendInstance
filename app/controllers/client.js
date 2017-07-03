@@ -4,6 +4,9 @@ import multer from 'multer';
 import fs from 'fs';
 
 import Client from "../models/client";
+import TypeClient from "../models/typeClient";
+import City from "../models/city";
+import MaritalStatus from "../models/maritalStatus";
 
 const pathRender = `uploads/client`;
 const pathClient = `./public/${pathRender}`;
@@ -37,7 +40,14 @@ let clientController = function (app, control={auth, passport, acl}){
    function findAction (callback){
       Client.find({}, function (err, docs) {
          if (!err) {
-            callback(docs)
+
+            TypeClient.populate(docs, {path: "typeClient"},function(err, docs){
+               City.populate(docs, {path: "city"},function(err, docs){
+                  MaritalStatus.populate(docs, {path: "maritalStatus"},function(err, docs){
+                     callback(docs);
+                  });
+               });
+            });
          }
       });
    }
@@ -46,7 +56,13 @@ let clientController = function (app, control={auth, passport, acl}){
 
       Client.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
-            res.send({msg: "OK", clients: docs});
+            TypeClient.populate(docs, {path: "typeClient"},function(err, docs){
+               City.populate(docs, {path: "city"},function(err, docs){
+                  MaritalStatus.populate(docs, {path: "maritalStatus"},function(err, docs){
+                     res.send({msg: "OK", clients: docs});
+                  });
+               });
+            });
          } else {
             res.send({
                msg : 'ERR',
@@ -92,8 +108,11 @@ let clientController = function (app, control={auth, passport, acl}){
          copyBasicService: req.body.copyBasicService,
          copyGroup: req.body.copyGroup,
          idTypeClient: req.body.idTypeClient,
+         typeClient: req.body.idTypeClient,
          idCity: req.body.idCity,
+         city: req.body.idCity,
          idMaritalStatus: req.body.idMaritalStatus,
+         maritalStatus: req.body.idMaritalStatus,
          dateCreate: moment(),
          userCreate: req.user.idUser,
          dateUpdate: moment(),
@@ -137,8 +156,11 @@ let clientController = function (app, control={auth, passport, acl}){
          copyBasicService: req.body.copyBasicService,
          copyGroup: req.body.copyGroup,
          idTypeClient: req.body.idTypeClient,
+         typeClient: req.body.idTypeClient,
          idCity: req.body.idCity,
+         city: req.body.idCity,
          idMaritalStatus: req.body.idMaritalStatus,
+         maritalStatus: req.body.idMaritalStatus,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };

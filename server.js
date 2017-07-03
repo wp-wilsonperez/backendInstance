@@ -62,7 +62,7 @@ let localStrategy = new LocalStrategy({
          let token = new Token({
             token: generatedToken,
             idUser: doc._id,
-            idRol: doc.idRol,
+            idRole: doc.idRole,
             idBranch: doc.idBranch,
             created: moment(),
             expiration: moment()
@@ -159,6 +159,9 @@ insuranceController(app, {passport: passport, auth: passport.authenticate('beare
 import ramoController from './app/controllers/ramo';
 ramoController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
+import typeClientController from './app/controllers/typeClient';
+typeClientController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
 import maritalStatusController from './app/controllers/maritalStatus';
 maritalStatusController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
@@ -244,7 +247,7 @@ function ensureACL (req, res, next){
    };
    let $controller = req.route.path.split("/")[1];
    let $action = req.route.path.split("/")[2];
-   Role.findById(req.user.idRol, function (err, doc) {
+   Role.findById(req.user.idRole, function (err, doc) {
       if (!err) {
          if(!doc){return res.send({msg: 'ERR', err: "No assigned privileges"});}
          let $grant = doc.grant != "" ? JSON.parse(doc.grant) : {};

@@ -3,7 +3,9 @@ import mongoose from 'mongoose';
 
 let PercentageRamoSchema = new mongoose.Schema({
 	idRamo: {type: String, require: true},
+	ramo: { type: mongoose.Schema.ObjectId, ref: "Ramo"},
 	idInsurance: {type: String, require: true},
+	insurance: { type: mongoose.Schema.ObjectId, ref: "Insurance"},
 	value: {type: String, require: true},
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},

@@ -2,6 +2,9 @@
 import moment from 'moment';
 
 import Tasa from "../models/tasa";
+import Insurance from "../models/insurance";
+import Deductible from "../models/deductible";
+import Ramo from "../models/ramo";
 
 let tasaController = function (app, control={auth, passport, acl}){
 
@@ -13,7 +16,13 @@ let tasaController = function (app, control={auth, passport, acl}){
    function findAction (callback){
       Tasa.find({}, function (err, docs) {
          if (!err) {
-            callback(docs)
+            Insurance.populate(docs, {path: "insurance"},function(err, docs){
+               Deductible.populate(docs, {path: "deductible"},function(err, docs){
+                  Ramo.populate(docs, {path: "ramo"},function(err, docs){
+                     callback(docs);
+                  });
+               });
+            });
          }
       });
    }
@@ -22,7 +31,13 @@ let tasaController = function (app, control={auth, passport, acl}){
 
       Tasa.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
-            res.send({msg: "OK", tasas: docs});
+            Insurance.populate(docs, {path: "insurance"},function(err, docs){
+               Deductible.populate(docs, {path: "deductible"},function(err, docs){
+                  Ramo.populate(docs, {path: "ramo"},function(err, docs){
+                     res.send({msg: "OK", tasas: docs});
+                  });
+               });
+            });
          } else {
             res.send({
                msg : 'ERR',
@@ -50,8 +65,11 @@ let tasaController = function (app, control={auth, passport, acl}){
       let tasa = new Tasa({
          name: req.body.name,
          idInsurance: req.body.idInsurance,
+         insurance: req.body.idInsurance,
          idDeductible: req.body.idDeductible,
+         deductible: req.body.idDeductible,
          idRamo: req.body.idRamo,
+         ramo: req.body.idRamo,
          carUse: req.body.carUse,
          value: req.body.value,
          dateCreate: moment(),
@@ -79,8 +97,11 @@ let tasaController = function (app, control={auth, passport, acl}){
       let update = {
          name: req.body.name,
          idInsurance: req.body.idInsurance,
+         insurance: req.body.idInsurance,
          idDeductible: req.body.idDeductible,
+         deductible: req.body.idDeductible,
          idRamo: req.body.idRamo,
+         ramo: req.body.idRamo,
          carUse: req.body.carUse,
          value: req.body.value,
          dateUpdate: moment(),

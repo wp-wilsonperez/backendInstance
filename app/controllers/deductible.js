@@ -2,6 +2,8 @@
 import moment from 'moment';
 
 import Deductible from "../models/deductible";
+import Branch from "../models/branch";
+import Insurance from "../models/insurance";
 
 let deductibleController = function (app, control={auth, passport, acl}){
 
@@ -13,7 +15,12 @@ let deductibleController = function (app, control={auth, passport, acl}){
    function findAction (callback){
       Deductible.find({}, function (err, docs) {
          if (!err) {
-            callback(docs)
+
+            Branch.populate(docs, {path: "branch"},function(err, docs){
+               Insurance.populate(docs, {path: "insurance"},function(err, docs){
+                  callback(docs);
+               });
+            });
          }
       });
    }
@@ -22,7 +29,11 @@ let deductibleController = function (app, control={auth, passport, acl}){
 
       Deductible.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
-            res.send({msg: "OK", deductibles: docs});
+            Branch.populate(docs, {path: "branch"},function(err, docs){
+               Insurance.populate(docs, {path: "insurance"},function(err, docs){
+                  res.send({msg: "OK", deductibles: docs});
+               });
+            });
          } else {
             res.send({
                msg : 'ERR',
@@ -50,7 +61,9 @@ let deductibleController = function (app, control={auth, passport, acl}){
       let deductible = new Deductible({
          name: req.body.name,
          idBranch: req.body.idBranch,
+         branch: req.body.idBranch,
          idInsurance: req.body.idInsurance,
+         insurance: req.body.idInsurance,
          desciption: req.body.desciption,
          dateCreate: moment(),
          userCreate: req.user.idUser,
@@ -77,7 +90,9 @@ let deductibleController = function (app, control={auth, passport, acl}){
       let update = {
          name: req.body.name,
          idBranch: req.body.idBranch,
+         branch: req.body.idBranch,
          idInsurance: req.body.idInsurance,
+         insurance: req.body.idInsurance,
          desciption: req.body.desciption,
          dateUpdate: moment(),
          userUpdate: req.user.idUser

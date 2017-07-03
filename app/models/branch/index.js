@@ -6,6 +6,7 @@ let BranchSchema = new mongoose.Schema({
 	name: {type: String, require: true, unique : true},
 	address: {type: String, require: true},
 	idCity: {type: String, require: true},
+	city: { type: mongoose.Schema.ObjectId, ref: "City"},
 	phone: {type: String, require: true},
 	movil: {type: String, require: true},
 	schedule: [{

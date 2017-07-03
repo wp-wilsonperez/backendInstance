@@ -2,6 +2,10 @@
 import moment from 'moment';
 
 import Quote from "../models/quote";
+import Insurance from "../models/insurance";
+import Deductible from "../models/deductible";
+import PaymentType from "../models/paymentType";
+import TypeClient from "../models/typeClient";
 
 let quoteController = function (app, control={auth, passport, acl}){
 
@@ -13,7 +17,15 @@ let quoteController = function (app, control={auth, passport, acl}){
    function findAction (callback){
       Quote.find({}, function (err, docs) {
          if (!err) {
-            callback(docs)
+            Insurance.populate(docs, {path: "insurance"},function(err, docs){
+               Deductible.populate(docs, {path: "deductible"},function(err, docs){
+                  PaymentType.populate(docs, {path: "paymentType"},function(err, docs){
+                     TypeClient.populate(docs, {path: "typeClient"},function(err, docs){
+                        callback(docs);
+                     });
+                  });
+               });
+            });
          }
       });
    }
@@ -22,7 +34,15 @@ let quoteController = function (app, control={auth, passport, acl}){
 
       Quote.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
-            res.send({msg: "OK", quotes: docs});
+            Insurance.populate(docs, {path: "insurance"},function(err, docs){
+               Deductible.populate(docs, {path: "deductible"},function(err, docs){
+                  PaymentType.populate(docs, {path: "paymentType"},function(err, docs){
+                     TypeClient.populate(docs, {path: "typeClient"},function(err, docs){
+                        res.send({msg: "OK", quotes: docs});
+                     });
+                  });
+               });
+            });
          } else {
             res.send({
                msg : 'ERR',
@@ -58,7 +78,9 @@ let quoteController = function (app, control={auth, passport, acl}){
          car: req.body.car,
          carUse: req.body.carUse,
          idInsurance: req.body.idInsurance,
+         insurance: req.body.idInsurance,
          idDeductible: req.body.idDeductible,
+         deductible: req.body.idDeductible,
          startDate: req.body.startDate,
          finishDate: req.body.finishDate,
          valueCar: req.body.valueCar,
@@ -70,8 +92,10 @@ let quoteController = function (app, control={auth, passport, acl}){
          valueWithoutTaxes: req.body.valueWithoutTaxes,
          emissionRights: req.body.emissionRights,
          totalAmount: req.body.totalAmount,
-         idPaymentTye: req.body.idPaymentTye,
+         idPaymentType: req.body.idPaymentType,
+         paymentType: req.body.idPaymentType,
          idTypeClient: req.body.idTypeClient,
+         typeClient: req.body.idTypeClient,
          dateCreate: moment(),
          userCreate: req.user.idUser,
          dateUpdate: moment(),
@@ -105,7 +129,9 @@ let quoteController = function (app, control={auth, passport, acl}){
          car: req.body.car,
          carUse: req.body.carUse,
          idInsurance: req.body.idInsurance,
+         insurance: req.body.idInsurance,
          idDeductible: req.body.idDeductible,
+         deductible: req.body.idDeductible,
          startDate: req.body.startDate,
          finishDate: req.body.finishDate,
          valueCar: req.body.valueCar,
@@ -117,8 +143,10 @@ let quoteController = function (app, control={auth, passport, acl}){
          valueWithoutTaxes: req.body.valueWithoutTaxes,
          emissionRights: req.body.emissionRights,
          totalAmount: req.body.totalAmount,
-         idPaymentTye: req.body.idPaymentTye,
+         idPaymentType: req.body.idPaymentType,
+         paymentType: req.body.idPaymentType,
          idTypeClient: req.body.idTypeClient,
+         typeClient: req.body.idTypeClient,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };

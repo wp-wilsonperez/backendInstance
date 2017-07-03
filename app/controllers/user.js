@@ -6,6 +6,8 @@ import fs from 'fs';
 import acl from "../configs/acl";
 
 import User from "../models/user";
+import Role from "../models/role";
+import Branch from "../models/branch";
 
 const pathRender = `uploads/user`;
 const pathUser = `./public/${pathRender}`;
@@ -40,7 +42,11 @@ let userController = function (app, control={auth, passport, acl}){
    function findAction (callback){
       User.find({}, function (err, docs) {
          if (!err) {
-            callback(docs)
+            Role.populate(docs, {path: "role"},function(err, docs){
+               Branch.populate(docs, {path: "branch"},function(err, docs){
+                  callback(docs);
+               });
+            });
          }
       });
    }
@@ -87,7 +93,11 @@ let userController = function (app, control={auth, passport, acl}){
       User.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log("Enlisto Usuarios", req.user.idUser);
-            res.send({msg: "OK", users: docs});
+            Role.populate(docs, {path: "role"},function(err, docs){
+               Branch.populate(docs, {path: "branch"},function(err, docs){
+                  res.send({msg: "OK", users: docs});
+               });
+            });
          } else {
             res.send({
                msg : 'ERR',
@@ -123,8 +133,10 @@ let userController = function (app, control={auth, passport, acl}){
          mail: req.body.mail,
          phone: req.body.phone,
          dateBirthday: req.body.dateBirthday,
-         idRol: req.body.idRol,
+         idRole: req.body.idRole,
+         role: req.body.idRole,
          idBranch: req.body.idBranch,
+         branch: req.body.idBranch,
          userImg: req.body.userImg,
          dateUpdate: moment(),
          userUpdate: req.user.idUser,
@@ -154,8 +166,10 @@ let userController = function (app, control={auth, passport, acl}){
          mail: req.body.mail,
          phone: req.body.phone,
          dateBirthday: req.body.dateBirthday,
-         idRol: req.body.idRol,
+         idRole: req.body.idRole,
+         role: req.body.idRole,
          idBranch: req.body.idBranch,
+         branch: req.body.idBranch,
          userImg: req.body.userImg,
          dateCreate: moment(),
          userCreate: req.user.idUser,

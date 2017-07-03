@@ -2,6 +2,7 @@
 import moment from 'moment';
 
 import Branch from "../models/branch";
+import City from "../models/city";
 
 let branchController = function (app, control={auth, passport, acl}){
 
@@ -13,7 +14,9 @@ let branchController = function (app, control={auth, passport, acl}){
    function findAction (callback){
       Branch.find({}, function (err, docs) {
          if (!err) {
-            callback(docs)
+            City.populate(docs, {path: "city"},function(err, docs){
+               callback(docs);
+            });
          }
       });
    }
@@ -22,7 +25,9 @@ let branchController = function (app, control={auth, passport, acl}){
 
       Branch.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
-            res.send({msg: "OK", branches: docs});
+            City.populate(docs, {path: "city"},function(err, docs){
+               res.send({msg: "OK", branches: docs});
+            });
          } else {
             res.send({
                msg : 'ERR',
@@ -51,6 +56,7 @@ let branchController = function (app, control={auth, passport, acl}){
          name: req.body.name,
          address: req.body.address,
          idCity: req.body.idCity,
+         city: req.body.idCity,
          phone: req.body.phone,
          movil: req.body.movil,
          schedule: req.body.schedule,
@@ -82,6 +88,7 @@ let branchController = function (app, control={auth, passport, acl}){
          name: req.body.name,
          address: req.body.address,
          idCity: req.body.idCity,
+         city: req.body.idCity,
          phone: req.body.phone,
          movil: req.body.movil,
          schedule: req.body.schedule,
