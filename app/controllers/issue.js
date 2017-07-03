@@ -114,10 +114,10 @@ let issueController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/issue/value', [control.auth, controller, control.acl], (req, res) => {
-
+      let $number = parseFloat(req.query.number);
+      let where = `${$number} >= this.start  && ${$number} <= this.finish`;
       let filter = {
-         start: {$gt: req.query.number},
-         finish: {$lt: req.query.number}
+         $where: where
       }
 
       Issue.findOne(filter, function (err, doc) {
