@@ -102,6 +102,12 @@ passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
 
+import policyTypeController from './app/controllers/policyType';
+policyTypeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import carController from './app/controllers/car';
+carController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
 import carModelController from './app/controllers/carModel';
 carModelController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
