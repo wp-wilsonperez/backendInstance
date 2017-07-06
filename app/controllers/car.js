@@ -22,7 +22,7 @@ let carController = function (app, control={auth, passport, acl}){
             Client.populate(docs, {path: "client"},function(err, docs){
                Ramo.populate(docs, {path: "ramo"},function(err, docs){
                   CarBrand.populate(docs, {path: "carBrand"},function(err, docs){
-                     carModel.populate(docs, {path: "carModel"},function(err, docs){
+                     CarModel.populate(docs, {path: "carModel"},function(err, docs){
                         callback(docs);
                      });
                   });
@@ -40,7 +40,7 @@ let carController = function (app, control={auth, passport, acl}){
             Client.populate(docs, {path: "client"},function(err, docs){
                Ramo.populate(docs, {path: "ramo"},function(err, docs){
                   CarBrand.populate(docs, {path: "carBrand"},function(err, docs){
-                     carModel.populate(docs, {path: "carModel"},function(err, docs){
+                     CarModel.populate(docs, {path: "carModel"},function(err, docs){
                         res.send({msg: "OK", cars: docs});
                      });
                   });
