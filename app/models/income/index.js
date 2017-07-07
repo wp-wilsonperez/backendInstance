@@ -3,11 +3,11 @@ import mongoose from 'mongoose';
 
 let IncomeSchema = new mongoose.Schema({
 	typeReception: {type: String, require: true},
-	IdClientSend: {type: String, require: true},
+	IdClientSend: {type: String},
 	clientSend: { type: mongoose.Schema.ObjectId, ref: "Client"},
-	idBusinessSend: {type: String, require: true},
+	idBusinessSend: {type: String},
 	businessSend: { type: mongoose.Schema.ObjectId, ref: "Business"},
-	idInsuranceSend: {type: String, require: true},
+	idInsuranceSend: {type: String},
 	insuranceSend: { type: mongoose.Schema.ObjectId, ref: "Insurance"},
 	IdUserAddress: {type: String, require: true},
 	userAddress: { type: mongoose.Schema.ObjectId, ref: "User"},

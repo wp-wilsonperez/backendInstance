@@ -102,6 +102,9 @@ passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
 
+import routeController from './app/controllers/route';
+routeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
 import incomeController from './app/controllers/income';
 incomeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
