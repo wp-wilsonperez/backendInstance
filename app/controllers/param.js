@@ -8,14 +8,14 @@ let paramController = function (app, control={auth, passport, acl}){
       return next();
    }
 
-   app.get('/param/list/:name', (req, res) => {
+   app.get('/param/list', (req, res) => {
       let $name = req.params.name;
-      if(helper[$name]){
-         res.send({msg: "OK", params: helper[$name]});
+      if(helper){
+         res.send({msg: "OK", params: helper});
       } else {
          res.send({
             msg : 'ERR',
-            err : err.code
+            err : "incorrect"
          });
       }
    });

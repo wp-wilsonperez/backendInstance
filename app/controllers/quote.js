@@ -4,7 +4,6 @@ import moment from 'moment';
 import Quote from "../models/quote";
 import Insurance from "../models/insurance";
 import Deductible from "../models/deductible";
-import PaymentType from "../models/paymentType";
 import TypeClient from "../models/typeClient";
 
 let quoteController = function (app, control={auth, passport, acl}){
@@ -19,10 +18,8 @@ let quoteController = function (app, control={auth, passport, acl}){
          if (!err) {
             Insurance.populate(docs, {path: "insurance"},function(err, docs){
                Deductible.populate(docs, {path: "deductible"},function(err, docs){
-                  PaymentType.populate(docs, {path: "paymentType"},function(err, docs){
-                     TypeClient.populate(docs, {path: "typeClient"},function(err, docs){
-                        callback(docs);
-                     });
+                  TypeClient.populate(docs, {path: "typeClient"},function(err, docs){
+                     callback(docs);
                   });
                });
             });
@@ -36,10 +33,8 @@ let quoteController = function (app, control={auth, passport, acl}){
          if (typeof docs !== 'undefined') {
             Insurance.populate(docs, {path: "insurance"},function(err, docs){
                Deductible.populate(docs, {path: "deductible"},function(err, docs){
-                  PaymentType.populate(docs, {path: "paymentType"},function(err, docs){
-                     TypeClient.populate(docs, {path: "typeClient"},function(err, docs){
-                        res.send({msg: "OK", quotes: docs});
-                     });
+                  TypeClient.populate(docs, {path: "typeClient"},function(err, docs){
+                     res.send({msg: "OK", quotes: docs});
                   });
                });
             });
@@ -91,9 +86,12 @@ let quoteController = function (app, control={auth, passport, acl}){
          peasantInsurance: req.body.peasantInsurance,
          valueWithoutTaxes: req.body.valueWithoutTaxes,
          emissionRights: req.body.emissionRights,
+         initialPayment: req.body.initialPayment,
+         equalPayments: req.body.equalPayments,
          totalAmount: req.body.totalAmount,
-         idPaymentType: req.body.idPaymentType,
-         paymentType: req.body.idPaymentType,
+         paymentType: req.body.paymentType,
+         idBank: req.body.idBank,
+         bank: req.body.idBank,
          idTypeClient: req.body.idTypeClient,
          typeClient: req.body.idTypeClient,
          dateCreate: moment(),
@@ -142,9 +140,12 @@ let quoteController = function (app, control={auth, passport, acl}){
          peasantInsurance: req.body.peasantInsurance,
          valueWithoutTaxes: req.body.valueWithoutTaxes,
          emissionRights: req.body.emissionRights,
+         initialPayment: req.body.initialPayment,
+         equalPayments: req.body.equalPayments,
          totalAmount: req.body.totalAmount,
-         idPaymentType: req.body.idPaymentType,
-         paymentType: req.body.idPaymentType,
+         paymentType: req.body.paymentType,
+         idBank: req.body.idBank,
+         bank: req.body.idBank,
          idTypeClient: req.body.idTypeClient,
          typeClient: req.body.idTypeClient,
          dateUpdate: moment(),

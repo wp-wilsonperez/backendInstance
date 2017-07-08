@@ -6,5 +6,19 @@
     {
       "name": "Público"
     }
+  ],
+  "paymentType" : [
+    {
+      "name": "Pago Contado"
+    },
+    {
+      "name": "Con Pago Inicial"
+    },
+    {
+      "name": "Pagos Iguales"
+    },
+    {
+      "name": "Pago Tarjeta de Credito"
+    }
   ]
 }
