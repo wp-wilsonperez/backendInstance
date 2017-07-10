@@ -1,24 +1,49 @@
 {
-  "carUse" : [
-    {
-      "name": "Particular"
-    },
-    {
-      "name": "Público"
+  "carUse" : {
+    "list":[
+      {
+        "id": "99097f2c1f",
+        "name": "Particular"
+      },
+      {
+        "id": "99097f2c1c",
+        "name": "Público"
+      }
+    ],
+    "one":{
+      "99097f2c1f" : "Particular",
+      "99097f2c1c" : "Público"
     }
-  ],
-  "paymentType" : [
-    {
-      "name": "Pago Contado"
-    },
-    {
-      "name": "Con Pago Inicial"
-    },
-    {
-      "name": "Pagos Iguales"
-    },
-    {
-      "name": "Pago Tarjeta de Credito"
+  },
+  "paymentType" : {
+    "list": [
+      {
+        "id": "99097f2c1f",
+        "name": "Pago Contado"
+      },
+      {
+        "id": "99097f2c1c",
+        "name": "Con Pago Inicial"
+      },
+      {
+        "id": "99097f2c1d",
+        "name": "Pagos Iguales"
+      },
+      {
+        "id": "99097f2c1a",
+        "name": "Pago Tarjeta de Credito"
+      },
+      {
+        "id": "99097f2c1b",
+        "name": "Cuota Inicial"
+      }
+    ],
+    "one":{
+      "99097f2c1f" : "Pago Contado",
+      "99097f2c1c" : "Con Pago Inicial",
+      "99097f2c1d" : "Pagos Iguales",
+      "99097f2c1a" : "Pago Tarjeta de Credito",
+      "99097f2c1b" : "Cuota Inicia"
     }
-  ]
+  }
 }

@@ -28,7 +28,7 @@ let QuoteSchema = new mongoose.Schema({
 	initialPayment: {type: Number},
 	equalPayments: {type: Number},
 	totalAmount: {type: Number},
-	paymentType: {type: Number},
+	paymentType: {type: String},
 	idBank: {type: String},
 	bank: { type: mongoose.Schema.ObjectId, ref: "Bank"},
 	idTypeClient: {type: String},
