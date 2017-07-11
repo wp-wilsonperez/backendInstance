@@ -5,7 +5,7 @@ let ClientSchema = new mongoose.Schema({
 	name: {type: String, require: true},
 	lastName: {type: String, require: true},
 	doc: {type: String},
-	docType: {type: Boolean},
+	docType: {type: String},
 	cellPhone: {type: String},
 	mail: {type: String},
 	address: {type: String},
@@ -14,7 +14,12 @@ let ClientSchema = new mongoose.Schema({
 	phoneEmergency: {type: String},
 	nameWork: {type: String},
 	phoneWork: {type: String},
+	addressWork: {type: String},
 	map: {
+		longitude: {type: String},
+		latitude: {type: String}
+	},
+	mapSecond: {
 		longitude: {type: String},
 		latitude: {type: String}
 	},

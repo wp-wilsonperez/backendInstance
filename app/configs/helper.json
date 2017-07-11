@@ -15,6 +15,27 @@
       "99097f2c1c" : "Público"
     }
   },
+  "docType" : {
+    "list":[
+      {
+        "id": "99097f2c1f",
+        "name": "Cedula"
+      },
+      {
+        "id": "99097f2c1c",
+        "name": "Pasaporte"
+      },
+      {
+        "id": "99097f2c1d",
+        "name": "RUC"
+      }
+    ],
+    "one":{
+      "99097f2c1f" : "Cedula",
+      "99097f2c1c" : "Pasaporte",
+      "99097f2c1d" : "RUC"
+    }
+  },
   "paymentType" : {
     "list": [
       {
@@ -23,27 +44,27 @@
       },
       {
         "id": "99097f2c1c",
-        "name": "Con Pago Inicial"
+        "name": "Cuota Inicial"
       },
       {
         "id": "99097f2c1d",
-        "name": "Pagos Iguales"
+        "name": "Porcentaje Inicial"
       },
       {
         "id": "99097f2c1a",
-        "name": "Pago Tarjeta de Credito"
+        "name": "Pagos Iguales"
       },
       {
         "id": "99097f2c1b",
-        "name": "Cuota Inicial"
+        "name": "Pago Tarjeta de Crédito"
       }
     ],
     "one":{
       "99097f2c1f" : "Pago Contado",
-      "99097f2c1c" : "Con Pago Inicial",
-      "99097f2c1d" : "Pagos Iguales",
-      "99097f2c1a" : "Pago Tarjeta de Credito",
-      "99097f2c1b" : "Cuota Inicia"
+      "99097f2c1c" : "Cuota Inicial",
+      "99097f2c1d" : "Porcentaje Inicial",
+      "99097f2c1a" : "Pagos Iguales",
+      "99097f2c1b" : "Pago Tarjeta de Crédito"
     }
   }
 }
