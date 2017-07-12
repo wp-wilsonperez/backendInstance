@@ -25,6 +25,7 @@ let QuoteSchema = new mongoose.Schema({
 	peasantInsurance: {type: String},
 	valueWithoutTaxes: {type: String},
 	emissionRights: {type: String},
+	initialValue: {type: Number},
 	initialPayment: {type: Number},
 	equalPayments: {type: Number},
 	totalAmount: {type: Number},
