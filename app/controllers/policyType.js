@@ -55,7 +55,7 @@ let policyTypeController = function (app, control={auth, passport, acl}){
          userUpdate: req.user.idUser
       });
 
-      PolicyType.save((err, doc) => {
+      policyType.save((err, doc) => {
          if(!err){
             res.send({msg: "OK", doc: doc});
          } else {

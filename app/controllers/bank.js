@@ -2,7 +2,6 @@
 import moment from 'moment';
 
 import Bank from "../models/bank";
-import Insurance from "../models/insurance";
 
 let bankController = function (app, control={auth, passport, acl}){
 
@@ -14,9 +13,7 @@ let bankController = function (app, control={auth, passport, acl}){
    function findAction (callback){
       Bank.find({}, function (err, docs) {
          if (!err) {
-            Insurance.populate(docs, {path: "insurance"},function(err, docs){
-               callback(docs);
-            });
+            callback(docs);
          }
       });
    }
@@ -25,9 +22,7 @@ let bankController = function (app, control={auth, passport, acl}){
 
       Bank.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
-            Insurance.populate(docs, {path: "insurance"},function(err, docs){
-               res.send({msg: "OK", banks: docs});
-            });
+            res.send({msg: "OK", banks: docs});
          } else {
             res.send({
                msg : 'ERR',
@@ -54,11 +49,6 @@ let bankController = function (app, control={auth, passport, acl}){
 
       let bank = new Bank({
          name: req.body.name,
-         month: req.body.month,
-         interest: req.body.interest,
-         totalMonths: req.body.totalMonths,
-         idInsurance: req.body.idInsurance,
-         insurance: req.body.idInsurance,
          dateCreate: moment(),
          userCreate: req.user.idUser,
          dateUpdate: moment(),
@@ -83,11 +73,6 @@ let bankController = function (app, control={auth, passport, acl}){
 
       let update = {
          name: req.body.name,
-         month: req.body.month,
-         interest: req.body.interest,
-         totalMonths: req.body.totalMonths,
-         idInsurance: req.body.idInsurance,
-         insurance: req.body.idInsurance,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };

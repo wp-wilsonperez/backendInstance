@@ -101,6 +101,8 @@ passport.use(bearerStrategy);
 passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
+import bankInsuranceController from './app/controllers/bankInsurance';
+bankInsuranceController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
 import routeController from './app/controllers/route';
 routeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
