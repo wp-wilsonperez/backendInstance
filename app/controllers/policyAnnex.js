@@ -57,14 +57,17 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
    app.post('/policyAnnex/add', [control.auth, controller, control.acl], (req, res) => {
 
       let policyAnnex = new PolicyAnnex({
-         name: req.body.name,
-         idBank: req.body.idBank,
-         bank: req.body.idBank,
-         idInsurance: req.body.idInsurance,
-         insurance: req.body.idInsurance,
-         monthWithoutInterest: req.body.monthWithoutInterest,
-         interest: req.body.interest,
-         monthWithInterest: req.body.monthWithInterest,
+         idPolicy: req.body.idPolicy,
+         policy: req.body.idPolicy,
+         annexNumber: req.body.annexNumber,
+         certificateNumber: req.body.certificateNumber,
+         totalPrima: req.body.totalPrima,
+         detailsAnnex: req.body.detailsAnnex,
+         superBank: req.body.superBank,
+         iva: req.body.iva,
+         segCamp: req.body.segCamp,
+         valueIssue: req.body.valueIssue,
+         totalValue: req.body.totalValue,
          dateCreate: moment(),
          userCreate: req.user.idUser,
          dateUpdate: moment(),
@@ -90,14 +93,17 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
       }
 
       let update = {
-         name: req.body.name,
-         idBank: req.body.idBank,
-         bank: req.body.idBank,
-         idInsurance: req.body.idInsurance,
-         insurance: req.body.idInsurance,
-         monthWithoutInterest: req.body.monthWithoutInterest,
-         interest: req.body.interest,
-         monthWithInterest: req.body.monthWithInterest,
+         idPolicy: req.body.idPolicy,
+         policy: req.body.idPolicy,
+         annexNumber: req.body.annexNumber,
+         certificateNumber: req.body.certificateNumber,
+         totalPrima: req.body.totalPrima,
+         detailsAnnex: req.body.detailsAnnex,
+         superBank: req.body.superBank,
+         iva: req.body.iva,
+         segCamp: req.body.segCamp,
+         valueIssue: req.body.valueIssue,
+         totalValue: req.body.totalValue,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };

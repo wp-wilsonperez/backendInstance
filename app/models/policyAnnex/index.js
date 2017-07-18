@@ -2,7 +2,6 @@
 import mongoose from 'mongoose';
 
 let PolicyAnnexSchema = new mongoose.Schema({
-	name: {type: String, require: true},
 	idPolicy: {type: String, require: true},
 	policy: { type: mongoose.Schema.ObjectId, ref: "Policy"},
 	annexNumber: {type: Number, require: true},
@@ -12,8 +11,8 @@ let PolicyAnnexSchema = new mongoose.Schema({
 	superBank: {type: String, require: true},
 	iva: {type: Number, require: true},
 	segCamp: {type: String, require: true},
-	valueIssue: {type: String, require: true},
-	totalValue: {type: String, require: true},
+	valueIssue: {type: Number, require: true},
+	totalValue: {type: Number, require: true},
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},

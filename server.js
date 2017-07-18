@@ -102,6 +102,12 @@ passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
 
+import itemAnnexExtraController from './app/controllers/itemAnnexExtra';
+itemAnnexExtraController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import itemAnnexCarController from './app/controllers/itemAnnexCar';
+itemAnnexCarController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
 import policyAnnexController from './app/controllers/policyAnnex';
 policyAnnexController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
