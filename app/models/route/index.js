@@ -1,7 +1,12 @@
 
 import mongoose from 'mongoose';
+import autoIncrement from 'mongoose-auto-increment';
+
+const connection = mongoose.connect('mongodb://localhost/instance1');
+autoIncrement.initialize(connection);
 
 let RouteSchema = new mongoose.Schema({
+	routeNumber: {type:  Number},
 	typeReception: {type: String, require: true},
 	idUserSend: {type: String},
 	userSend: { type: mongoose.Schema.ObjectId, ref: "User"},
@@ -24,5 +29,6 @@ let RouteSchema = new mongoose.Schema({
 	userUpdate: {type: String, require: true}
 });
 
+RouteSchema.plugin(autoIncrement.plugin, { model: 'Route', field: 'routeNumber', startAt: 1});
 
 export default mongoose.model('Route', RouteSchema)
