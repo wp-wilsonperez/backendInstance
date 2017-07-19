@@ -70,10 +70,22 @@ let routeController = function (app, control={auth, passport, acl}){
    app.post('/route/add', [control.auth, controller, control.acl], (req, res) => {
 
       let route = new Route({
-         name: req.body.name,
-         month: req.body.month,
-         interest: req.body.interest,
-         totalMonths: req.body.totalMonths,
+         typeReception: req.body.typeReception,
+         idUserSend: req.body.idUserSend,
+         userSend: req.body.idUserSend,
+         idClientRecipient: req.body.idClientRecipient,
+         clientRecipient: req.body.idClientRecipient,
+         idBusinessRecipent: req.body.idBusinessRecipent,
+         businessRecipent: req.body.idBusinessRecipent,
+         idInsuranceRecipent: req.body.idInsuranceRecipent,
+         insuranceRecipent: req.body.idInsuranceRecipent,
+         dateRoute: req.body.dateRoute,
+         dateReception: req.body.dateReception,
+         dateMessenger: req.body.dateMessenger,
+         dateReEntry: req.body.dateReEntry,
+         dateReturn: req.body.dateReturn,
+         details: req.body.details,
+         observations: req.body.observations,
          dateCreate: moment(),
          userCreate: req.user.idUser,
          dateUpdate: moment(),
@@ -97,10 +109,22 @@ let routeController = function (app, control={auth, passport, acl}){
       }
 
       let update = {
-         name: req.body.name,
-         month: req.body.month,
-         interest: req.body.interest,
-         totalMonths: req.body.totalMonths,
+         typeReception: req.body.typeReception,
+         idUserSend: req.body.idUserSend,
+         userSend: req.body.idUserSend,
+         idClientRecipient: req.body.idClientRecipient,
+         clientRecipient: req.body.idClientRecipient,
+         idBusinessRecipent: req.body.idBusinessRecipent,
+         businessRecipent: req.body.idBusinessRecipent,
+         idInsuranceRecipent: req.body.idInsuranceRecipent,
+         insuranceRecipent: req.body.idInsuranceRecipent,
+         dateRoute: req.body.dateRoute,
+         dateReception: req.body.dateReception,
+         dateMessenger: req.body.dateMessenger,
+         dateReEntry: req.body.dateReEntry,
+         dateReturn: req.body.dateReturn,
+         details: req.body.details,
+         observations: req.body.observations,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };
