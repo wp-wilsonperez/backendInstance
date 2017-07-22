@@ -66,5 +66,26 @@
       "99097f2c1a" : "Pagos Iguales",
       "99097f2c1b" : "Pago Tarjeta de Crédito"
     }
+  },
+  "typeBilling" : {
+    "list":[
+      {
+        "id": "99097f2c1f",
+        "name": "Cliente"
+      },
+      {
+        "id": "99097f2c1c",
+        "name": "Negocio"
+      },
+      {
+        "id": "99097f2c1d",
+        "name": "Aseguradora"
+      }
+    ],
+    "one":{
+      "99097f2c1f" : "Cliente",
+      "99097f2c1c" : "Negocio",
+      "99097f2c1d" : "Aseguradora"
+    }
   }
 }
