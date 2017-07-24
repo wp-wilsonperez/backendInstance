@@ -87,5 +87,36 @@
       "99097f2c1c" : "Negocio",
       "99097f2c1d" : "Aseguradora"
     }
+  },
+  "moneyType" : {
+    "list": [
+      {
+        "id": "99097f2c1f",
+        "name": "Efectivo"
+      },
+      {
+        "id": "99097f2c1c",
+        "name": "Tarjeta Crédito"
+      },
+      {
+        "id": "99097f2c1d",
+        "name": "Tarjeta Débito"
+      },
+      {
+        "id": "99097f2c1a",
+        "name": "Cheque"
+      },
+      {
+        "id": "99097f2c1b",
+        "name": "Dinero Electrónico"
+      }
+    ],
+    "one":{
+      "99097f2c1f" : "Efectivo",
+      "99097f2c1c" : "Tarjeta Crédito",
+      "99097f2c1d" : "Tarjeta Débito",
+      "99097f2c1a" : "Cheque",
+      "99097f2c1b" : "Dinero Electrónico"
+    }
   }
 }
