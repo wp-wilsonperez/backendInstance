@@ -2,6 +2,7 @@
 import moment from 'moment';
 
 import Policy from "../models/policy";
+import PercentageRamo from "../models/percentageRamo";
 
 let policyController = function (app, control={auth, passport, acl}){
 
@@ -147,6 +148,27 @@ let policyController = function (app, control={auth, passport, acl}){
          } else {
             res.send({msg: 'ERR', err: err});
          }            
+      });
+
+   });
+
+   //get ramo porcentage value
+
+    app.get('/policy/ramoPercentageValue', [control.auth, controller, control.acl], (req, res) => {
+
+      let filter = {
+         idInsurance: req.query.idInsurance,
+         idRamo: req.query.idRamo,
+      }
+
+      PercentageRamo.findOne(filter, function (err, doc) {
+         if (!err) {
+            if(doc)
+               return res.send({msg: "OK", value: doc.value});
+            res.send({msg: "OK", value: null});
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }
       });
 
    });
