@@ -294,6 +294,9 @@ function ensureACL (req, res, next){
       },
       "issue": {
          "value": true
+      },
+      "percentageRamo": {
+         "value": true
       }
    };
    let $controller = req.route.path.split("/")[1];
