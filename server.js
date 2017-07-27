@@ -102,6 +102,12 @@ passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
 
+import sinisterDocumentationRamoController from './app/controllers/sinisterDocumentationRamo';
+sinisterDocumentationRamoController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import sinisterDocumentationController from './app/controllers/sinisterDocumentation';
+sinisterDocumentationController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
 import walletPaymentBinnacleController from './app/controllers/walletPaymentBinnacle';
 walletPaymentBinnacleController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
