@@ -102,6 +102,9 @@ passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
 
+import sinesterController from './app/controllers/sinester';
+sinesterController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
 import sinisterDocumentationRamoController from './app/controllers/sinisterDocumentationRamo';
 sinisterDocumentationRamoController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
