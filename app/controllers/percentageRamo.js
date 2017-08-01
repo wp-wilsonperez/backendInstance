@@ -126,6 +126,25 @@ let percentageRamoController = function (app, control={auth, passport, acl}){
 
    });
 
+   app.get('/percentageRamo/value', [control.auth, controller, control.acl], (req, res) => {
+
+      let filter = {
+         idInsurance: req.query.idInsurance,
+         idRamo: req.query.idRamo,
+      }
+
+      PercentageRamo.findOne(filter, function (err, doc) {
+         if (!err) {
+            if(doc)
+               return res.send({msg: "OK", value: doc.value});
+            res.send({msg: "OK", value: null});
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }
+      });
+
+   });
+
 }
 
 export default percentageRamoController
