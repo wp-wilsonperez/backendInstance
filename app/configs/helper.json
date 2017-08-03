@@ -118,5 +118,41 @@
       "99097f2c1a" : "Cheque",
       "99097f2c1b" : "Dinero Electrónico"
     }
+  },
+  "sinisterState" : {
+    "list": [
+      {
+        "id": "99097f2c1f",
+        "name": "reportado"
+      },
+      {
+        "id": "99097f2c1c",
+        "name": "en proceso"
+      },
+      {
+        "id": "99097f2c1d",
+        "name": "documentado"
+      },
+      {
+        "id": "99097f2c1a",
+        "name": "pagado"
+      },
+      {
+        "id": "99097f2c1b",
+        "name": "negado"
+      },
+      {
+        "id": "99097f2c18",
+        "name": "archivado"
+      }
+    ],
+    "one":{
+      "99097f2c1f" : "reportado",
+      "99097f2c1c" : "en proceso",
+      "99097f2c1d" : "documentado",
+      "99097f2c1a" : "pagado",
+      "99097f2c1b" : "negado",
+      "99097f2c18" : "archivado"
+    }
   }
 }

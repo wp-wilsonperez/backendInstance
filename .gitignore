@@ -26,3 +26,4 @@ node_modules
 ignore
 *.log
 .DS_Store
+.package.json.swp

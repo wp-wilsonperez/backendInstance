@@ -102,6 +102,12 @@ passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
 
+import sinisterCarDocumentationController from './app/controllers/sinisterCarDocumentation';
+sinisterCarDocumentationController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import sinisterCarController from './app/controllers/sinisterCar';
+sinisterCarController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
 import sinesterController from './app/controllers/sinester';
 sinesterController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 

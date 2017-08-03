@@ -71,6 +71,7 @@ let sinesterController = function (app, control={auth, passport, acl}){
          beneficiary: req.body.beneficiary,
          idRamo: req.body.idRamo,
          ramo: req.body.idRamo,
+         sinisterState: req.body.sinisterState,
          dateCreate: moment(),
          userCreate: req.user.idUser,
          dateUpdate: moment(),
@@ -110,6 +111,7 @@ let sinesterController = function (app, control={auth, passport, acl}){
          beneficiary: req.body.beneficiary,
          idRamo: req.body.idRamo,
          ramo: req.body.idRamo,
+         sinisterState: req.body.sinisterState,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };
