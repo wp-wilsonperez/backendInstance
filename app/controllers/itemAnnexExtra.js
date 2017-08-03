@@ -42,6 +42,18 @@ let itemAnnexExtraController = function (app, control={auth, passport, acl}){
 
    });
 
+  app.get('/itemAnnexExtra/param/:idItemAnnexCar', [control.auth, controller, control.acl], (req, res) => {
+
+      ItemAnnexExtra.find({idItemAnnexCar: req.params.idItemAnnexCar}, function (err, doc) {
+         if (!err) {
+            res.send({msg: "OK", itemAnnexExtras: doc});
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }
+      });
+
+   });
+
    app.get('/itemAnnexExtra/view/:id', [control.auth, controller, control.acl], (req, res) => {
 
       ItemAnnexExtra.findById(req.params.id, function (err, doc) {

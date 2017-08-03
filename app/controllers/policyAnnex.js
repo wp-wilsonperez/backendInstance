@@ -42,6 +42,19 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
 
    });
 
+    app.get('/policyAnnex/param/:idPolicy', [control.auth, controller, control.acl], (req, res) => {
+
+      PolicyAnnex.find({idPolicy: req.params.idPolicy}, function (err, doc) {
+         if (!err) {
+            res.send({msg: "OK", policyAnnex: doc});
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }
+      });
+
+   });
+
+
    app.get('/policyAnnex/view/:id', [control.auth, controller, control.acl], (req, res) => {
 
       PolicyAnnex.findById(req.params.id, function (err, doc) {
@@ -53,6 +66,7 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
       });
 
    });
+
 
    app.post('/policyAnnex/add', [control.auth, controller, control.acl], (req, res) => {
 
