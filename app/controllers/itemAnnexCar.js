@@ -46,6 +46,21 @@ let itemAnnexCarController = function (app, control={auth, passport, acl}){
       });
 
    });
+    
+   app.get('/itemAnnexCar/param/:idPolicyAnnex', [control.auth, controller, control.acl], (req, res) => {
+
+      ItemAnnexCar.find({idPolicyAnnex: req.params.idPolicyAnnex}, function (err, doc) {
+         if (!err) {
+            res.send({msg: "OK", itemAnnexCars: doc});
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }
+      });
+
+   });
+
+   
+
 
    app.get('/itemAnnexCar/view/:id', [control.auth, controller, control.acl], (req, res) => {
 
@@ -65,7 +80,6 @@ let itemAnnexCarController = function (app, control={auth, passport, acl}){
          idPolicyAnnex: req.body.idPolicyAnnex,
          policyAnnex: req.body.idPolicyAnnex,
          idCar: req.body.idCar,
-         car: req.body.idCar,
          tasa: req.body.tasa,
          carUse: req.body.carUse,
          interest: req.body.interest,
