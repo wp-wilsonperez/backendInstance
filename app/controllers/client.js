@@ -215,7 +215,7 @@ let clientController = function (app, control={auth, passport, acl}){
    app.delete('/client/deleteclientImg/:name', [control.auth, controller, control.acl], (req, res) => {
 
       let $clientImgPath = `${pathClient}/${req.params.name}`;
-      fs.unlink($accountImgPath, function (err) {
+      fs.unlink($clientImgPath, function (err) {
          if(!err){
             res.send({msg: "OK"});
          } else {

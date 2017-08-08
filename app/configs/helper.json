@@ -154,5 +154,42 @@
       "99097f2c1b" : "negado",
       "99097f2c18" : "archivado"
     }
+  },
+  "relationship" : {
+    "list":[
+      {
+        "id": "99097f2c1f",
+        "name": "Cónyuge"
+      },
+      {
+        "id": "99097f2c1c",
+        "name": "Hijo/a"
+      },
+      {
+        "id": "99097f2c1d",
+        "name": "Hijastro/a"
+      }
+    ],
+    "one":{
+      "99097f2c1f" : "Cónyuge",
+      "99097f2c1c" : "Hijo/a",
+      "99097f2c1d" : "Hijastro/a"
+    }
+  },
+  "sex" : {
+    "list":[
+      {
+        "id": "99097f2c1f",
+        "name": "Masculino"
+      },
+      {
+        "id": "99097f2c1c",
+        "name": "Femenino"
+      }
+    ],
+    "one":{
+      "99097f2c1f" : "Masculino",
+      "99097f2c1c" : "Femenino"
+    }
   }
 }

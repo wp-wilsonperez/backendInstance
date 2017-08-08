@@ -102,6 +102,9 @@ passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
 
+import dependentController from './app/controllers/dependent';
+dependentController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
 import sinisterCarDocumentationController from './app/controllers/sinisterCarDocumentation';
 sinisterCarDocumentationController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
@@ -306,6 +309,10 @@ function ensureACL (req, res, next){
       },
       "percentageRamo": {
          "value": true
+      },
+      "dependent": {
+         "adddependentImg": true,
+         "deletedependentImg": true
       }
    };
    let $controller = req.route.path.split("/")[1];
