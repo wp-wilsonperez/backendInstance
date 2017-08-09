@@ -3,12 +3,7 @@ import mongoose from 'mongoose';
 
 let BillingSchema = new mongoose.Schema({
 	typeBilling: {type: String, require: true},
-	idClient: {type: String, require: true},
-	detailClient: { type: Object},
-	idBusiness: {type: String, require: true},
-	detailBusiness: { type: Object},
-	idInsurance: {type: String, require: true},
-	detailInsurance: { type: Object},
+	detailsClientBilling: { type: Object},
 	idInsuraceCom: {type: String, require: true},
 	nameInsuranceCom: {type: String, require: true},
 	billingNumber: {type: Number, require: true},
