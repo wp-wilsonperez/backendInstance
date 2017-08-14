@@ -1,0 +1,87 @@
+
+db.roles.insert({ "_id" : ObjectId("599222be7f05fc0933b643f3"), "name" : "Super Administrador", "description" : "Super Administrador del sistema", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0", "grant" : "{\"user\":{\"list\":true,\"add\":true,\"delete\":true,\"edit\":true},\"city\":{\"list\":true,\"add\":true,\"delete\":true,\"edit\":true},\"branch\":{\"list\":true,\"add\":true,\"delete\":true,\"edit\":true},\"business\":{\"list\":true,\"add\":true,\"delete\":true,\"edit\":true},\"role\":{\"list\":true,\"add\":true,\"delete\":true,\"edit\":true,\"viewgrant\":true,\"addgrant\":true},\"license\":{\"list\":true,\"add\":true,\"delete\":true,\"edit\":true}}"});
+
+db.cities.insert({ "_id" : ObjectId("599222be7f05fc0933b643f3"), "name" : "Cuenca","dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.branches.insert({ "_id" : ObjectId("599222be7f05fc0933b643f3"), "name" : "Matriz", "address" : "Calle del Retorno", "idCity" : "599222be7f05fc0933b643f3", "phone" : "074112389", "movil" : "0998932898", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.users.insert({ "_id" : ObjectId("599222be7f05fc0933b643f3"), "name" : "Cinta", "lastName" : "Negra", "cedula" : "2222222222", "password" : "571c34f62e9ea7fba7e619d8b417aebc4d60ef4e", "mail" : "info@cintanegra.net", "phone" : "0998932898", "idRole" : "599222be7f05fc0933b643f3", "idBranch" : "599222be7f05fc0933b643f3", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0", "userImg" : "defaultUser.jpg"});
+
+db.accounts.insert({"_id" : ObjectId("599222be7f05fc0933b643f3"), "name": "Aseguradores", "logo": "defaultAccount.jpg", "img1": "defaultAccount.jpg", "img2": "defaultAccount.jpg", "img3": "defaultAccount.jpg", "parking": false, "description":"Ingrese los datos de su empresa", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.settings.insert({"_id" : ObjectId("599222be7f05fc0933b643f3"), "iva": 12, "connectionTime": 30, "maxAttached": 1, "idSchedule": "", "idMacs": [], "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+
+
+db.maritalstatus.insert({ "_id" : ObjectId("599222be7f05fc0933b643f3"), "name" : "Soltero", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.maritalstatus.insert({ "name" : "Casado", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.maritalstatus.insert({ "_id" : ObjectId("599222ce7f05fc0933b643f4"), "name" : "Divorciado", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.maritalstatus.insert({ "_id" : ObjectId("599222d07f05fc0933b643f5"), "name" : "Unión Libre", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.maritalstatus.insert({ "_id" : ObjectId("599222d77f05fc0933b643f6"), "name" : "Unión de Hecho", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+
+
+db.typeclients.insert({ "_id" : ObjectId("599222be7f05fc0933b643f3"), "name" : "Cotización", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.typeclients.insert({ "_id" : ObjectId("599222ce7f05fc0933b643f4"), "name" : "Cliente", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+
+
+db.ramos.insert({ "_id" : ObjectId("599222be7f05fc0933b643f3"), "name" : "Vehículos", "description" : "Ramo para vehículos", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.ramos.insert({ "_id" : ObjectId("599222ce7f05fc0933b643f4"), "name" : "Vida", "description" : "Trámites de forma Colectiva e Individuales", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.ramos.insert({ "_id" : ObjectId("599222d07f05fc0933b643f5"), "name" : "Asistencia Médica", "description" : "Trámites de forma Colectiva e Individuales", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.ramos.insert({ "_id" : ObjectId("599222d77f05fc0933b643f6"), "name" : "Incendio y Aliadas", "description" : "Incendio y Aliadas", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.ramos.insert({ "_id" : ObjectId("599222fe7f05fc0933b643f7"), "name" : "Lucro Cesante", "description" : "Lucro Cesante", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.ramos.insert({ "_id" : ObjectId("5992230f7f05fc0933b643f8"), "name" : "Robo", "description" : "Robo", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.ramos.insert({ "_id" : ObjectId("599223127f05fc0933b643f9"), "name" : "Accidentes Personales", "description" : "Accidentes Personales", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.ramos.insert({ "_id" : ObjectId("599223137f05fc0933b643fa"), "name" : "Responsabilidad Civil", "description" : "Responsabilidad Civil", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.ramos.insert({ "_id" : ObjectId("599223147f05fc0933b643fb"), "name" : "Transporte Interno", "description" : "Transporte Interno", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.ramos.insert({ "_id" : ObjectId("599223147f05fc0933b643fc"), "name" : "Transporte de Dinero", "description" : "Transporte de Dinero", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.ramos.insert({ "_id" : ObjectId("599223147f05fc0933b643fd"), "name" : "Fidelidad", "description" : "Fidelidad", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.ramos.insert({ "_id" : ObjectId("599223157f05fc0933b643fe"), "name" : "Licencias", "description" : "Licencias", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.ramos.insert({ "_id" : ObjectId("599223157f05fc0933b643ff"), "name" : "Rotura de Maquinaria", "description" : "Rotura de Maquinaria", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.ramos.insert({ "_id" : ObjectId("599223157f05fc0933b64400"), "name" : "Equipo Electrónico", "description" : "Equipo Electrónico", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.ramos.insert({ "_id" : ObjectId("599223167f05fc0933b64401"), "name" : "Fianzas", "description" : "Fianzas", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.ramos.insert({ "_id" : ObjectId("599223167f05fc0933b64402"), "name" : "Todo riesgo de construcción", "description" : "Todo riesgo de construcción", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+db.ramos.insert({ "_id" : ObjectId("599223167f05fc0933b64403"), "name" : "Asistencia médica Internacional", "description" : "Asistencia médica Internacional", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+
+
+db.plans.insert({ "_id" : ObjectId("599222be7f05fc0933b643f3"), "name" : "plan6000", "value" : 2.25, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+
+
+db.alternatives.insert({ "_id" : ObjectId("599222be7f05fc0933b643f3"), "name" : "Titular Solo", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+
+
+
+
+
+
+
+
+
+
+
+
+

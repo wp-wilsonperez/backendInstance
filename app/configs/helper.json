@@ -180,16 +180,21 @@
     "list":[
       {
         "id": "99097f2c1f",
-        "name": "Masculino"
+        "name": "Femenino"
       },
       {
         "id": "99097f2c1c",
-        "name": "Femenino"
+        "name": "Masculino"
+      },
+      {
+        "id": "99097f2c1d",
+        "name": "Empresa"
       }
     ],
     "one":{
-      "99097f2c1f" : "Masculino",
-      "99097f2c1c" : "Femenino"
+      "99097f2c1f" : "Femenino",
+      "99097f2c1c" : "Masculino",
+      "99097f2c1d" : "Empresa"
     }
   }
 }
