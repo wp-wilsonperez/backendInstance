@@ -102,6 +102,18 @@ passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
 
+import planAlternativeController from './app/controllers/planAlternative';
+planAlternativeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import alternativeController from './app/controllers/alternative';
+alternativeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import planAssociationController from './app/controllers/planAssociation';
+planAssociationController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import planController from './app/controllers/plan';
+planController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
 import dependentController from './app/controllers/dependent';
 dependentController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
