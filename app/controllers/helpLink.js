@@ -48,13 +48,9 @@ let helpLinkController = function (app, control={auth, passport, acl}){
    app.post('/helpLink/add', [control.auth, controller, control.acl], (req, res) => {
 
       let helpLink = new HelpLink({
-         ruc: req.body.ruc,
+
          name: req.body.name,
-         address: req.body.address,
-         phones: req.body.phones,
-         cellPhone: req.body.cellPhone,
-         map: req.body.map,
-         mail: req.body.mail,
+         link: req.body.link,
          dateCreate: moment(),
          userCreate: req.user.idUser,
          dateUpdate: moment(),
