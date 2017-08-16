@@ -74,13 +74,8 @@ let helpLinkController = function (app, control={auth, passport, acl}){
       }
 
       let update = {
-         ruc: req.body.ruc,
          name: req.body.name,
-         address: req.body.address,
-         phones: req.body.phones,
-         cellPhone: req.body.cellPhone,
-         map: req.body.map,
-         mail: req.body.mail,
+         link: req.body.link,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };
