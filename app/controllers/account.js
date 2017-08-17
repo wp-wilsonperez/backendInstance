@@ -109,7 +109,7 @@ let accountController = function (app, control={auth, passport, acl}){
          img2: req.body.img2,
          img3: req.body.img3,
          parking: req.body.parking,
-         desciption: req.body.desciption,
+         description: req.body.description,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };
