@@ -15,13 +15,13 @@ db.settings.insert({"_id" : ObjectId("599222be7f05fc0933b643f3"), "iva": 12, "co
 
 db.maritalstatus.insert({ "_id" : ObjectId("599222be7f05fc0933b643f3"), "name" : "Soltero", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
 
-db.maritalstatus.insert({ "name" : "Casado", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+db.maritalstatus.insert({ "_id" : ObjectId("599222ce7f05fc0933b643f4"), "name" : "Casado", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
 
-db.maritalstatus.insert({ "_id" : ObjectId("599222ce7f05fc0933b643f4"), "name" : "Divorciado", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+db.maritalstatus.insert({ "_id" : ObjectId("599222d07f05fc0933b643f5"), "name" : "Divorciado", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
 
-db.maritalstatus.insert({ "_id" : ObjectId("599222d07f05fc0933b643f5"), "name" : "Unión Libre", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+db.maritalstatus.insert({ "_id" : ObjectId("599222d77f05fc0933b643f6"), "name" : "Unión Libre", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
 
-db.maritalstatus.insert({ "_id" : ObjectId("599222d77f05fc0933b643f6"), "name" : "Unión de Hecho", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
+db.maritalstatus.insert({ "_id" : ObjectId("599222fe7f05fc0933b643f7"), "name" : "Unión de Hecho", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"});
 
 
 

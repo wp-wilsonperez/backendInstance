@@ -3,6 +3,8 @@ import moment from 'moment';
 
 import Billing from "../models/billing";
 import BillingPolicy from "../models/billingPolicy";
+import Wallet from "../models/wallet";
+import WalletPayment from "../models/walletPayment";
 
 let billingController = function (app, control={auth, passport, acl}){
 
@@ -52,10 +54,11 @@ let billingController = function (app, control={auth, passport, acl}){
       let $data = req.body.billing;
       let $billinData = $data;
       let $billingPolicy = $data.items;
+      let $moment = moment();
       delete($billinData.items);
-      $billinData["dateCreate"] = moment();
+      $billinData["dateCreate"] = $moment;
       $billinData["userCreate"] = req.user.idUser;
-      $billinData["dateUpdate"] = moment();
+      $billinData["dateUpdate"] = $moment;
       $billinData["userUpdate"] = req.user.idUser;
       let billing = new Billing($billinData);
 
@@ -64,13 +67,42 @@ let billingController = function (app, control={auth, passport, acl}){
             $billingPolicy.forEach(function (item, index) {
                $billingPolicy[index]["idBilling"]=doc._id;
                $billingPolicy[index]["billing"]=doc._id;
-               $billingPolicy[index]["dateCreate"] = moment();
+               $billingPolicy[index]["dateCreate"] = $moment;
                $billingPolicy[index]["userCreate"] = req.user.idUser;
-               $billingPolicy[index]["dateUpdate"] = moment();
+               $billingPolicy[index]["dateUpdate"] = $moment;
                $billingPolicy[index]["userUpdate"] = req.user.idUser;
             })
             BillingPolicy.insertMany($billingPolicy, (err, docs) => {
                if(!err){
+                  let wallet = new Wallet({
+                     idBilling: doc._id,
+                     DetailsBillingData: doc,
+                     expirationDate: $billinData.firstPaymentDate,
+                     paymentValue: $billinData.valueEqualPayments,
+                     detailsWallet: "",
+                     dateCreate: $moment,
+                     userCreate: req.user.idUser,
+                     dateUpdate: $moment,
+                     userUpdate: req.user.idUser
+                  });
+                  wallet.save((err, docWallet) => {
+                     let $walletPayment;
+                     let $expirationDate = $billinData.firstPaymentDate;
+                     let $paymentValue = $billinData.valueEqualPayments;
+                     for(let i = 0; i < $billinData.equalPayments; i++){
+                        $walletPayment[i]['idWallet'] = docWallet._id;
+                        $walletPayment[i]['wallet'] = docWallet._id;
+                        $walletPayment[i]['expirationDate'] = $expirationDate;
+                        $walletPayment[i]['paymentValue'] = $paymentValue;
+                        $walletPayment[i]['dateCreate'] = $moment;
+                        $walletPayment[i]['userCreate'] = req.user.idUser;
+                        $walletPayment[i]['dateUpdate'] = $moment;
+                        $walletPayment[i]['userUpdate'] = req.user.idUser;
+
+                        $expirationDate = moment($expirationDate).add(1, 'month');
+                     }
+                     WalletPayment.insertMany($walletPayment, (err, docsWalletPayment) => { });
+                  });
                   findAction(function(docs){
                      res.send({msg: "OK", update: docs});
                   });

@@ -3,8 +3,8 @@ import moment from 'moment';
 
 import WalletPayment from "../models/walletPayment";
 
+import Wallet from "../models/wallet";
 import Bank from "../models/bank";
-import Insurance from "../models/insurance";
 
 let walletPaymentController = function (app, control={auth, passport, acl}){
 
@@ -17,8 +17,8 @@ let walletPaymentController = function (app, control={auth, passport, acl}){
       WalletPayment.find({}, function (err, docs) {
          if (!err) {
             
-            Bank.populate(docs, {path: "bank"},function(err, docs){
-               Insurance.populate(docs, {path: "insurance"},function(err, docs){
+            Wallet.populate(docs, {path: "wallet"},function(err, docs){
+               Bank.populate(docs, {path: "bank"},function(err, docs){
                   callback(docs);
                });
             });
@@ -31,8 +31,8 @@ let walletPaymentController = function (app, control={auth, passport, acl}){
       WalletPayment.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
 
-            Bank.populate(docs, {path: "bank"},function(err, docs){
-               Insurance.populate(docs, {path: "insurance"},function(err, docs){
+            Wallet.populate(docs, {path: "wallet"},function(err, docs){
+               Bank.populate(docs, {path: "bank"},function(err, docs){
                   res.send({msg: "OK", walletPayments: docs});
                });
             });

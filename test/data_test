@@ -26,3 +26,7 @@ db.ramos.insert({ "_id" : ObjectId("59587220641440d5d2b9e2ab"), "name" : "vehicu
 
 LIST OF CREATE RELATIONSHIPS
 branch, client, deductible, letterAccident, percentageRamo, quote, tasa
+
+billing,wallet, police, route, income
+
+

@@ -3,10 +3,6 @@ import moment from 'moment';
 
 import Wallet from "../models/wallet";
 
-import Policy from "../models/policy";
-import PolicyAnnex from "../models/policyAnnex";
-import Billing from "../models/billing";
-
 let walletController = function (app, control={auth, passport, acl}){
 
    function controller (req, res, next) {
@@ -17,14 +13,8 @@ let walletController = function (app, control={auth, passport, acl}){
    function findAction (callback){
       Wallet.find({}, function (err, docs) {
          if (!err) {
-            
-            Policy.populate(docs, {path: "policy"},function(err, docs){
-               PolicyAnnex.populate(docs, {path: "policyAnnex"},function(err, docs){
-                  Billing.populate(docs, {path: "billing"},function(err, docs){
-                     callback(docs);
-                  });
-               });
-            });
+
+            callback(docs);
          }
       });
    }
@@ -34,14 +24,7 @@ let walletController = function (app, control={auth, passport, acl}){
       Wallet.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
 
-            Policy.populate(docs, {path: "policy"},function(err, docs){
-               PolicyAnnex.populate(docs, {path: "policyAnnex"},function(err, docs){
-                  Billing.populate(docs, {path: "billing"},function(err, docs){
-                     res.send({msg: "OK", wallets: docs});
-                  });
-               });
-            });
-            
+            res.send({msg: "OK", wallets: docs});
          } else {
             res.send({
                msg : 'ERR',
@@ -67,12 +50,7 @@ let walletController = function (app, control={auth, passport, acl}){
    app.post('/wallet/add', [control.auth, controller, control.acl], (req, res) => {
 
       let wallet = new Wallet({
-         idPolicy: req.body.idPolicy,
-         policy: req.body.idPolicy,
-         idPolicyAnnex: req.body.idPolicyAnnex,
-         policyAnnex: req.body.idPolicyAnnex,
          idBilling: req.body.idBilling,
-         billing: req.body.idBilling,
          DetailsBillingData: req.body.DetailsBillingData,
          expirationDate: req.body.expirationDate,
          paymentValue: req.body.paymentValue,
@@ -102,12 +80,7 @@ let walletController = function (app, control={auth, passport, acl}){
       }
 
       let update = {
-         dPolicy: req.body.idPolicy,
-         policy: req.body.idPolicy,
-         idPolicyAnnex: req.body.idPolicyAnnex,
-         policyAnnex: req.body.idPolicyAnnex,
          idBilling: req.body.idBilling,
-         billing: req.body.idBilling,
          DetailsBillingData: req.body.DetailsBillingData,
          expirationDate: req.body.expirationDate,
          paymentValue: req.body.paymentValue,

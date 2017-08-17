@@ -6,13 +6,8 @@ const connection = mongoose.connect('mongodb://localhost/instance1');
 autoIncrement.initialize(connection);
 
 let WalletSchema = new mongoose.Schema({
-	idPolicy: {type: String, require: true},
-	policy: { type: mongoose.Schema.ObjectId, ref: "Policy"},
-	idPolicyAnnex: {type: String, require: true},
-	policyAnnex: { type: mongoose.Schema.ObjectId, ref: "PolicyAnnex"},
 	idBilling: {type: String, require: true},
-	billing: { type: mongoose.Schema.ObjectId, ref: "Billing"},
-	DetailsBillingData: {type: String},
+	DetailsBillingData: {type: Object},
 	compNumber: {type: Number},
 	expirationDate: {type: Date},
 	paymentValue: {type: Number},
