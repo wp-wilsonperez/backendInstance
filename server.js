@@ -102,6 +102,9 @@ passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
 
+import businessClientController from './app/controllers/businessClient';
+businessClientController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
 import planAlternativeController from './app/controllers/planAlternative';
 planAlternativeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
