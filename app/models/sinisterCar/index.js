@@ -25,6 +25,8 @@ let SinisterCarSchema = new mongoose.Schema({
 		longitude: {type: String},
 		latitude: {type: String}
 	},
+	idSinister: {type: String, require: true},
+	sinister: { type: mongoose.Schema.ObjectId, ref: "Sinister"},
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},
