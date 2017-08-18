@@ -86,19 +86,23 @@ let billingController = function (app, control={auth, passport, acl}){
                      userUpdate: req.user.idUser
                   });
                   wallet.save((err, docWallet) => {
-                     let $walletPayment;
+                     let $walletPayment =[];
                      let $expirationDate = $billinData.firstPaymentDate;
                      let $paymentValue = $billinData.valueEqualPayments;
                      for(let i = 0; i < $billinData.equalPayments; i++){
-                        $walletPayment[i]['idWallet'] = docWallet._id;
-                        $walletPayment[i]['wallet'] = docWallet._id;
-                        $walletPayment[i]['expirationDate'] = $expirationDate;
-                        $walletPayment[i]['paymentValue'] = $paymentValue;
-                        $walletPayment[i]['dateCreate'] = $moment;
-                        $walletPayment[i]['userCreate'] = req.user.idUser;
-                        $walletPayment[i]['dateUpdate'] = $moment;
-                        $walletPayment[i]['userUpdate'] = req.user.idUser;
+                        let obj= {
+                            idWallet:docWallet._id,
+                            wallet:docWallet._id,
+                            expirationDate:$expirationDate,
+                            paymentValue: $paymentValue,
+                            dateCreate:$moment,
+                            userCreate: req.user.idUser,
+                            dateUpdate:$moment,
+                            userUpdate:req.user.idUser
 
+
+                        }
+                        $walletPayment.push(obj);
                         $expirationDate = moment($expirationDate).add(1, 'month');
                      }
                      WalletPayment.insertMany($walletPayment, (err, docsWalletPayment) => { });

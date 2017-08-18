@@ -78,14 +78,8 @@ let sinisterDocumentationRamoController = function (app, control={auth, passport
       }
 
       let update = {
-         name: req.body.name,
-         idBank: req.body.idBank,
-         bank: req.body.idBank,
-         idInsurance: req.body.idInsurance,
-         insurance: req.body.idInsurance,
-         monthWithoutInterest: req.body.monthWithoutInterest,
-         interest: req.body.interest,
-         monthWithInterest: req.body.monthWithInterest,
+         idSinisterDocumentation: req.body.idSinisterDocumentation,
+         idRamo: req.body.idRamo,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };
