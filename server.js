@@ -123,8 +123,8 @@ sinisterCarDocumentationController(app, {passport: passport, auth: passport.auth
 import sinisterCarController from './app/controllers/sinisterCar';
 sinisterCarController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
-import sinesterController from './app/controllers/sinester';
-sinesterController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+import sinisterController from './app/controllers/sinister';
+sinisterController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
 import sinisterDocumentationRamoController from './app/controllers/sinisterDocumentationRamo';
 sinisterDocumentationRamoController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
