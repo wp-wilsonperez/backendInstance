@@ -102,6 +102,12 @@ passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
 
+import annexMedicalBusinessItemController from './app/controllers/annexMedicalBusinessItem';
+annexMedicalBusinessItemController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import annexMedicalBusinessController from './app/controllers/annexMedicalBusiness';
+annexMedicalBusinessController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
 import policyMedicalBusinessController from './app/controllers/policyMedicalBusiness';
 policyMedicalBusinessController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
