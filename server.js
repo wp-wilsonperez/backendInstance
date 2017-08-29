@@ -102,6 +102,12 @@ passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
 
+import sinisterMedicalDocumentationController from './app/controllers/sinisterMedicalDocumentation';
+sinisterMedicalDocumentationController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import sinisterMedicalController from './app/controllers/sinisterMedical';
+sinisterMedicalController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
 import annexMedicalBusinessItemController from './app/controllers/annexMedicalBusinessItem';
 annexMedicalBusinessItemController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
