@@ -21,6 +21,23 @@ let billingController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/billing/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      Billing.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+
+            res.send({msg: "OK", billings: docs});
+            
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/billing/list', [control.auth, controller, control.acl], (req, res) => {
 
       Billing.find({}, function (err, docs) {

@@ -26,6 +26,27 @@ let sinisterMedicalDocumentationController = function (app, control={auth, passp
       });
    }
 
+   app.get('/sinisterMedicalDocumentation/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      SinisterMedicalDocumentation.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+
+            SinisterMedical.populate(docs, {path: "sinisterMedical"},function(err, docs){
+               SinisterDocumentationRamo.populate(docs, {path: "sinisterDocumentationRamo"},function(err, docs){
+                  res.send({msg: "OK", sinisterMedicalDocumentations: docs});
+               });
+            });
+            
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/sinisterMedicalDocumentation/list', [control.auth, controller, control.acl], (req, res) => {
 
       SinisterMedicalDocumentation.find({}, function (err, docs) {

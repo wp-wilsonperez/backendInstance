@@ -25,6 +25,25 @@ let deductibleController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/deductible/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      Deductible.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            Branch.populate(docs, {path: "branch"},function(err, docs){
+               Insurance.populate(docs, {path: "insurance"},function(err, docs){
+                  res.send({msg: "OK", deductibles: docs});
+               });
+            });
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/deductible/list', [control.auth, controller, control.acl], (req, res) => {
 
       Deductible.find({}, function (err, docs) {

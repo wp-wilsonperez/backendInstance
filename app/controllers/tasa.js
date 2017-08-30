@@ -27,6 +27,27 @@ let tasaController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/tasa/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      Tasa.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            Insurance.populate(docs, {path: "insurance"},function(err, docs){
+               Deductible.populate(docs, {path: "deductible"},function(err, docs){
+                  Ramo.populate(docs, {path: "ramo"},function(err, docs){
+                     res.send({msg: "OK", tasas: docs});
+                  });
+               });
+            });
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/tasa/list', [control.auth, controller, control.acl], (req, res) => {
 
       Tasa.find({}, function (err, docs) {

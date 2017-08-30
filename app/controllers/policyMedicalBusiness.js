@@ -26,6 +26,27 @@ let policyMedicalBusinessController = function (app, control={auth, passport, ac
       });
    }
 
+   app.get('/policyMedicalBusiness/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      PolicyMedicalBusiness.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+
+            Insurance.populate(docs, {path: "insurance"},function(err, docs){
+               User.populate(docs, {path: "user"},function(err, docs){
+                  res.send({msg: "OK", bankInsurances: docs});
+               });
+            });
+            
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/policyMedicalBusiness/list', [control.auth, controller, control.acl], (req, res) => {
 
       PolicyMedicalBusiness.find({}, function (err, docs) {

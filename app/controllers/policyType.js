@@ -18,6 +18,21 @@ let policyTypeController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/policyType/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      PolicyType.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            res.send({msg: "OK", policyTypes: docs});
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/policyType/list', [control.auth, controller, control.acl], (req, res) => {
 
       PolicyType.find({}, function (err, docs) {

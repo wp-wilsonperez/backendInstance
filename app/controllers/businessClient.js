@@ -29,6 +29,29 @@ let businessClientController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/businessClient/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      BusinessClient.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+
+            Business.populate(docs, {path: "business"},function(err, docs){
+               Client.populate(docs, {path: "client"},function(err, docs){
+                  Alternative.populate(docs, {path: "alternative"},function(err, docs){
+                     res.send({msg: "OK", businessClients: docs});
+                  });
+               });
+            });
+            
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/businessClient/list', [control.auth, controller, control.acl], (req, res) => {
 
       BusinessClient.find({}, function (err, docs) {

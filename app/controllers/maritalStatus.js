@@ -18,6 +18,21 @@ let maritalStatusController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/maritalStatus/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      MaritalStatus.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            res.send({msg: "OK", maritalStatus: docs});
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/maritalStatus/list', [control.auth, controller, control.acl], (req, res) => {
 
       MaritalStatus.find({}, function (err, docs) {

@@ -26,6 +26,27 @@ let annexMedicalBusinessItemController = function (app, control={auth, passport,
       });
    }
 
+   app.get('/annexMedicalBusinessItem/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      AnnexMedicalBusinessItem.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+
+            AnnexMedicalBusiness.populate(docs, {path: "annexMedicalBusiness"},function(err, docs){
+               PlanAlternative.populate(docs, {path: "planAlternative"},function(err, docs){
+                  res.send({msg: "OK", annexMedicalBusinessItems: docs});
+               });
+            });
+            
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/annexMedicalBusinessItem/list', [control.auth, controller, control.acl], (req, res) => {
 
       AnnexMedicalBusinessItem.find({}, function (err, docs) {

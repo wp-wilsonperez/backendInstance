@@ -21,6 +21,23 @@ let branchController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/branch/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      Branch.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            City.populate(docs, {path: "city"},function(err, docs){
+               res.send({msg: "OK", branches: docs});
+            });
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/branch/list', [control.auth, controller, control.acl], (req, res) => {
 
       Branch.find({}, function (err, docs) {

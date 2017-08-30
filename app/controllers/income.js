@@ -32,6 +32,29 @@ let incomeController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/income/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      Income.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            Client.populate(docs, {path: "client"},function(err, docs){
+               Business.populate(docs, {path: "business"},function(err, docs){
+                  Insurance.populate(docs, {path: "insarance"},function(err, docs){
+                     User.populate(docs, {path: "user"},function(err, docs){
+                        res.send({msg: "OK", incomes: docs});
+                     });
+                  });
+               });
+            });
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/income/list', [control.auth, controller, control.acl], (req, res) => {
 
       Income.find({}, function (err, docs) {

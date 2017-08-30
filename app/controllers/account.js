@@ -43,6 +43,21 @@ let accountController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/account/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      Account.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            res.send({msg: "OK", accounts: docs});
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/account/list', [control.auth, controller, control.acl], (req, res) => {
 
       Account.find({}, function (err, docs) {

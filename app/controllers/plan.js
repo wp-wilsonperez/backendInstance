@@ -19,6 +19,23 @@ let planController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/plan/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      Plan.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+
+            res.send({msg: "OK", plans: docs});
+            
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/plan/list', [control.auth, controller, control.acl], (req, res) => {
 
       Plan.find({}, function (err, docs) {

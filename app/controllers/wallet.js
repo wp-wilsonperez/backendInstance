@@ -19,6 +19,22 @@ let walletController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/wallet/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      Wallet.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+
+            res.send({msg: "OK", wallets: docs});
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/wallet/list', [control.auth, controller, control.acl], (req, res) => {
 
       Wallet.find({}, function (err, docs) {

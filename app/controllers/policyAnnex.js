@@ -23,6 +23,25 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/policyAnnex/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      PolicyAnnex.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+
+            Policy.populate(docs, {path: "policy"},function(err, docs){
+               res.send({msg: "OK", policyAnnexes: docs});
+            });
+            
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/policyAnnex/list', [control.auth, controller, control.acl], (req, res) => {
 
       PolicyAnnex.find({}, function (err, docs) {

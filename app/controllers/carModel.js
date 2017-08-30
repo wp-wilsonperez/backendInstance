@@ -32,6 +32,31 @@ let carModelController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/carModel/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      CarModel.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+
+            Country.populate(docs, {path: "country"},function(err, docs){
+               CarBrand.populate(docs, {path: "carBrand"},function(err, docs){
+                  CarType.populate(docs, {path: "carType"},function(err, docs){
+                     CarColor.populate(docs, {path: "color"},function(err, docs){
+                        res.send({msg: "OK", carModels: docs});
+                     });
+                  });
+               });
+            });
+            
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/carModel/list', [control.auth, controller, control.acl], (req, res) => {
 
       CarModel.find({}, function (err, docs) {

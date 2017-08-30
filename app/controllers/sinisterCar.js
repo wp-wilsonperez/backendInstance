@@ -19,6 +19,23 @@ let sinisterCarController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/sinisterCar/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      SinisterCar.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+
+            res.send({msg: "OK", sinisterCars: docs});
+            
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/sinisterCar/list', [control.auth, controller, control.acl], (req, res) => {
 
       SinisterCar.find({}, function (err, docs) {

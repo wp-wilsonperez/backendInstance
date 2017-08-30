@@ -19,6 +19,23 @@ let alternativeController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/alternative/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      Alternative.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+
+            res.send({msg: "OK", alternatives: docs});
+            
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/alternative/list', [control.auth, controller, control.acl], (req, res) => {
 
       Alternative.find({}, function (err, docs) {

@@ -18,6 +18,21 @@ let bankController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/bank/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      Bank.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            res.send({msg: "OK", banks: docs});
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/bank/list', [control.auth, controller, control.acl], (req, res) => {
 
       Bank.find({}, function (err, docs) {

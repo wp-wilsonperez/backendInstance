@@ -18,6 +18,21 @@ let paymentTypeController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/paymentType/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      PaymentType.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            res.send({msg: "OK", paymentTypes: docs});
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/paymentType/list', [control.auth, controller, control.acl], (req, res) => {
 
       PaymentType.find({}, function (err, docs) {

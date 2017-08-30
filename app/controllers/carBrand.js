@@ -18,6 +18,21 @@ let carBrandController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/carBrand/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      CarBrand.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            res.send({msg: "OK", carBrands: docs});
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/carBrand/list', [control.auth, controller, control.acl], (req, res) => {
 
       CarBrand.find({}, function (err, docs) {

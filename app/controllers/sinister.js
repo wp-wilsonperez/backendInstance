@@ -25,6 +25,25 @@ let sinisterController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/sinister/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      Sinister.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+
+            Ramo.populate(docs, {path: "ramo"},function(err, docs){
+               res.send({msg: "OK", sinisters: docs});
+            });
+            
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/sinister/list', [control.auth, controller, control.acl], (req, res) => {
 
       Sinister.find({}, function (err, docs) {

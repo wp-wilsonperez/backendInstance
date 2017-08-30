@@ -18,6 +18,21 @@ let frequencyPaymentController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/frequencyPayment/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      FrequencyPayment.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            res.send({msg: "OK", frequencyPayments: docs});
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/frequencyPayment/list', [control.auth, controller, control.acl], (req, res) => {
 
       FrequencyPayment.find({}, function (err, docs) {

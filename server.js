@@ -309,6 +309,25 @@ function ensureAuth (req, res, next){
    passport.authenticate('bearer', { session: false })
 }
 
+global.filter = function(query){
+   /*
+      req.param.filter
+      [
+         {'condition': "=", 'field': 'name_field', 'value': 'value_of_field'}
+      ]
+   */
+   //console.log("PARAMS");
+   let $params = query ? query : [];
+   let $filter={};
+   $params.forEach(function (item, index) {
+      if(item.condition == "="){
+         $filter[item.field] = item.value;
+      }
+   });
+   console.log($filter);
+   return $filter;
+}
+
 function ensureACL (req, res, next){
    let $moduleAllow = {
       "user": {
