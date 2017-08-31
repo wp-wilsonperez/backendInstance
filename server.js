@@ -102,6 +102,9 @@ passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
 
+import creditNoteController from './app/controllers/creditNote';
+creditNoteController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
 import sinisterMedicalDocumentationController from './app/controllers/sinisterMedicalDocumentation';
 sinisterMedicalDocumentationController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
