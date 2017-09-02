@@ -5,6 +5,7 @@ import PlanAssociation from "../models/planAssociation";
 
 import Plan from "../models/plan";
 import Ramo from "../models/ramo";
+import Bank from "../models/bank";
 import Insurance from "../models/insurance";
 
 let planAssociationController = function (app, control={auth, passport, acl}){
