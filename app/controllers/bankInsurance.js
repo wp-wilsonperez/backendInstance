@@ -26,6 +26,27 @@ let bankInsuranceController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/bankInsurance/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      BankInsurance.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+
+            Bank.populate(docs, {path: "bank"},function(err, docs){
+               Insurance.populate(docs, {path: "insurance"},function(err, docs){
+                  res.send({msg: "OK", bankInsurances: docs});
+               });
+            });
+            
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/bankInsurance/list', [control.auth, controller, control.acl], (req, res) => {
 
       BankInsurance.find({}, function (err, docs) {

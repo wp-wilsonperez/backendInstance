@@ -102,6 +102,27 @@ passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
 
+import creditNoteController from './app/controllers/creditNote';
+creditNoteController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import sinisterMedicalDocumentationController from './app/controllers/sinisterMedicalDocumentation';
+sinisterMedicalDocumentationController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import sinisterMedicalController from './app/controllers/sinisterMedical';
+sinisterMedicalController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import annexMedicalBusinessItemController from './app/controllers/annexMedicalBusinessItem';
+annexMedicalBusinessItemController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import annexMedicalBusinessController from './app/controllers/annexMedicalBusiness';
+annexMedicalBusinessController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import policyMedicalBusinessController from './app/controllers/policyMedicalBusiness';
+policyMedicalBusinessController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
+import businessClientController from './app/controllers/businessClient';
+businessClientController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+
 import planAlternativeController from './app/controllers/planAlternative';
 planAlternativeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
 
@@ -289,6 +310,25 @@ function logAction (msg, idUser){
 function ensureAuth (req, res, next){
 
    passport.authenticate('bearer', { session: false })
+}
+
+global.filter = function(query){
+   /*
+      req.param.filter
+      [
+         {'condition': "=", 'field': 'name_field', 'value': 'value_of_field'}
+      ]
+   */
+   //console.log("PARAMS");
+   let $params = query ? query : [];
+   let $filter={};
+   $params.forEach(function (item, index) {
+      if(item.condition == "="){
+         $filter[item.field] = item.value;
+      }
+   });
+   console.log($filter);
+   return $filter;
 }
 
 function ensureACL (req, res, next){

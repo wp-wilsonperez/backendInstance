@@ -23,6 +23,25 @@ let billingPolicyController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/billingPolicy/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      BillingPolicy.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+
+            Billing.populate(docs, {path: "billing"},function(err, docs){
+               res.send({msg: "OK", billingPolicies: docs});
+            });
+            
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/billingPolicy/list', [control.auth, controller, control.acl], (req, res) => {
 
       BillingPolicy.find({}, function (err, docs) {

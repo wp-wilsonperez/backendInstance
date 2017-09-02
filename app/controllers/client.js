@@ -52,6 +52,27 @@ let clientController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/client/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      Client.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            TypeClient.populate(docs, {path: "typeClient"},function(err, docs){
+               City.populate(docs, {path: "city"},function(err, docs){
+                  MaritalStatus.populate(docs, {path: "maritalStatus"},function(err, docs){
+                     res.send({msg: "OK", clients: docs});
+                  });
+               });
+            });
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/client/list', [control.auth, controller, control.acl], (req, res) => {
 
       Client.find({}, function (err, docs) {

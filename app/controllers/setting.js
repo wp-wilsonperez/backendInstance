@@ -19,6 +19,21 @@ let settingController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/setting/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      Setting.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            res.send({msg: "OK", settings: docs});
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/setting/list', [control.auth, controller, control.acl], (req, res) => {
 
       Setting.find({}, function (err, docs) {

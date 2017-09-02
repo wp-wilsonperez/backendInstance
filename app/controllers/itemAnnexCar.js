@@ -26,6 +26,27 @@ let itemAnnexCarController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/itemAnnexCar/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      ItemAnnexCar.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+
+            PolicyAnnex.populate(docs, {path: "policyAnnex"},function(err, docs){
+               Car.populate(docs, {path: "car"},function(err, docs){
+                  res.send({msg: "OK", itemAnnexCars: docs});
+               });
+            });
+            
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/itemAnnexCar/list', [control.auth, controller, control.acl], (req, res) => {
 
       ItemAnnexCar.find({}, function (err, docs) {

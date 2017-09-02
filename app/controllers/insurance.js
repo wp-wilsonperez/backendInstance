@@ -42,6 +42,21 @@ let insuranceController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/insurance/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      Insurance.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            res.send({msg: "OK", insurances: docs});
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/insurance/list', [control.auth, controller, control.acl], (req, res) => {
 
       Insurance.find({}, function (err, docs) {

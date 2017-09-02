@@ -18,6 +18,21 @@ let countryController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/country/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      Country.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            res.send({msg: "OK", countries: docs});
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/country/list', [control.auth, controller, control.acl], (req, res) => {
 
       Country.find({}, function (err, docs) {

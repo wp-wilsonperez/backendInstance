@@ -48,6 +48,25 @@ let letterAccidentController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/letterAccident/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      LetterAccident.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            Insurance.populate(docs, {path: "insurance"},function(err, docs){
+               Ramo.populate(docs, {path: "ramo"},function(err, docs){
+                  res.send({msg: "OK", letterAccidents: docs});
+               });
+            });
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/letterAccident/list', [control.auth, controller, control.acl], (req, res) => {
 
       LetterAccident.find({}, function (err, docs) {

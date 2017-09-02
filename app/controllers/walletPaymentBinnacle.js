@@ -22,6 +22,22 @@ let walletPaymentBinnacleController = function (app, control={auth, passport, ac
       });
    }
 
+   app.get('/walletPaymentBinnacle/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      WalletPaymentBinnacle.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            res.send({msg: "OK", walletPaymentBinnacles: docs});
+            
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/walletPaymentBinnacle/list', [control.auth, controller, control.acl], (req, res) => {
 
       WalletPaymentBinnacle.find({}, function (err, docs) {

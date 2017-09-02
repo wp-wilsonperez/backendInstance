@@ -18,6 +18,21 @@ let carColorController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/carColor/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      CarColor.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            res.send({msg: "OK", carColors: docs});
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/carColor/list', [control.auth, controller, control.acl], (req, res) => {
 
       CarColor.find({}, function (err, docs) {

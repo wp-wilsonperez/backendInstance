@@ -32,6 +32,29 @@ let routeController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/user/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      Route.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            Client.populate(docs, {path: "client"},function(err, docs){
+               Business.populate(docs, {path: "business"},function(err, docs){
+                  Insurance.populate(docs, {path: "insarance"},function(err, docs){
+                     User.populate(docs, {path: "user"},function(err, docs){
+                        res.send({msg: "OK", routes: docs});
+                     });
+                  });
+               });
+            });
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/route/list', [control.auth, controller, control.acl], (req, res) => {
 
       Route.find({}, function (err, docs) {

@@ -26,6 +26,27 @@ let planAlternativeController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/planAlternative/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      PlanAlternative.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+
+            PlanAssociation.populate(docs, {path: "planAssociation"},function(err, docs){
+               Alternative.populate(docs, {path: "alternative"},function(err, docs){
+                  res.send({msg: "OK", planAlternatives: docs});
+               });
+            });
+            
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/planAlternative/list', [control.auth, controller, control.acl], (req, res) => {
 
       PlanAlternative.find({}, function (err, docs) {

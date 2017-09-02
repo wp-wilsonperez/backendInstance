@@ -19,6 +19,23 @@ let sinisterDocumentationController = function (app, control={auth, passport, ac
       });
    }
 
+   app.get('/sinisterDocumentation/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      SinisterDocumentation.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+
+            res.send({msg: "OK", sinisterDocumentations: docs});
+            
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/sinisterDocumentation/list', [control.auth, controller, control.acl], (req, res) => {
 
       SinisterDocumentation.find({}, function (err, docs) {

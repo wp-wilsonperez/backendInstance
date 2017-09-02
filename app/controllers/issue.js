@@ -18,6 +18,21 @@ let issueController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/issue/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      Issue.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            res.send({msg: "OK", issues: docs});
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/issue/list', [control.auth, controller, control.acl], (req, res) => {
 
       Issue.find({}, function (err, docs) {

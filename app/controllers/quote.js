@@ -27,6 +27,27 @@ let quoteController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/quote/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      Quote.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            BankInsurance.populate(docs, {path: "bankInsurance"},function(err, docs){
+               Deductible.populate(docs, {path: "deductible"},function(err, docs){
+                  TypeClient.populate(docs, {path: "typeClient"},function(err, docs){
+                     res.send({msg: "OK", quotes: docs});
+                  });
+               });
+            });
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/quote/list', [control.auth, controller, control.acl], (req, res) => {
 
       Quote.find({}, function (err, docs) {

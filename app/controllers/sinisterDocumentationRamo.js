@@ -19,6 +19,23 @@ let sinisterDocumentationRamoController = function (app, control={auth, passport
       });
    }
 
+   app.get('/sinisterDocumentationRamo/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      SinisterDocumentationRamo.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+
+            res.send({msg: "OK", sinisterDocumentationRamos: docs});
+            
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/sinisterDocumentationRamo/list', [control.auth, controller, control.acl], (req, res) => {
 
       SinisterDocumentationRamo.find({}, function (err, docs) {

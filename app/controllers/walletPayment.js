@@ -26,6 +26,27 @@ let walletPaymentController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/walletPayment/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      WalletPayment.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+
+            Wallet.populate(docs, {path: "wallet"},function(err, docs){
+               Bank.populate(docs, {path: "bank"},function(err, docs){
+                  res.send({msg: "OK", walletPayments: docs});
+               });
+            });
+            
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/walletPayment/list', [control.auth, controller, control.acl], (req, res) => {
 
       WalletPayment.find({}, function (err, docs) {

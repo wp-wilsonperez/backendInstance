@@ -88,6 +88,25 @@ let userController = function (app, control={auth, passport, acl}){
       
    });
 
+   app.get('/user/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      User.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            Role.populate(docs, {path: "role"},function(err, docs){
+               Branch.populate(docs, {path: "branch"},function(err, docs){
+                  res.send({msg: "OK", users: docs});
+               });
+            });
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/user/list', [control.auth, controller, control.acl], (req, res) => {
 
       User.find({}, function (err, docs) {

@@ -18,6 +18,21 @@ let carTypeController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/carType/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      CarType.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            res.send({msg: "OK", carTypes: docs});
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
+   });
+
    app.get('/carType/list', [control.auth, controller, control.acl], (req, res) => {
 
       CarType.find({}, function (err, docs) {
