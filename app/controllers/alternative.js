@@ -69,7 +69,6 @@ let alternativeController = function (app, control={auth, passport, acl}){
 
       let alternative = new Alternative({
          name: req.body.name,
-         value: req.body.value,
          dateCreate: moment(),
          userCreate: req.user.idUser,
          dateUpdate: moment(),
