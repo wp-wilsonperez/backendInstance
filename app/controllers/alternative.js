@@ -95,7 +95,6 @@ let alternativeController = function (app, control={auth, passport, acl}){
 
       let update = {
          name: req.body.name,
-         value: req.body.value,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };
