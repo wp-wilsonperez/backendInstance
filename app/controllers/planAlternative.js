@@ -111,14 +111,9 @@ let planAlternativeController = function (app, control={auth, passport, acl}){
       }
 
       let update = {
-         name: req.body.name,
-         idBank: req.body.idBank,
-         bank: req.body.idBank,
-         idInsurance: req.body.idInsurance,
-         insurance: req.body.idInsurance,
-         monthWithoutInterest: req.body.monthWithoutInterest,
-         interest: req.body.interest,
-         monthWithInterest: req.body.monthWithInterest,
+         idAlternative: req.body.idAlternative,
+         idPlanAssociation: req.body.idPlanAssociation,
+         value: req.body.value,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };
