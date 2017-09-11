@@ -27,6 +27,7 @@ let sinisterCarDocumentationController = function (app, control={auth, passport,
       let $filter =  global.filter(req.query.filter);
       SinisterCarDocumentation.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             SinisterCar.populate(docs, {path: "sinisterCar"},function(err, docs){
                res.send({msg: "OK", sinisterCarDocumentations: docs});
@@ -46,6 +47,7 @@ let sinisterCarDocumentationController = function (app, control={auth, passport,
 
       SinisterCarDocumentation.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             SinisterCar.populate(docs, {path: "sinisterCar"},function(err, docs){
                res.send({msg: "OK", sinisterCarDocumentations: docs});
@@ -65,6 +67,7 @@ let sinisterCarDocumentationController = function (app, control={auth, passport,
 
       SinisterCarDocumentation.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", sinisterCarDocumentation: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -93,6 +96,7 @@ let sinisterCarDocumentationController = function (app, control={auth, passport,
       sinisterCarDocumentation.save((err, doc) => {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -124,6 +128,7 @@ let sinisterCarDocumentationController = function (app, control={auth, passport,
       SinisterCarDocumentation.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -142,6 +147,7 @@ let sinisterCarDocumentationController = function (app, control={auth, passport,
       SinisterCarDocumentation.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

@@ -36,6 +36,7 @@ let incomeController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       Income.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             Client.populate(docs, {path: "client"},function(err, docs){
                Business.populate(docs, {path: "business"},function(err, docs){
                   Insurance.populate(docs, {path: "insarance"},function(err, docs){
@@ -59,6 +60,7 @@ let incomeController = function (app, control={auth, passport, acl}){
 
       Income.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             Client.populate(docs, {path: "client"},function(err, docs){
                Business.populate(docs, {path: "business"},function(err, docs){
                   Insurance.populate(docs, {path: "insarance"},function(err, docs){
@@ -82,6 +84,7 @@ let incomeController = function (app, control={auth, passport, acl}){
 
       Income.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", income: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -105,6 +108,7 @@ let incomeController = function (app, control={auth, passport, acl}){
 
       income.save((err, doc) => {
          if(!err){
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", doc: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -131,6 +135,7 @@ let incomeController = function (app, control={auth, passport, acl}){
       Income.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -149,6 +154,7 @@ let incomeController = function (app, control={auth, passport, acl}){
       Income.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

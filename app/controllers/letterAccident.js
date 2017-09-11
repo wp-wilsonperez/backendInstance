@@ -52,6 +52,7 @@ let letterAccidentController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       LetterAccident.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             Insurance.populate(docs, {path: "insurance"},function(err, docs){
                Ramo.populate(docs, {path: "ramo"},function(err, docs){
                   res.send({msg: "OK", letterAccidents: docs});
@@ -71,6 +72,7 @@ let letterAccidentController = function (app, control={auth, passport, acl}){
 
       LetterAccident.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             Insurance.populate(docs, {path: "insurance"},function(err, docs){
                Ramo.populate(docs, {path: "ramo"},function(err, docs){
                   res.send({msg: "OK", letterAccidents: docs});
@@ -90,6 +92,7 @@ let letterAccidentController = function (app, control={auth, passport, acl}){
 
       LetterAccident.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", letterAccident: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -114,6 +117,7 @@ let letterAccidentController = function (app, control={auth, passport, acl}){
 
       letterAccident.save((err, doc) => {
          if(!err){
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", doc: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -141,6 +145,7 @@ let letterAccidentController = function (app, control={auth, passport, acl}){
       LetterAccident.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -159,6 +164,7 @@ let letterAccidentController = function (app, control={auth, passport, acl}){
       LetterAccident.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

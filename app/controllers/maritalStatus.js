@@ -22,6 +22,7 @@ let maritalStatusController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       MaritalStatus.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", maritalStatus: docs});
          } else {
             res.send({
@@ -37,6 +38,7 @@ let maritalStatusController = function (app, control={auth, passport, acl}){
 
       MaritalStatus.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", maritalStatus: docs});
          } else {
             res.send({
@@ -52,6 +54,7 @@ let maritalStatusController = function (app, control={auth, passport, acl}){
 
       MaritalStatus.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", maritalStatus: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -73,6 +76,7 @@ let maritalStatusController = function (app, control={auth, passport, acl}){
       maritalStatus.save((err, doc) => {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -97,6 +101,7 @@ let maritalStatusController = function (app, control={auth, passport, acl}){
       MaritalStatus.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -115,6 +120,7 @@ let maritalStatusController = function (app, control={auth, passport, acl}){
       MaritalStatus.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

@@ -30,6 +30,7 @@ let planAlternativeController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       PlanAlternative.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             PlanAssociation.populate(docs, {path: "planAssociation"},function(err, docs){
                Alternative.populate(docs, {path: "alternative"},function(err, docs){
@@ -51,6 +52,7 @@ let planAlternativeController = function (app, control={auth, passport, acl}){
 
       PlanAlternative.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             PlanAssociation.populate(docs, {path: "planAssociation"},function(err, docs){
                Alternative.populate(docs, {path: "alternative"},function(err, docs){
@@ -72,6 +74,7 @@ let planAlternativeController = function (app, control={auth, passport, acl}){
 
       PlanAlternative.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", planAlternative: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -95,6 +98,7 @@ let planAlternativeController = function (app, control={auth, passport, acl}){
       planAlternative.save((err, doc) => {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -121,6 +125,7 @@ let planAlternativeController = function (app, control={auth, passport, acl}){
       PlanAlternative.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -139,6 +144,7 @@ let planAlternativeController = function (app, control={auth, passport, acl}){
       PlanAlternative.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

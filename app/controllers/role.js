@@ -24,6 +24,7 @@ let roleController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       Role.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", roles: docs});
          } else {
             res.send({
@@ -39,6 +40,7 @@ let roleController = function (app, control={auth, passport, acl}){
 
       Role.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", roles: docs});
          } else {
             res.send({
@@ -54,6 +56,7 @@ let roleController = function (app, control={auth, passport, acl}){
 
       Role.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", role: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -76,6 +79,7 @@ let roleController = function (app, control={auth, passport, acl}){
       role.save((err, doc) => {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -101,6 +105,7 @@ let roleController = function (app, control={auth, passport, acl}){
       Role.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -115,10 +120,11 @@ let roleController = function (app, control={auth, passport, acl}){
       let filter = {
          _id: req.params.id
       }
-      console.log("/role/delete/");
+
       Role.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -132,6 +138,7 @@ let roleController = function (app, control={auth, passport, acl}){
       console.log("/role/viewgrant/");
       Role.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             let $grant = doc.grant != "" ? JSON.parse(doc.grant) : {};
             res.send({msg: "OK", grant: $grant, module: module});
          } else {
@@ -158,6 +165,7 @@ let roleController = function (app, control={auth, passport, acl}){
       Role.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

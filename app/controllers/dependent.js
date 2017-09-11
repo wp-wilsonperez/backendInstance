@@ -51,6 +51,7 @@ let dependentController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       Dependent.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             Client.populate(docs, {path: "client"},function(err, docs){
                res.send({msg: "OK", dependents: docs});
@@ -70,6 +71,7 @@ let dependentController = function (app, control={auth, passport, acl}){
 
       Dependent.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             Client.populate(docs, {path: "client"},function(err, docs){
                res.send({msg: "OK", dependents: docs});
@@ -89,6 +91,7 @@ let dependentController = function (app, control={auth, passport, acl}){
 
       Dependent.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", dependent: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -120,6 +123,7 @@ let dependentController = function (app, control={auth, passport, acl}){
       dependent.save((err, doc) => {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -154,6 +158,7 @@ let dependentController = function (app, control={auth, passport, acl}){
       Dependent.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -172,6 +177,7 @@ let dependentController = function (app, control={auth, passport, acl}){
       Dependent.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

@@ -23,6 +23,7 @@ let planController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       Plan.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             res.send({msg: "OK", plans: docs});
             
@@ -40,6 +41,7 @@ let planController = function (app, control={auth, passport, acl}){
 
       Plan.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             res.send({msg: "OK", plans: docs});
             
@@ -57,6 +59,7 @@ let planController = function (app, control={auth, passport, acl}){
 
       Plan.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", plan: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -79,6 +82,7 @@ let planController = function (app, control={auth, passport, acl}){
       plan.save((err, doc) => {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -104,6 +108,7 @@ let planController = function (app, control={auth, passport, acl}){
       Plan.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -122,6 +127,7 @@ let planController = function (app, control={auth, passport, acl}){
       Plan.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

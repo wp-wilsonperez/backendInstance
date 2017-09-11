@@ -22,6 +22,7 @@ let helpLinkController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       HelpLink.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", helpLinks: docs});
          } else {
             res.send({
@@ -37,6 +38,7 @@ let helpLinkController = function (app, control={auth, passport, acl}){
 
       HelpLink.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", helpLinks: docs});
          } else {
             res.send({
@@ -52,6 +54,7 @@ let helpLinkController = function (app, control={auth, passport, acl}){
 
       HelpLink.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", helpLink: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -74,6 +77,7 @@ let helpLinkController = function (app, control={auth, passport, acl}){
 
       helpLink.save((err, doc) => {
          if(!err){
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", doc: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -98,6 +102,7 @@ let helpLinkController = function (app, control={auth, passport, acl}){
       HelpLink.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -116,6 +121,7 @@ let helpLinkController = function (app, control={auth, passport, acl}){
       HelpLink.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

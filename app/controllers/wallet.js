@@ -23,6 +23,7 @@ let walletController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       Wallet.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             res.send({msg: "OK", wallets: docs});
          } else {
@@ -39,6 +40,7 @@ let walletController = function (app, control={auth, passport, acl}){
 
       Wallet.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             res.send({msg: "OK", wallets: docs});
          } else {
@@ -55,6 +57,7 @@ let walletController = function (app, control={auth, passport, acl}){
 
       Wallet.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", wallet: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -80,6 +83,7 @@ let walletController = function (app, control={auth, passport, acl}){
       wallet.save((err, doc) => {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -108,6 +112,7 @@ let walletController = function (app, control={auth, passport, acl}){
       Wallet.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -126,6 +131,7 @@ let walletController = function (app, control={auth, passport, acl}){
       Wallet.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

@@ -23,6 +23,7 @@ let ramoController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       Ramo.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", ramos: docs});
          } else {
             res.send({
@@ -38,6 +39,7 @@ let ramoController = function (app, control={auth, passport, acl}){
 
       Ramo.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", ramos: docs});
          } else {
             res.send({
@@ -53,6 +55,7 @@ let ramoController = function (app, control={auth, passport, acl}){
 
       Ramo.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", ramo: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -75,6 +78,7 @@ let ramoController = function (app, control={auth, passport, acl}){
 
       ramo.save((err, doc) => {
          if(!err){
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", doc: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -99,6 +103,7 @@ let ramoController = function (app, control={auth, passport, acl}){
       Ramo.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -123,6 +128,7 @@ let ramoController = function (app, control={auth, passport, acl}){
       Ramo.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -141,6 +147,7 @@ let ramoController = function (app, control={auth, passport, acl}){
       Ramo.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

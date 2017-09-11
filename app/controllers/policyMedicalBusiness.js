@@ -30,6 +30,7 @@ let policyMedicalBusinessController = function (app, control={auth, passport, ac
       let $filter =  global.filter(req.query.filter);
       PolicyMedicalBusiness.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             Insurance.populate(docs, {path: "insurance"},function(err, docs){
                User.populate(docs, {path: "user"},function(err, docs){
@@ -51,6 +52,7 @@ let policyMedicalBusinessController = function (app, control={auth, passport, ac
 
       PolicyMedicalBusiness.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             Insurance.populate(docs, {path: "insurance"},function(err, docs){
                User.populate(docs, {path: "user"},function(err, docs){
@@ -72,6 +74,7 @@ let policyMedicalBusinessController = function (app, control={auth, passport, ac
 
       PolicyMedicalBusiness.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", policyMedicalBusiness: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -115,6 +118,7 @@ let policyMedicalBusinessController = function (app, control={auth, passport, ac
       policyMedicalBusiness.save((err, doc) => {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -161,6 +165,7 @@ let policyMedicalBusinessController = function (app, control={auth, passport, ac
       PolicyMedicalBusiness.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -179,6 +184,7 @@ let policyMedicalBusinessController = function (app, control={auth, passport, ac
       PolicyMedicalBusiness.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

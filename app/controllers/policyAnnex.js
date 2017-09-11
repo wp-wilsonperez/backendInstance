@@ -27,6 +27,7 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       PolicyAnnex.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             Policy.populate(docs, {path: "policy"},function(err, docs){
                res.send({msg: "OK", policyAnnexes: docs});
@@ -46,6 +47,7 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
 
       PolicyAnnex.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             Policy.populate(docs, {path: "policy"},function(err, docs){
                res.send({msg: "OK", policyAnnexes: docs});
@@ -65,6 +67,7 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
 
       PolicyAnnex.find({idPolicy: req.params.idPolicy}, function (err, doc) {
          if (!err) {
+            //control.log(req.route.path, req.user);
             res.send({msg: "OK", policyAnnex: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -78,6 +81,7 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
 
       PolicyAnnex.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", policyAnnex: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -110,6 +114,7 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
       policyAnnex.save((err, doc) => {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -144,6 +149,7 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
       PolicyAnnex.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -162,6 +168,7 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
       PolicyAnnex.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

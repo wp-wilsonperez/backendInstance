@@ -23,6 +23,7 @@ let settingController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       Setting.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", settings: docs});
          } else {
             res.send({
@@ -38,6 +39,7 @@ let settingController = function (app, control={auth, passport, acl}){
 
       Setting.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", settings: docs});
          } else {
             res.send({
@@ -53,6 +55,7 @@ let settingController = function (app, control={auth, passport, acl}){
 
       Setting.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", setting: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -77,6 +80,7 @@ let settingController = function (app, control={auth, passport, acl}){
 
       setting.save((err, doc) => {
          if(!err){
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", doc: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -104,6 +108,7 @@ let settingController = function (app, control={auth, passport, acl}){
       Setting.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -122,6 +127,7 @@ let settingController = function (app, control={auth, passport, acl}){
       Setting.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

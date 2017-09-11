@@ -22,6 +22,7 @@ let paymentTypeController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       PaymentType.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", paymentTypes: docs});
          } else {
             res.send({
@@ -37,6 +38,7 @@ let paymentTypeController = function (app, control={auth, passport, acl}){
 
       PaymentType.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", paymentTypes: docs});
          } else {
             res.send({
@@ -52,6 +54,7 @@ let paymentTypeController = function (app, control={auth, passport, acl}){
 
       PaymentType.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", paymentType: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -74,6 +77,7 @@ let paymentTypeController = function (app, control={auth, passport, acl}){
 
       paymentType.save((err, doc) => {
          if(!err){
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", doc: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -99,6 +103,7 @@ let paymentTypeController = function (app, control={auth, passport, acl}){
       PaymentType.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -117,6 +122,7 @@ let paymentTypeController = function (app, control={auth, passport, acl}){
       PaymentType.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

@@ -29,6 +29,7 @@ let sinisterController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       Sinister.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             Ramo.populate(docs, {path: "ramo"},function(err, docs){
                res.send({msg: "OK", sinisters: docs});
@@ -48,6 +49,7 @@ let sinisterController = function (app, control={auth, passport, acl}){
 
       Sinister.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             Ramo.populate(docs, {path: "ramo"},function(err, docs){
                res.send({msg: "OK", sinisters: docs});
@@ -67,6 +69,7 @@ let sinisterController = function (app, control={auth, passport, acl}){
 
       Sinister.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", sinister: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -92,6 +95,7 @@ let sinisterController = function (app, control={auth, passport, acl}){
 
       sinister.save((err, doc) => {
          if(!err){
+            control.log(req.route.path, req.user);
             $sinisterCar["idSinister"] = doc._id;
             $sinisterCar["sinister"] = doc._id;
             $sinisterCar["dateCreate"] = $moment;
@@ -152,6 +156,7 @@ let sinisterController = function (app, control={auth, passport, acl}){
       Sinister.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -170,6 +175,7 @@ let sinisterController = function (app, control={auth, passport, acl}){
       Sinister.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

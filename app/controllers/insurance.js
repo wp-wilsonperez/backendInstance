@@ -46,6 +46,7 @@ let insuranceController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       Insurance.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", insurances: docs});
          } else {
             res.send({
@@ -61,6 +62,7 @@ let insuranceController = function (app, control={auth, passport, acl}){
 
       Insurance.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", insurances: docs});
          } else {
             res.send({
@@ -76,6 +78,7 @@ let insuranceController = function (app, control={auth, passport, acl}){
 
       Insurance.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", insurance: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -108,6 +111,7 @@ let insuranceController = function (app, control={auth, passport, acl}){
 
       insurance.save((err, doc) => {
          if(!err){
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", doc: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -142,6 +146,7 @@ let insuranceController = function (app, control={auth, passport, acl}){
       Insurance.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -166,6 +171,7 @@ let insuranceController = function (app, control={auth, passport, acl}){
       Insurance.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -184,6 +190,7 @@ let insuranceController = function (app, control={auth, passport, acl}){
       Insurance.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

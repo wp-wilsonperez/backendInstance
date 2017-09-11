@@ -444,5 +444,757 @@
     "filter": {
       "log" : "Filtrar creditNote"
     }
+  },
+  "deductible" : {
+    "list": {
+      "log" : "Listado de deductible"
+    },
+    "view": {
+      "log" : "Visualizar deductible"
+    },
+    "add": {
+      "log" : "Agregar deductible"
+    },
+    "edit": {
+      "log" : "Editar deductible"
+    },
+    "delete": {
+      "log" : "Eliminar deductible"
+    },
+    "filter": {
+      "log" : "Filtrar deductible"
+    }
+  },
+  "dependent" : {
+    "list": {
+      "log" : "Listado de dependent"
+    },
+    "view": {
+      "log" : "Visualizar dependent"
+    },
+    "add": {
+      "log" : "Agregar dependent"
+    },
+    "edit": {
+      "log" : "Editar dependent"
+    },
+    "delete": {
+      "log" : "Eliminar dependent"
+    },
+    "filter": {
+      "log" : "Filtrar dependent"
+    }
+  },
+  "frequencyPayment" : {
+    "list": {
+      "log" : "Listado de frequencyPayment"
+    },
+    "view": {
+      "log" : "Visualizar frequencyPayment"
+    },
+    "add": {
+      "log" : "Agregar frequencyPayment"
+    },
+    "edit": {
+      "log" : "Editar frequencyPayment"
+    },
+    "delete": {
+      "log" : "Eliminar frequencyPayment"
+    },
+    "filter": {
+      "log" : "Filtrar frequencyPayment"
+    }
+  },
+  "helpLink" : {
+    "list": {
+      "log" : "Listado de helpLink"
+    },
+    "view": {
+      "log" : "Visualizar helpLink"
+    },
+    "add": {
+      "log" : "Agregar helpLink"
+    },
+    "edit": {
+      "log" : "Editar helpLink"
+    },
+    "delete": {
+      "log" : "Eliminar helpLink"
+    },
+    "filter": {
+      "log" : "Filtrar helpLink"
+    }
+  },
+  "income" : {
+    "list": {
+      "log" : "Listado de income"
+    },
+    "view": {
+      "log" : "Visualizar income"
+    },
+    "add": {
+      "log" : "Agregar income"
+    },
+    "edit": {
+      "log" : "Editar income"
+    },
+    "delete": {
+      "log" : "Eliminar income"
+    },
+    "filter": {
+      "log" : "Filtrar income"
+    }
+  },
+  "insurance" : {
+    "list": {
+      "log" : "Listado de insurance"
+    },
+    "view": {
+      "log" : "Visualizar insurance"
+    },
+    "add": {
+      "log" : "Agregar insurance"
+    },
+    "edit": {
+      "log" : "Editar insurance"
+    },
+    "delete": {
+      "log" : "Eliminar insurance"
+    },
+    "filter": {
+      "log" : "Filtrar insurance"
+    },
+    "enable": {
+      "log" : "Habilitar insurance"
+    }
+  },
+  "issue" : {
+    "list": {
+      "log" : "Listado de issue"
+    },
+    "view": {
+      "log" : "Visualizar issue"
+    },
+    "add": {
+      "log" : "Agregar issue"
+    },
+    "edit": {
+      "log" : "Editar issue"
+    },
+    "delete": {
+      "log" : "Eliminar issue"
+    },
+    "filter": {
+      "log" : "Filtrar issue"
+    }
+  },
+  "itemAnnexCar" : {
+    "list": {
+      "log" : "Listado de itemAnnexCar"
+    },
+    "view": {
+      "log" : "Visualizar itemAnnexCar"
+    },
+    "add": {
+      "log" : "Agregar itemAnnexCar"
+    },
+    "edit": {
+      "log" : "Editar itemAnnexCar"
+    },
+    "delete": {
+      "log" : "Eliminar itemAnnexCar"
+    },
+    "filter": {
+      "log" : "Filtrar itemAnnexCar"
+    }
+  },
+  "itemAnnexExtra" : {
+    "list": {
+      "log" : "Listado de itemAnnexExtra"
+    },
+    "view": {
+      "log" : "Visualizar itemAnnexExtra"
+    },
+    "add": {
+      "log" : "Agregar itemAnnexExtra"
+    },
+    "edit": {
+      "log" : "Editar itemAnnexExtra"
+    },
+    "delete": {
+      "log" : "Eliminar itemAnnexExtra"
+    },
+    "filter": {
+      "log" : "Filtrar itemAnnexExtra"
+    }
+  },
+  "letterAccident" : {
+    "list": {
+      "log" : "Listado de letterAccident"
+    },
+    "view": {
+      "log" : "Visualizar letterAccident"
+    },
+    "add": {
+      "log" : "Agregar letterAccident"
+    },
+    "edit": {
+      "log" : "Editar letterAccident"
+    },
+    "delete": {
+      "log" : "Eliminar letterAccident"
+    },
+    "filter": {
+      "log" : "Filtrar letterAccident"
+    }
+  },
+  "maritalStatus" : {
+    "list": {
+      "log" : "Listado de maritalStatus"
+    },
+    "view": {
+      "log" : "Visualizar maritalStatus"
+    },
+    "add": {
+      "log" : "Agregar maritalStatus"
+    },
+    "edit": {
+      "log" : "Editar maritalStatus"
+    },
+    "delete": {
+      "log" : "Eliminar maritalStatus"
+    },
+    "filter": {
+      "log" : "Filtrar maritalStatus"
+    }
+  },
+  "paymentType" : {
+    "list": {
+      "log" : "Listado de paymentType"
+    },
+    "view": {
+      "log" : "Visualizar paymentType"
+    },
+    "add": {
+      "log" : "Agregar paymentType"
+    },
+    "edit": {
+      "log" : "Editar paymentType"
+    },
+    "delete": {
+      "log" : "Eliminar paymentType"
+    },
+    "filter": {
+      "log" : "Filtrar paymentType"
+    }
+  },
+  "percentageRamo" : {
+    "list": {
+      "log" : "Listado de percentageRamo"
+    },
+    "view": {
+      "log" : "Visualizar percentageRamo"
+    },
+    "add": {
+      "log" : "Agregar percentageRamo"
+    },
+    "edit": {
+      "log" : "Editar percentageRamo"
+    },
+    "delete": {
+      "log" : "Eliminar percentageRamo"
+    },
+    "filter": {
+      "log" : "Filtrar percentageRamo"
+    }
+  },
+  "plan" : {
+    "list": {
+      "log" : "Listado de plan"
+    },
+    "view": {
+      "log" : "Visualizar plan"
+    },
+    "add": {
+      "log" : "Agregar plan"
+    },
+    "edit": {
+      "log" : "Editar plan"
+    },
+    "delete": {
+      "log" : "Eliminar plan"
+    },
+    "filter": {
+      "log" : "Filtrar plan"
+    }
+  },
+  "planAlternative" : {
+    "list": {
+      "log" : "Listado de planAlternative"
+    },
+    "view": {
+      "log" : "Visualizar planAlternative"
+    },
+    "add": {
+      "log" : "Agregar planAlternative"
+    },
+    "edit": {
+      "log" : "Editar planAlternative"
+    },
+    "delete": {
+      "log" : "Eliminar planAlternative"
+    },
+    "filter": {
+      "log" : "Filtrar planAlternative"
+    }
+  },
+  "planAssociation" : {
+    "list": {
+      "log" : "Listado de planAssociation"
+    },
+    "view": {
+      "log" : "Visualizar planAssociation"
+    },
+    "add": {
+      "log" : "Agregar planAssociation"
+    },
+    "edit": {
+      "log" : "Editar planAssociation"
+    },
+    "delete": {
+      "log" : "Eliminar planAssociation"
+    },
+    "filter": {
+      "log" : "Filtrar planAssociation"
+    }
+  },
+  "policy" : {
+    "list": {
+      "log" : "Listado de policy"
+    },
+    "view": {
+      "log" : "Visualizar policy"
+    },
+    "add": {
+      "log" : "Agregar policy"
+    },
+    "edit": {
+      "log" : "Editar policy"
+    },
+    "delete": {
+      "log" : "Eliminar policy"
+    },
+    "filter": {
+      "log" : "Filtrar policy"
+    }
+  },
+  "policyAnnex" : {
+    "list": {
+      "log" : "Listado de policyAnnex"
+    },
+    "view": {
+      "log" : "Visualizar policyAnnex"
+    },
+    "add": {
+      "log" : "Agregar policyAnnex"
+    },
+    "edit": {
+      "log" : "Editar policyAnnex"
+    },
+    "delete": {
+      "log" : "Eliminar policyAnnex"
+    },
+    "filter": {
+      "log" : "Filtrar policyAnnex"
+    }
+  },
+  "policyMedicalBusiness" : {
+    "list": {
+      "log" : "Listado de policyMedicalBusiness"
+    },
+    "view": {
+      "log" : "Visualizar policyMedicalBusiness"
+    },
+    "add": {
+      "log" : "Agregar policyMedicalBusiness"
+    },
+    "edit": {
+      "log" : "Editar policyMedicalBusiness"
+    },
+    "delete": {
+      "log" : "Eliminar policyMedicalBusiness"
+    },
+    "filter": {
+      "log" : "Filtrar policyMedicalBusiness"
+    }
+  },
+  "policyType" : {
+    "list": {
+      "log" : "Listado de policyType"
+    },
+    "view": {
+      "log" : "Visualizar policyType"
+    },
+    "add": {
+      "log" : "Agregar policyType"
+    },
+    "edit": {
+      "log" : "Editar policyType"
+    },
+    "delete": {
+      "log" : "Eliminar policyType"
+    },
+    "filter": {
+      "log" : "Filtrar policyType"
+    }
+  },
+  "quote" : {
+    "list": {
+      "log" : "Listado de quote"
+    },
+    "view": {
+      "log" : "Visualizar quote"
+    },
+    "add": {
+      "log" : "Agregar quote"
+    },
+    "edit": {
+      "log" : "Editar quote"
+    },
+    "delete": {
+      "log" : "Eliminar quote"
+    },
+    "filter": {
+      "log" : "Filtrar quote"
+    }
+  },
+  "ramo" : {
+    "list": {
+      "log" : "Listado de ramo"
+    },
+    "view": {
+      "log" : "Visualizar ramo"
+    },
+    "add": {
+      "log" : "Agregar ramo"
+    },
+    "edit": {
+      "log" : "Editar ramo"
+    },
+    "delete": {
+      "log" : "Eliminar ramo"
+    },
+    "filter": {
+      "log" : "Filtrar ramo"
+    },
+    "enable": {
+      "log" : "Habilitar ramo"
+    }
+  },
+  "role" : {
+    "list": {
+      "log" : "Listado de role"
+    },
+    "view": {
+      "log" : "Visualizar role"
+    },
+    "add": {
+      "log" : "Agregar role"
+    },
+    "edit": {
+      "log" : "Editar role"
+    },
+    "delete": {
+      "log" : "Eliminar role"
+    },
+    "filter": {
+      "log" : "Filtrar role"
+    },
+    "viewgrant": {
+      "log" : "Visualizar Permisos role"
+    },
+    "addgrant": {
+      "log" : "Agregar Permisos role"
+    }
+  },
+  "route" : {
+    "list": {
+      "log" : "Listado de route"
+    },
+    "view": {
+      "log" : "Visualizar route"
+    },
+    "add": {
+      "log" : "Agregar route"
+    },
+    "edit": {
+      "log" : "Editar route"
+    },
+    "delete": {
+      "log" : "Eliminar route"
+    },
+    "filter": {
+      "log" : "Filtrar route"
+    }
+  },
+  "setting" : {
+    "list": {
+      "log" : "Listado de setting"
+    },
+    "view": {
+      "log" : "Visualizar setting"
+    },
+    "add": {
+      "log" : "Agregar setting"
+    },
+    "edit": {
+      "log" : "Editar setting"
+    },
+    "delete": {
+      "log" : "Eliminar setting"
+    },
+    "filter": {
+      "log" : "Filtrar setting"
+    }
+  },
+  "sinister" : {
+    "list": {
+      "log" : "Listado de sinister"
+    },
+    "view": {
+      "log" : "Visualizar sinister"
+    },
+    "add": {
+      "log" : "Agregar sinister"
+    },
+    "edit": {
+      "log" : "Editar sinister"
+    },
+    "delete": {
+      "log" : "Eliminar sinister"
+    },
+    "filter": {
+      "log" : "Filtrar sinister"
+    }
+  },
+  "sinisterCar" : {
+    "list": {
+      "log" : "Listado de sinisterCar"
+    },
+    "view": {
+      "log" : "Visualizar sinisterCar"
+    },
+    "add": {
+      "log" : "Agregar sinisterCar"
+    },
+    "edit": {
+      "log" : "Editar sinisterCar"
+    },
+    "delete": {
+      "log" : "Eliminar sinisterCar"
+    },
+    "filter": {
+      "log" : "Filtrar sinisterCar"
+    }
+  },
+  "sinisterCarDocumentation" : {
+    "list": {
+      "log" : "Listado de sinisterCarDocumentation"
+    },
+    "view": {
+      "log" : "Visualizar sinisterCarDocumentation"
+    },
+    "add": {
+      "log" : "Agregar sinisterCarDocumentation"
+    },
+    "edit": {
+      "log" : "Editar sinisterCarDocumentation"
+    },
+    "delete": {
+      "log" : "Eliminar sinisterCarDocumentation"
+    },
+    "filter": {
+      "log" : "Filtrar sinisterCarDocumentation"
+    }
+  },
+  "sinisterDocumentation" : {
+    "list": {
+      "log" : "Listado de sinisterDocumentation"
+    },
+    "view": {
+      "log" : "Visualizar sinisterDocumentation"
+    },
+    "add": {
+      "log" : "Agregar sinisterDocumentation"
+    },
+    "edit": {
+      "log" : "Editar sinisterDocumentation"
+    },
+    "delete": {
+      "log" : "Eliminar sinisterDocumentation"
+    },
+    "filter": {
+      "log" : "Filtrar sinisterDocumentation"
+    }
+  },
+  "sinisterDocumentationRamo" : {
+    "list": {
+      "log" : "Listado de sinisterDocumentationRamo"
+    },
+    "view": {
+      "log" : "Visualizar sinisterDocumentationRamo"
+    },
+    "add": {
+      "log" : "Agregar sinisterDocumentationRamo"
+    },
+    "edit": {
+      "log" : "Editar sinisterDocumentationRamo"
+    },
+    "delete": {
+      "log" : "Eliminar sinisterDocumentationRamo"
+    },
+    "filter": {
+      "log" : "Filtrar sinisterDocumentationRamo"
+    }
+  },
+  "sinisterMedical" : {
+    "list": {
+      "log" : "Listado de sinisterMedical"
+    },
+    "view": {
+      "log" : "Visualizar sinisterMedical"
+    },
+    "add": {
+      "log" : "Agregar sinisterMedical"
+    },
+    "edit": {
+      "log" : "Editar sinisterMedical"
+    },
+    "delete": {
+      "log" : "Eliminar sinisterMedical"
+    },
+    "filter": {
+      "log" : "Filtrar sinisterMedical"
+    }
+  },
+  "sinisterMedicalDocumentation" : {
+    "list": {
+      "log" : "Listado de sinisterMedicalDocumentation"
+    },
+    "view": {
+      "log" : "Visualizar sinisterMedicalDocumentation"
+    },
+    "add": {
+      "log" : "Agregar sinisterMedicalDocumentation"
+    },
+    "edit": {
+      "log" : "Editar sinisterMedicalDocumentation"
+    },
+    "delete": {
+      "log" : "Eliminar sinisterMedicalDocumentation"
+    },
+    "filter": {
+      "log" : "Filtrar sinisterMedicalDocumentation"
+    }
+  },
+  "tasa" : {
+    "list": {
+      "log" : "Listado de tasa"
+    },
+    "view": {
+      "log" : "Visualizar tasa"
+    },
+    "add": {
+      "log" : "Agregar tasa"
+    },
+    "edit": {
+      "log" : "Editar tasa"
+    },
+    "delete": {
+      "log" : "Eliminar tasa"
+    },
+    "filter": {
+      "log" : "Filtrar tasa"
+    }
+  },
+  "typeClient" : {
+    "list": {
+      "log" : "Listado de typeClient"
+    },
+    "view": {
+      "log" : "Visualizar typeClient"
+    },
+    "add": {
+      "log" : "Agregar typeClient"
+    },
+    "edit": {
+      "log" : "Editar typeClient"
+    },
+    "delete": {
+      "log" : "Eliminar typeClient"
+    },
+    "filter": {
+      "log" : "Filtrar typeClient"
+    }
+  },
+  "wallet" : {
+    "list": {
+      "log" : "Listado de wallet"
+    },
+    "view": {
+      "log" : "Visualizar wallet"
+    },
+    "add": {
+      "log" : "Agregar wallet"
+    },
+    "edit": {
+      "log" : "Editar wallet"
+    },
+    "delete": {
+      "log" : "Eliminar wallet"
+    },
+    "filter": {
+      "log" : "Filtrar wallet"
+    }
+  },
+  "walletPayment" : {
+    "list": {
+      "log" : "Listado de walletPayment"
+    },
+    "view": {
+      "log" : "Visualizar walletPayment"
+    },
+    "add": {
+      "log" : "Agregar walletPayment"
+    },
+    "edit": {
+      "log" : "Editar walletPayment"
+    },
+    "delete": {
+      "log" : "Eliminar walletPayment"
+    },
+    "filter": {
+      "log" : "Filtrar walletPayment"
+    }
+  },
+  "walletPaymentBinnacle" : {
+    "list": {
+      "log" : "Listado de walletPaymentBinnacle"
+    },
+    "view": {
+      "log" : "Visualizar walletPaymentBinnacle"
+    },
+    "add": {
+      "log" : "Agregar walletPaymentBinnacle"
+    },
+    "edit": {
+      "log" : "Editar walletPaymentBinnacle"
+    },
+    "delete": {
+      "log" : "Eliminar walletPaymentBinnacle"
+    },
+    "filter": {
+      "log" : "Filtrar walletPaymentBinnacle"
+    }
   }
 }

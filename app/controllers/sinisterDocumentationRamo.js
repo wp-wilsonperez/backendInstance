@@ -23,6 +23,7 @@ let sinisterDocumentationRamoController = function (app, control={auth, passport
       let $filter =  global.filter(req.query.filter);
       SinisterDocumentationRamo.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             res.send({msg: "OK", sinisterDocumentationRamos: docs});
             
@@ -40,6 +41,7 @@ let sinisterDocumentationRamoController = function (app, control={auth, passport
 
       SinisterDocumentationRamo.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             res.send({msg: "OK", sinisterDocumentationRamos: docs});
             
@@ -57,6 +59,7 @@ let sinisterDocumentationRamoController = function (app, control={auth, passport
 
       SinisterDocumentationRamo.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", sinisterDocumentationRamo: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -79,6 +82,7 @@ let sinisterDocumentationRamoController = function (app, control={auth, passport
       sinisterDocumentationRamo.save((err, doc) => {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -104,6 +108,7 @@ let sinisterDocumentationRamoController = function (app, control={auth, passport
       SinisterDocumentationRamo.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -122,6 +127,7 @@ let sinisterDocumentationRamoController = function (app, control={auth, passport
       SinisterDocumentationRamo.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

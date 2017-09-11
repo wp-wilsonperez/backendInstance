@@ -31,6 +31,7 @@ let tasaController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       Tasa.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             Insurance.populate(docs, {path: "insurance"},function(err, docs){
                Deductible.populate(docs, {path: "deductible"},function(err, docs){
                   Ramo.populate(docs, {path: "ramo"},function(err, docs){
@@ -52,6 +53,7 @@ let tasaController = function (app, control={auth, passport, acl}){
 
       Tasa.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             Insurance.populate(docs, {path: "insurance"},function(err, docs){
                Deductible.populate(docs, {path: "deductible"},function(err, docs){
                   Ramo.populate(docs, {path: "ramo"},function(err, docs){
@@ -73,6 +75,7 @@ let tasaController = function (app, control={auth, passport, acl}){
 
       Tasa.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", tasa: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -101,6 +104,7 @@ let tasaController = function (app, control={auth, passport, acl}){
 
       tasa.save((err, doc) => {
          if(!err){
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", doc: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -132,6 +136,7 @@ let tasaController = function (app, control={auth, passport, acl}){
       Tasa.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -150,6 +155,7 @@ let tasaController = function (app, control={auth, passport, acl}){
       Tasa.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

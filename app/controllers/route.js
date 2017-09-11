@@ -32,10 +32,11 @@ let routeController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/user/filter',[control.auth, controller], (req, res) => {
+   app.get('/route/filter',[control.auth, controller], (req, res) => {
       let $filter =  global.filter(req.query.filter);
       Route.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             Client.populate(docs, {path: "client"},function(err, docs){
                Business.populate(docs, {path: "business"},function(err, docs){
                   Insurance.populate(docs, {path: "insarance"},function(err, docs){
@@ -59,6 +60,7 @@ let routeController = function (app, control={auth, passport, acl}){
 
       Route.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             Client.populate(docs, {path: "client"},function(err, docs){
                Business.populate(docs, {path: "business"},function(err, docs){
                   Insurance.populate(docs, {path: "insarance"},function(err, docs){
@@ -82,6 +84,7 @@ let routeController = function (app, control={auth, passport, acl}){
 
       Route.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", route: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -117,6 +120,7 @@ let routeController = function (app, control={auth, passport, acl}){
 
       route.save((err, doc) => {
          if(!err){
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", doc: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -155,6 +159,7 @@ let routeController = function (app, control={auth, passport, acl}){
       Route.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -173,6 +178,7 @@ let routeController = function (app, control={auth, passport, acl}){
       Route.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

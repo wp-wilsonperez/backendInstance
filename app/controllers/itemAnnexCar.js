@@ -30,6 +30,7 @@ let itemAnnexCarController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       ItemAnnexCar.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             PolicyAnnex.populate(docs, {path: "policyAnnex"},function(err, docs){
                Car.populate(docs, {path: "car"},function(err, docs){
@@ -51,6 +52,7 @@ let itemAnnexCarController = function (app, control={auth, passport, acl}){
 
       ItemAnnexCar.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             PolicyAnnex.populate(docs, {path: "policyAnnex"},function(err, docs){
                Car.populate(docs, {path: "car"},function(err, docs){
@@ -72,6 +74,7 @@ let itemAnnexCarController = function (app, control={auth, passport, acl}){
 
       ItemAnnexCar.find({idPolicyAnnex: req.params.idPolicyAnnex}, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", itemAnnexCars: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -87,6 +90,7 @@ let itemAnnexCarController = function (app, control={auth, passport, acl}){
 
       ItemAnnexCar.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", itemAnnexCar: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -123,6 +127,7 @@ let itemAnnexCarController = function (app, control={auth, passport, acl}){
       itemAnnexCar.save((err, doc) => {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -163,6 +168,7 @@ let itemAnnexCarController = function (app, control={auth, passport, acl}){
       ItemAnnexCar.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -181,6 +187,7 @@ let itemAnnexCarController = function (app, control={auth, passport, acl}){
       ItemAnnexCar.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

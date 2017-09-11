@@ -28,6 +28,7 @@ let percentageRamoController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       PercentageRamo.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             Ramo.populate(docs, {path: "ramo"},function(err, docs){
                Insurance.populate(docs, {path: "insurance"},function(err, docs){
                   res.send({msg: "OK", percentageRamos: docs});
@@ -47,6 +48,7 @@ let percentageRamoController = function (app, control={auth, passport, acl}){
 
       PercentageRamo.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             Ramo.populate(docs, {path: "ramo"},function(err, docs){
                Insurance.populate(docs, {path: "insurance"},function(err, docs){
                   res.send({msg: "OK", percentageRamos: docs});
@@ -66,6 +68,7 @@ let percentageRamoController = function (app, control={auth, passport, acl}){
 
       PercentageRamo.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", percentageRamo: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -91,6 +94,7 @@ let percentageRamoController = function (app, control={auth, passport, acl}){
       percentageRamo.save((err, doc) => {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -118,6 +122,7 @@ let percentageRamoController = function (app, control={auth, passport, acl}){
       PercentageRamo.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -136,6 +141,7 @@ let percentageRamoController = function (app, control={auth, passport, acl}){
       PercentageRamo.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

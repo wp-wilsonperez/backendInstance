@@ -30,6 +30,7 @@ let sinisterMedicalController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       SinisterMedical.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             Sinister.populate(docs, {path: "sinister"},function(err, docs){
                Client.populate(docs, {path: "client"},function(err, docs){
@@ -51,6 +52,7 @@ let sinisterMedicalController = function (app, control={auth, passport, acl}){
 
       SinisterMedical.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             Sinister.populate(docs, {path: "sinister"},function(err, docs){
                Client.populate(docs, {path: "client"},function(err, docs){
@@ -72,6 +74,7 @@ let sinisterMedicalController = function (app, control={auth, passport, acl}){
 
       SinisterMedical.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", sinisterMedical: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -94,6 +97,7 @@ let sinisterMedicalController = function (app, control={auth, passport, acl}){
 
       sinisterMedical.save((err, doc) => {
          if(!err){
+            control.log(req.route.path, req.user);
             $sinisterMedicalDocumentation.forEach(function (item, index) {
                $sinisterMedicalDocumentation[index]["idSinisterMedical"]=doc._id;
                $sinisterMedicalDocumentation[index]["sinisterMedical"]=doc._id;
@@ -135,6 +139,7 @@ let sinisterMedicalController = function (app, control={auth, passport, acl}){
       SinisterMedical.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -153,6 +158,7 @@ let sinisterMedicalController = function (app, control={auth, passport, acl}){
       SinisterMedical.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

@@ -31,6 +31,7 @@ let quoteController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       Quote.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             BankInsurance.populate(docs, {path: "bankInsurance"},function(err, docs){
                Deductible.populate(docs, {path: "deductible"},function(err, docs){
                   TypeClient.populate(docs, {path: "typeClient"},function(err, docs){
@@ -52,6 +53,7 @@ let quoteController = function (app, control={auth, passport, acl}){
 
       Quote.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             BankInsurance.populate(docs, {path: "bankInsurance"},function(err, docs){
                Deductible.populate(docs, {path: "deductible"},function(err, docs){
                   TypeClient.populate(docs, {path: "typeClient"},function(err, docs){
@@ -73,6 +75,7 @@ let quoteController = function (app, control={auth, passport, acl}){
 
       Quote.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", quote: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -124,6 +127,7 @@ let quoteController = function (app, control={auth, passport, acl}){
 
       quote.save((err, doc) => {
          if(!err){
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", doc: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -178,6 +182,7 @@ let quoteController = function (app, control={auth, passport, acl}){
       Quote.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -196,6 +201,7 @@ let quoteController = function (app, control={auth, passport, acl}){
       Quote.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
