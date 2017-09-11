@@ -12,9 +12,10 @@ import TypeClient from './app/models/typeClient';
 import Ramo from './app/models/ramo';
 import Plan from './app/models/plan';
 import Alternative from './app/models/alternative';
+import FrequencyPayment from './app/models/frequencyPayment';
 
 mongoose.connect('mongodb://localhost/instance1');
-const $total=11;
+const $total=12;
 let $execute=0;
 function answer (text, cant) {
    console.log("*Insert data in "+text);
@@ -123,6 +124,16 @@ let $alternativeData = [
 ];
 Alternative.insertMany($alternativeData, (err, docs) => {
    answer("alternative", $alternativeData.length);
+});
+/********FRECUENCYPAYMENT********/
+let $frequencyPaymentData = [
+   { "_id" : "599222be7f05fc0933b643f3", "name" : "Mensual", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"},
+   { "_id" : "599222ce7f05fc0933b643f4", "name" : "Semestral", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"},
+   { "_id" : "599222d07f05fc0933b643f5", "name" : "Trimestral", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"},
+   { "_id" : "599222d77f05fc0933b643f6", "name" : "Anual", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"}
+];
+FrequencyPayment.insertMany($frequencyPaymentData, (err, docs) => {
+   answer("frecuencyPaymentData", $frequencyPaymentData.length);
 });
 
 

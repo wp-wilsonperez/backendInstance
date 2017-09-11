@@ -67,6 +67,9 @@ let bankController = function (app, control={auth, passport, acl}){
 
       let bank = new Bank({
          name: req.body.name,
+         month: req.body.month,
+         totalMonths: req.body.totalMonths,
+         interest: req.body.interest,
          dateCreate: moment(),
          userCreate: req.user.idUser,
          dateUpdate: moment(),
@@ -92,6 +95,9 @@ let bankController = function (app, control={auth, passport, acl}){
 
       let update = {
          name: req.body.name,
+         month: req.body.month,
+         totalMonths: req.body.totalMonths,
+         interest: req.body.interest,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };
