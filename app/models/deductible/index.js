@@ -3,8 +3,8 @@ import mongoose from 'mongoose';
 
 let DeductibleSchema = new mongoose.Schema({
 	name: {type: String, require: true},
-	idBranch: {type: String},
-	branch: { type: mongoose.Schema.ObjectId, ref: "Branch"},
+	idRamo: {type: String},
+	ramo: { type: mongoose.Schema.ObjectId, ref: "Ramo"},
 	idInsurance: {type: String},
 	insurance: { type: mongoose.Schema.ObjectId, ref: "Insurance"},
 	description: {type: String},

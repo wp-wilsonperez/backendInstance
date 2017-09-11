@@ -2,7 +2,7 @@
 import moment from 'moment';
 
 import Deductible from "../models/deductible";
-import Branch from "../models/branch";
+import Ramo from "../models/ramo";
 import Insurance from "../models/insurance";
 
 let deductibleController = function (app, control={auth, passport, acl}){
@@ -16,7 +16,7 @@ let deductibleController = function (app, control={auth, passport, acl}){
       Deductible.find({}, function (err, docs) {
          if (!err) {
 
-            Branch.populate(docs, {path: "branch"},function(err, docs){
+            Ramo.populate(docs, {path: "ramo"},function(err, docs){
                Insurance.populate(docs, {path: "insurance"},function(err, docs){
                   callback(docs);
                });
@@ -30,7 +30,7 @@ let deductibleController = function (app, control={auth, passport, acl}){
       Deductible.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
-            Branch.populate(docs, {path: "branch"},function(err, docs){
+            Ramo.populate(docs, {path: "ramo"},function(err, docs){
                Insurance.populate(docs, {path: "insurance"},function(err, docs){
                   res.send({msg: "OK", deductibles: docs});
                });
@@ -50,7 +50,7 @@ let deductibleController = function (app, control={auth, passport, acl}){
       Deductible.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
-            Branch.populate(docs, {path: "branch"},function(err, docs){
+            Ramo.populate(docs, {path: "ramo"},function(err, docs){
                Insurance.populate(docs, {path: "insurance"},function(err, docs){
                   res.send({msg: "OK", deductibles: docs});
                });
@@ -82,8 +82,8 @@ let deductibleController = function (app, control={auth, passport, acl}){
 
       let deductible = new Deductible({
          name: req.body.name,
-         idBranch: req.body.idBranch,
-         branch: req.body.idBranch,
+         idRamo: req.body.idRamo,
+         ramo: req.body.idRamo,
          idInsurance: req.body.idInsurance,
          insurance: req.body.idInsurance,
          desciption: req.body.desciption,
@@ -112,8 +112,8 @@ let deductibleController = function (app, control={auth, passport, acl}){
 
       let update = {
          name: req.body.name,
-         idBranch: req.body.idBranch,
-         branch: req.body.idBranch,
+         idRamo: req.body.idRamo,
+         ramo: req.body.idRamo,
          idInsurance: req.body.idInsurance,
          insurance: req.body.idInsurance,
          desciption: req.body.desciption,
