@@ -33,6 +33,7 @@ let businessClientController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       BusinessClient.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             Business.populate(docs, {path: "business"},function(err, docs){
                Client.populate(docs, {path: "client"},function(err, docs){
@@ -56,6 +57,7 @@ let businessClientController = function (app, control={auth, passport, acl}){
 
       BusinessClient.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             Business.populate(docs, {path: "business"},function(err, docs){
                Client.populate(docs, {path: "client"},function(err, docs){
@@ -79,6 +81,7 @@ let businessClientController = function (app, control={auth, passport, acl}){
 
       BusinessClient.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", businessClient: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -111,6 +114,7 @@ let businessClientController = function (app, control={auth, passport, acl}){
       businessClient.save((err, doc) => {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -146,6 +150,7 @@ let businessClientController = function (app, control={auth, passport, acl}){
       BusinessClient.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -164,6 +169,7 @@ let businessClientController = function (app, control={auth, passport, acl}){
       BusinessClient.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

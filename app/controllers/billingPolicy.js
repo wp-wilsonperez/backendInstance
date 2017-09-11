@@ -27,6 +27,7 @@ let billingPolicyController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       BillingPolicy.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             Billing.populate(docs, {path: "billing"},function(err, docs){
                res.send({msg: "OK", billingPolicies: docs});
@@ -46,6 +47,7 @@ let billingPolicyController = function (app, control={auth, passport, acl}){
 
       BillingPolicy.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             Billing.populate(docs, {path: "billing"},function(err, docs){
                res.send({msg: "OK", billingPolicies: docs});
@@ -65,6 +67,7 @@ let billingPolicyController = function (app, control={auth, passport, acl}){
 
       BillingPolicy.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", billingPolicy: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -99,6 +102,7 @@ let billingPolicyController = function (app, control={auth, passport, acl}){
       billingPolicy.save((err, doc) => {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -136,6 +140,7 @@ let billingPolicyController = function (app, control={auth, passport, acl}){
       BillingPolicy.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -154,6 +159,7 @@ let billingPolicyController = function (app, control={auth, passport, acl}){
       BillingPolicy.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

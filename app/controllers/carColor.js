@@ -22,6 +22,7 @@ let carColorController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       CarColor.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", carColors: docs});
          } else {
             res.send({
@@ -37,6 +38,7 @@ let carColorController = function (app, control={auth, passport, acl}){
 
       CarColor.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", carColors: docs});
          } else {
             res.send({
@@ -52,6 +54,7 @@ let carColorController = function (app, control={auth, passport, acl}){
 
       CarColor.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", carColor: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -73,6 +76,7 @@ let carColorController = function (app, control={auth, passport, acl}){
       carColor.save((err, doc) => {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -98,6 +102,7 @@ let carColorController = function (app, control={auth, passport, acl}){
       CarColor.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -116,6 +121,7 @@ let carColorController = function (app, control={auth, passport, acl}){
       CarColor.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

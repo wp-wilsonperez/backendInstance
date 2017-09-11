@@ -3,11 +3,7 @@ import mongoose from 'mongoose';
 
 let LogSchema = new mongoose.Schema({
 	log: {type: String, require: true},
-	user: {
-		id: {type: String},
-		cedula: {type: String},
-		username: {type: String}
-	},
+	user: {type: Object},
 	dateLog: {type: Date, require: true}
 });
 

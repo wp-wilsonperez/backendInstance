@@ -25,6 +25,7 @@ let branchController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       Branch.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             City.populate(docs, {path: "city"},function(err, docs){
                res.send({msg: "OK", branches: docs});
             });
@@ -43,6 +44,7 @@ let branchController = function (app, control={auth, passport, acl}){
       Branch.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
             City.populate(docs, {path: "city"},function(err, docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", branches: docs});
             });
          } else {
@@ -59,6 +61,7 @@ let branchController = function (app, control={auth, passport, acl}){
 
       Branch.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", branch: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -86,6 +89,7 @@ let branchController = function (app, control={auth, passport, acl}){
       branch.save((err, doc) => {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -116,6 +120,7 @@ let branchController = function (app, control={auth, passport, acl}){
       Branch.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -134,6 +139,7 @@ let branchController = function (app, control={auth, passport, acl}){
       Branch.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

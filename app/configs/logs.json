@@ -1,0 +1,448 @@
+{
+  "user" : {
+    "list": {
+      "log" : "Listado de Usuarios"
+    },
+    "view": {
+      "log" : "Visualizar Usuario"
+    },
+    "add": {
+      "log" : "Agregar Usuario"
+    },
+    "edit": {
+      "log" : "Editar Usuario"
+    },
+    "delete": {
+      "log" : "Eliminar Usuario"
+    },
+    "filter": {
+      "log" : "Filtro Cuenta"
+    },
+    "login": {
+      "log" : "Iniciar Sessión"
+    },
+    "logout": {
+      "log" : "Cerrar Sessión"
+    }
+  },
+  "account" : {
+    "list": {
+      "log" : "Listado de Cuentas"
+    },
+    "view": {
+      "log" : "Visualizar Cuenta"
+    },
+    "add": {
+      "log" : "Agregar Cuenta"
+    },
+    "edit": {
+      "log" : "Editar Cuenta"
+    },
+    "delete": {
+      "log" : "Eliminar Cuenta"
+    },
+    "filter": {
+      "log" : "Filtrar Cuenta"
+    }
+  },
+  "alternative" : {
+    "list": {
+      "log" : "Listado de alternative"
+    },
+    "view": {
+      "log" : "Visualizar alternative"
+    },
+    "add": {
+      "log" : "Agregar alternative"
+    },
+    "edit": {
+      "log" : "Editar alternative"
+    },
+    "delete": {
+      "log" : "Eliminar alternative"
+    },
+    "filter": {
+      "log" : "Filtrar alternative"
+    }
+  },
+  "annexMedicalBusiness" : {
+    "list": {
+      "log" : "Listado de annexMedicalBusiness"
+    },
+    "view": {
+      "log" : "Visualizar annexMedicalBusiness"
+    },
+    "add": {
+      "log" : "Agregar annexMedicalBusiness"
+    },
+    "edit": {
+      "log" : "Editar annexMedicalBusiness"
+    },
+    "delete": {
+      "log" : "Eliminar annexMedicalBusiness"
+    },
+    "filter": {
+      "log" : "Filtrar annexMedicalBusiness"
+    }
+  },
+  "annexMedicalBusinessItem" : {
+    "list": {
+      "log" : "Listado de annexMedicalBusinessItem"
+    },
+    "view": {
+      "log" : "Visualizar annexMedicalBusinessItem"
+    },
+    "add": {
+      "log" : "Agregar annexMedicalBusinessItem"
+    },
+    "edit": {
+      "log" : "Editar annexMedicalBusinessItem"
+    },
+    "delete": {
+      "log" : "Eliminar annexMedicalBusinessItem"
+    },
+    "filter": {
+      "log" : "Filtrar annexMedicalBusinessItem"
+    }
+  },
+  "bank" : {
+    "list": {
+      "log" : "Listado de Bancos"
+    },
+    "view": {
+      "log" : "Visualizar Banco"
+    },
+    "add": {
+      "log" : "Agregar Banco"
+    },
+    "edit": {
+      "log" : "Editar Banco"
+    },
+    "delete": {
+      "log" : "Eliminar Banco"
+    },
+    "filter": {
+      "log" : "Filtrar Bancos"
+    }
+  },
+  "bankInsurance" : {
+    "list": {
+      "log" : "Listado de bankInsurance"
+    },
+    "view": {
+      "log" : "Visualizar bankInsurance"
+    },
+    "add": {
+      "log" : "Agregar bankInsurance"
+    },
+    "edit": {
+      "log" : "Editar bankInsurance"
+    },
+    "delete": {
+      "log" : "Eliminar bankInsurance"
+    },
+    "filter": {
+      "log" : "Filtrar bankInsurance"
+    }
+  },
+  "billing" : {
+    "list": {
+      "log" : "Listado de billing"
+    },
+    "view": {
+      "log" : "Visualizar billing"
+    },
+    "add": {
+      "log" : "Agregar billing"
+    },
+    "edit": {
+      "log" : "Editar billing"
+    },
+    "delete": {
+      "log" : "Eliminar billing"
+    },
+    "filter": {
+      "log" : "Filtrar billing"
+    }
+  },
+  "billing" : {
+    "list": {
+      "log" : "Listado de billingPolicy"
+    },
+    "view": {
+      "log" : "Visualizar billingPolicy"
+    },
+    "add": {
+      "log" : "Agregar billingPolicy"
+    },
+    "edit": {
+      "log" : "Editar billingPolicy"
+    },
+    "delete": {
+      "log" : "Eliminar billingPolicy"
+    },
+    "filter": {
+      "log" : "Filtrar billingPolicy"
+    }
+  },
+  "branch" : {
+    "list": {
+      "log" : "Listado de branch"
+    },
+    "view": {
+      "log" : "Visualizar branch"
+    },
+    "add": {
+      "log" : "Agregar branch"
+    },
+    "edit": {
+      "log" : "Editar branch"
+    },
+    "delete": {
+      "log" : "Eliminar branch"
+    },
+    "filter": {
+      "log" : "Filtrar branch"
+    }
+  },
+  "business" : {
+    "list": {
+      "log" : "Listado de business"
+    },
+    "view": {
+      "log" : "Visualizar business"
+    },
+    "add": {
+      "log" : "Agregar business"
+    },
+    "edit": {
+      "log" : "Editar business"
+    },
+    "delete": {
+      "log" : "Eliminar business"
+    },
+    "filter": {
+      "log" : "Filtrar business"
+    }
+  },
+  "businessClient" : {
+    "list": {
+      "log" : "Listado de businessClient"
+    },
+    "view": {
+      "log" : "Visualizar businessClient"
+    },
+    "add": {
+      "log" : "Agregar businessClient"
+    },
+    "edit": {
+      "log" : "Editar businessClient"
+    },
+    "delete": {
+      "log" : "Eliminar businessClient"
+    },
+    "filter": {
+      "log" : "Filtrar businessClient"
+    }
+  },
+  "car" : {
+    "list": {
+      "log" : "Listado de car"
+    },
+    "view": {
+      "log" : "Visualizar car"
+    },
+    "add": {
+      "log" : "Agregar car"
+    },
+    "edit": {
+      "log" : "Editar car"
+    },
+    "delete": {
+      "log" : "Eliminar car"
+    },
+    "filter": {
+      "log" : "Filtrar car"
+    }
+  },
+  "carBrand" : {
+    "list": {
+      "log" : "Listado de carBrand"
+    },
+    "view": {
+      "log" : "Visualizar carBrand"
+    },
+    "add": {
+      "log" : "Agregar carBrand"
+    },
+    "edit": {
+      "log" : "Editar carBrand"
+    },
+    "delete": {
+      "log" : "Eliminar carBrand"
+    },
+    "filter": {
+      "log" : "Filtrar carBrand"
+    }
+  },
+  "carColor" : {
+    "list": {
+      "log" : "Listado de carColor"
+    },
+    "view": {
+      "log" : "Visualizar carColor"
+    },
+    "add": {
+      "log" : "Agregar carColor"
+    },
+    "edit": {
+      "log" : "Editar carColor"
+    },
+    "delete": {
+      "log" : "Eliminar carColor"
+    },
+    "filter": {
+      "log" : "Filtrar carColor"
+    }
+  },
+  "carModel" : {
+    "list": {
+      "log" : "Listado de carModel"
+    },
+    "view": {
+      "log" : "Visualizar carModel"
+    },
+    "add": {
+      "log" : "Agregar carModel"
+    },
+    "edit": {
+      "log" : "Editar carModel"
+    },
+    "delete": {
+      "log" : "Eliminar carModel"
+    },
+    "filter": {
+      "log" : "Filtrar carModel"
+    }
+  },
+  "carType" : {
+    "list": {
+      "log" : "Listado de carType"
+    },
+    "view": {
+      "log" : "Visualizar carType"
+    },
+    "add": {
+      "log" : "Agregar carType"
+    },
+    "edit": {
+      "log" : "Editar carType"
+    },
+    "delete": {
+      "log" : "Eliminar carType"
+    },
+    "filter": {
+      "log" : "Filtrar carType"
+    }
+  },
+  "city" : {
+    "list": {
+      "log" : "Listado de city"
+    },
+    "view": {
+      "log" : "Visualizar city"
+    },
+    "add": {
+      "log" : "Agregar city"
+    },
+    "edit": {
+      "log" : "Editar city"
+    },
+    "delete": {
+      "log" : "Eliminar city"
+    },
+    "filter": {
+      "log" : "Filtrar city"
+    }
+  },
+  "client" : {
+    "list": {
+      "log" : "Listado de client"
+    },
+    "view": {
+      "log" : "Visualizar client"
+    },
+    "add": {
+      "log" : "Agregar client"
+    },
+    "edit": {
+      "log" : "Editar client"
+    },
+    "delete": {
+      "log" : "Eliminar client"
+    },
+    "filter": {
+      "log" : "Filtrar client"
+    }
+  },
+  "country" : {
+    "list": {
+      "log" : "Listado de country"
+    },
+    "view": {
+      "log" : "Visualizar country"
+    },
+    "add": {
+      "log" : "Agregar country"
+    },
+    "edit": {
+      "log" : "Editar country"
+    },
+    "delete": {
+      "log" : "Eliminar country"
+    },
+    "filter": {
+      "log" : "Filtrar country"
+    }
+  },
+  "country" : {
+    "list": {
+      "log" : "Listado de country"
+    },
+    "view": {
+      "log" : "Visualizar country"
+    },
+    "add": {
+      "log" : "Agregar country"
+    },
+    "edit": {
+      "log" : "Editar country"
+    },
+    "delete": {
+      "log" : "Eliminar country"
+    },
+    "filter": {
+      "log" : "Filtrar country"
+    }
+  },
+  "creditNote" : {
+    "list": {
+      "log" : "Listado de creditNote"
+    },
+    "view": {
+      "log" : "Visualizar creditNote"
+    },
+    "add": {
+      "log" : "Agregar creditNote"
+    },
+    "edit": {
+      "log" : "Editar creditNote"
+    },
+    "delete": {
+      "log" : "Eliminar creditNote"
+    },
+    "filter": {
+      "log" : "Filtrar creditNote"
+    }
+  }
+}

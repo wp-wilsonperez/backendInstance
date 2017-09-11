@@ -22,11 +22,10 @@ let businessController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       User.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
-            Role.populate(docs, {path: "role"},function(err, docs){
-               Branch.populate(docs, {path: "branch"},function(err, docs){
-                  res.send({msg: "OK", users: docs});
-               });
-            });
+            control.log(req.route.path, req.user);
+
+            res.send({msg: "OK", users: docs});
+               
          } else {
             res.send({
                msg : 'ERR',
@@ -41,6 +40,8 @@ let businessController = function (app, control={auth, passport, acl}){
 
       Business.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
+
             res.send({msg: "OK", businesses: docs});
          } else {
             res.send({
@@ -56,6 +57,7 @@ let businessController = function (app, control={auth, passport, acl}){
 
       Business.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", business: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -82,6 +84,7 @@ let businessController = function (app, control={auth, passport, acl}){
 
       business.save((err, doc) => {
          if(!err){
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", doc: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -111,6 +114,7 @@ let businessController = function (app, control={auth, passport, acl}){
       Business.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -129,6 +133,7 @@ let businessController = function (app, control={auth, passport, acl}){
       Business.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

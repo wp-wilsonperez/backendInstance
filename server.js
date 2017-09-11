@@ -15,6 +15,8 @@ import moment from 'moment';
 import {Strategy as LocalStrategy} from 'passport-local';
 import {Strategy as BearerStrategy} from 'passport-http-bearer';
 
+import jsonLogs from './app/configs/logs';
+
 
 const port = process.env.PORT || 3001;
 const app = express();
@@ -103,181 +105,181 @@ passport.deserializeUser((user, done) => { done(null, user) });
 
 
 import creditNoteController from './app/controllers/creditNote';
-creditNoteController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+creditNoteController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import sinisterMedicalDocumentationController from './app/controllers/sinisterMedicalDocumentation';
-sinisterMedicalDocumentationController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+sinisterMedicalDocumentationController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import sinisterMedicalController from './app/controllers/sinisterMedical';
-sinisterMedicalController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+sinisterMedicalController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import annexMedicalBusinessItemController from './app/controllers/annexMedicalBusinessItem';
-annexMedicalBusinessItemController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+annexMedicalBusinessItemController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import annexMedicalBusinessController from './app/controllers/annexMedicalBusiness';
-annexMedicalBusinessController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+annexMedicalBusinessController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import policyMedicalBusinessController from './app/controllers/policyMedicalBusiness';
-policyMedicalBusinessController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+policyMedicalBusinessController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import businessClientController from './app/controllers/businessClient';
-businessClientController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+businessClientController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import planAlternativeController from './app/controllers/planAlternative';
-planAlternativeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+planAlternativeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import alternativeController from './app/controllers/alternative';
-alternativeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+alternativeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import planAssociationController from './app/controllers/planAssociation';
-planAssociationController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+planAssociationController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import planController from './app/controllers/plan';
-planController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+planController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import dependentController from './app/controllers/dependent';
-dependentController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+dependentController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import sinisterCarDocumentationController from './app/controllers/sinisterCarDocumentation';
-sinisterCarDocumentationController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+sinisterCarDocumentationController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import sinisterCarController from './app/controllers/sinisterCar';
-sinisterCarController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+sinisterCarController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import sinisterController from './app/controllers/sinister';
-sinisterController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+sinisterController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import sinisterDocumentationRamoController from './app/controllers/sinisterDocumentationRamo';
-sinisterDocumentationRamoController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+sinisterDocumentationRamoController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import sinisterDocumentationController from './app/controllers/sinisterDocumentation';
-sinisterDocumentationController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+sinisterDocumentationController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import walletPaymentBinnacleController from './app/controllers/walletPaymentBinnacle';
-walletPaymentBinnacleController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+walletPaymentBinnacleController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import walletPaymentController from './app/controllers/walletPayment';
-walletPaymentController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+walletPaymentController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import walletController from './app/controllers/wallet';
-walletController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+walletController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import billingPolicyController from './app/controllers/billingPolicy';
-billingPolicyController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+billingPolicyController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import billingController from './app/controllers/billing';
-billingController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+billingController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import itemAnnexExtraController from './app/controllers/itemAnnexExtra';
-itemAnnexExtraController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+itemAnnexExtraController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import itemAnnexCarController from './app/controllers/itemAnnexCar';
-itemAnnexCarController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+itemAnnexCarController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import policyAnnexController from './app/controllers/policyAnnex';
-policyAnnexController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+policyAnnexController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import bankInsuranceController from './app/controllers/bankInsurance';
-bankInsuranceController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+bankInsuranceController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import routeController from './app/controllers/route';
-routeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+routeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import incomeController from './app/controllers/income';
-incomeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+incomeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import policyController from './app/controllers/policy';
-policyController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+policyController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import frequencyPaymentController from './app/controllers/frequencyPayment';
-frequencyPaymentController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+frequencyPaymentController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import policyTypeController from './app/controllers/policyType';
-policyTypeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+policyTypeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import carController from './app/controllers/car';
-carController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+carController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import carModelController from './app/controllers/carModel';
-carModelController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+carModelController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import carColorController from './app/controllers/carColor';
-carColorController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+carColorController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import countryController from './app/controllers/country';
-countryController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+countryController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import carBrandController from './app/controllers/carBrand';
-carBrandController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+carBrandController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import carTypeController from './app/controllers/carType';
-carTypeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+carTypeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import clientController from './app/controllers/client';
-clientController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+clientController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import issueController from './app/controllers/issue';
-issueController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+issueController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import quoteController from './app/controllers/quote';
-quoteController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+quoteController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import paymentTypeController from './app/controllers/paymentType';
-paymentTypeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+paymentTypeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import letterAccidentController from './app/controllers/letterAccident';
-letterAccidentController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+letterAccidentController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import tasaController from './app/controllers/tasa';
-tasaController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+tasaController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import paramController from './app/controllers/param';
 paramController(app, {passport: passport});
 
 import bankController from './app/controllers/bank';
-bankController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+bankController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import helpLinkController from './app/controllers/helpLink';
-helpLinkController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+helpLinkController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import businessController from './app/controllers/business';
-businessController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+businessController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import percentageRamoController from './app/controllers/percentageRamo';
-percentageRamoController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+percentageRamoController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import deductibleController from './app/controllers/deductible';
-deductibleController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+deductibleController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import insuranceController from './app/controllers/insurance';
-insuranceController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+insuranceController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import ramoController from './app/controllers/ramo';
-ramoController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+ramoController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import typeClientController from './app/controllers/typeClient';
-typeClientController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+typeClientController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import maritalStatusController from './app/controllers/maritalStatus';
-maritalStatusController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+maritalStatusController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import logController from './app/controllers/log';
-logController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+logController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import accountController from './app/controllers/account';
-accountController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+accountController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import settingController from './app/controllers/setting';
-settingController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+settingController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import branchController from './app/controllers/branch';
-branchController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+branchController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import cityController from './app/controllers/city';
-cityController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+cityController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import roleController from './app/controllers/role';
-roleController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL});
+roleController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import userController from './app/controllers/user';
 userController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
@@ -285,16 +287,30 @@ userController(app, {passport: passport, auth: passport.authenticate('bearer', {
 import homeController from './app/controllers/home';
 homeController(app, {auth: passport.authenticate('bearer', { error: "wrong token" })});
 
+app.use(function (req, res, next) {
+  console.log("END");
+  next();
+})
 
-function logAction (msg, idUser){
+
+function logAction (path, user){
+
+   let $controller = path.split("/")[1];
+   let $action = path.split("/")[2];
+   console.log(jsonLogs);
+   console.log($controller);
+   console.log($action);
+   
+   let $msg = "";
+   if(jsonLogs[$controller]){
+      if(jsonLogs[$controller][$action]){
+         $msg = jsonLogs[$controller][$action].log;
+      }
+   }
 
    let log = new Log({
-      log: msg,
-      user: {
-         id: idUser,
-         cedula: "cedula",
-         username: "username"
-      },
+      log: $msg,
+      user: user,
       dateLog: moment()
    });
 

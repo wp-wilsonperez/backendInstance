@@ -30,6 +30,7 @@ let annexMedicalBusinessController = function (app, control={auth, passport, acl
       let $filter =  global.filter(req.query.filter);
       AnnexMedicalBusiness.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             PolicyMedicalBusiness.populate(docs, {path: "policyMedicalBusiness"},function(err, docs){
                PlanAssociation.populate(docs, {path: "planAssociation"},function(err, docs){
@@ -51,6 +52,7 @@ let annexMedicalBusinessController = function (app, control={auth, passport, acl
 
       AnnexMedicalBusiness.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             PolicyMedicalBusiness.populate(docs, {path: "policyMedicalBusiness"},function(err, docs){
                PlanAssociation.populate(docs, {path: "planAssociation"},function(err, docs){
@@ -72,6 +74,7 @@ let annexMedicalBusinessController = function (app, control={auth, passport, acl
 
       AnnexMedicalBusiness.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", annexMedicalBusiness: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -110,6 +113,7 @@ let annexMedicalBusinessController = function (app, control={auth, passport, acl
       annexMedicalBusiness.save((err, doc) => {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -151,6 +155,7 @@ let annexMedicalBusinessController = function (app, control={auth, passport, acl
       AnnexMedicalBusiness.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -169,6 +174,7 @@ let annexMedicalBusinessController = function (app, control={auth, passport, acl
       AnnexMedicalBusiness.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

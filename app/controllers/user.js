@@ -63,7 +63,7 @@ let userController = function (app, control={auth, passport, acl}){
             if (!user) { return res.status(401).send({"login": false}); }
             req.logIn(user, function (err) {
                if (err) { return res.status(401).send({"login": false}); }
-               control.log("Inicio de Session", user._id);
+               control.log(req.route.path, req.user);
                return res.send({"login": true, "user": user});
             });
 
@@ -72,7 +72,7 @@ let userController = function (app, control={auth, passport, acl}){
    });
    
    app.get('/user/logout', (req, res) => {
-      control.log("Cierre de Session", user._id);
+      control.log(req.route.path, req.user);
       req.logout();
       res.redirect('/');
    });
@@ -92,6 +92,7 @@ let userController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       User.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             Role.populate(docs, {path: "role"},function(err, docs){
                Branch.populate(docs, {path: "branch"},function(err, docs){
                   res.send({msg: "OK", users: docs});
@@ -111,7 +112,7 @@ let userController = function (app, control={auth, passport, acl}){
 
       User.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
-            control.log("Enlisto Usuarios", req.user.idUser);
+            control.log(req.route.path, req.user);
             Role.populate(docs, {path: "role"},function(err, docs){
                Branch.populate(docs, {path: "branch"},function(err, docs){
                   res.send({msg: "OK", users: docs});
@@ -131,6 +132,7 @@ let userController = function (app, control={auth, passport, acl}){
 
       User.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", user: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -165,7 +167,7 @@ let userController = function (app, control={auth, passport, acl}){
       User.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
-               control.log("Edito un Usuario", req.user.idUser);
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -200,7 +202,7 @@ let userController = function (app, control={auth, passport, acl}){
       user.save((err, doc) => {
          if(!err){
             findAction(function(docs){
-               control.log("Agrego un Usuario", req.user.idUser);
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -219,7 +221,7 @@ let userController = function (app, control={auth, passport, acl}){
       User.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
-               control.log("Elimino un Usuario", req.user.idUser);
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

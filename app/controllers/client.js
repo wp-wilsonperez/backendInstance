@@ -56,6 +56,7 @@ let clientController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       Client.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             TypeClient.populate(docs, {path: "typeClient"},function(err, docs){
                City.populate(docs, {path: "city"},function(err, docs){
                   MaritalStatus.populate(docs, {path: "maritalStatus"},function(err, docs){
@@ -77,6 +78,7 @@ let clientController = function (app, control={auth, passport, acl}){
 
       Client.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             TypeClient.populate(docs, {path: "typeClient"},function(err, docs){
                City.populate(docs, {path: "city"},function(err, docs){
                   MaritalStatus.populate(docs, {path: "maritalStatus"},function(err, docs){
@@ -98,6 +100,7 @@ let clientController = function (app, control={auth, passport, acl}){
 
       Client.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", client: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -144,6 +147,7 @@ let clientController = function (app, control={auth, passport, acl}){
 
       client.save((err, doc) => {
          if(!err){
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", doc: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -193,6 +197,7 @@ let clientController = function (app, control={auth, passport, acl}){
       Client.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -211,6 +216,7 @@ let clientController = function (app, control={auth, passport, acl}){
       Client.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

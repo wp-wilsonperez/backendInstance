@@ -25,6 +25,7 @@ let billingController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       Billing.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             res.send({msg: "OK", billings: docs});
             
@@ -42,6 +43,7 @@ let billingController = function (app, control={auth, passport, acl}){
 
       Billing.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             res.send({msg: "OK", billings: docs});
             
@@ -59,6 +61,7 @@ let billingController = function (app, control={auth, passport, acl}){
 
       Billing.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", billing: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -81,6 +84,7 @@ let billingController = function (app, control={auth, passport, acl}){
 
       billing.save((err, doc) => {
          if(!err){
+            control.log(req.route.path, req.user);
             $billingPolicy.forEach(function (item, index) {
                $billingPolicy[index]["idBilling"]=doc._id;
                $billingPolicy[index]["billing"]=doc._id;
@@ -172,6 +176,7 @@ let billingController = function (app, control={auth, passport, acl}){
       Billing.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -190,6 +195,7 @@ let billingController = function (app, control={auth, passport, acl}){
       Billing.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

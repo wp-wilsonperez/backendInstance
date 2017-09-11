@@ -36,6 +36,7 @@ let carController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       Car.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             Client.populate(docs, {path: "client"},function(err, docs){
                Ramo.populate(docs, {path: "ramo"},function(err, docs){
@@ -61,6 +62,7 @@ let carController = function (app, control={auth, passport, acl}){
 
       Car.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
 
             Client.populate(docs, {path: "client"},function(err, docs){
                Ramo.populate(docs, {path: "ramo"},function(err, docs){
@@ -86,6 +88,7 @@ let carController = function (app, control={auth, passport, acl}){
 
       Car.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", car: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -121,6 +124,7 @@ let carController = function (app, control={auth, passport, acl}){
       car.save((err, doc) => {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -159,6 +163,7 @@ let carController = function (app, control={auth, passport, acl}){
       Car.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -177,6 +182,7 @@ let carController = function (app, control={auth, passport, acl}){
       Car.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

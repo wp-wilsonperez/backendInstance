@@ -29,6 +29,7 @@ let deductibleController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       Deductible.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             Branch.populate(docs, {path: "branch"},function(err, docs){
                Insurance.populate(docs, {path: "insurance"},function(err, docs){
                   res.send({msg: "OK", deductibles: docs});
@@ -48,6 +49,7 @@ let deductibleController = function (app, control={auth, passport, acl}){
 
       Deductible.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             Branch.populate(docs, {path: "branch"},function(err, docs){
                Insurance.populate(docs, {path: "insurance"},function(err, docs){
                   res.send({msg: "OK", deductibles: docs});

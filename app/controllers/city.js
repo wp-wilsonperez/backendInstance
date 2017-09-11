@@ -22,6 +22,7 @@ let cityController = function (app, control={auth, passport, acl}){
       let $filter =  global.filter(req.query.filter);
       City.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", cities: docs});
          } else {
             res.send({
@@ -37,6 +38,7 @@ let cityController = function (app, control={auth, passport, acl}){
 
       City.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", cities: docs});
          } else {
             res.send({
@@ -52,6 +54,7 @@ let cityController = function (app, control={auth, passport, acl}){
 
       City.findById(req.params.id, function (err, doc) {
          if (!err) {
+            control.log(req.route.path, req.user);
             res.send({msg: "OK", city: doc});
          } else {
             res.send({msg: 'ERR', err: err});
@@ -73,6 +76,7 @@ let cityController = function (app, control={auth, passport, acl}){
       city.save((err, doc) => {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -97,6 +101,7 @@ let cityController = function (app, control={auth, passport, acl}){
       City.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {
@@ -115,6 +120,7 @@ let cityController = function (app, control={auth, passport, acl}){
       City.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
+               control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
             });
          } else {

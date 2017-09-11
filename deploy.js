@@ -23,7 +23,7 @@ function answer (text, cant) {
    console.log("--Total Models: "+$total+", Models Executes: "+$execute);
 
    if($total == $execute){
-      console.log("ALL INSERTS SUCCESS press CTRL + Z to end the execution");
+      console.log("ALL INSERTS SUCCESS press CTRL + C to end the execution");
    }
 }
 /********ROLE********/
