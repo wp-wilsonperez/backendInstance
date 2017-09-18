@@ -103,6 +103,11 @@ passport.use(bearerStrategy);
 passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
+import subItemAnnexFireController from './app/controllers/subItemAnnexFire';
+subItemAnnexFireController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
+
+import itemAnnexFireController from './app/controllers/itemAnnexFire';
+itemAnnexFireController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import creditNoteController from './app/controllers/creditNote';
 creditNoteController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});

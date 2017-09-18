@@ -89,7 +89,15 @@ let carController = function (app, control={auth, passport, acl}){
       Car.findById(req.params.id, function (err, doc) {
          if (!err) {
             control.log(req.route.path, req.user);
-            res.send({msg: "OK", car: doc});
+            Client.populate(docs, {path: "client"},function(err, docs){
+               Ramo.populate(docs, {path: "ramo"},function(err, docs){
+                  CarBrand.populate(docs, {path: "carBrand"},function(err, docs){
+                     CarModel.populate(docs, {path: "carModel"},function(err, docs){
+                        res.send({msg: "OK", car: doc});
+                     });
+                  });
+               });
+            });
          } else {
             res.send({msg: 'ERR', err: err});
          }

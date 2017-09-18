@@ -25,6 +25,46 @@
       "log" : "Cerrar Sessión"
     }
   },
+  "subItemAnnexFire" : {
+    "list": {
+      "log" : "Listado de subItemAnnexFire"
+    },
+    "view": {
+      "log" : "Visualizar subItemAnnexFire"
+    },
+    "add": {
+      "log" : "Agregar subItemAnnexFire"
+    },
+    "edit": {
+      "log" : "Editar subItemAnnexFire"
+    },
+    "delete": {
+      "log" : "Eliminar subItemAnnexFire"
+    },
+    "filter": {
+      "log" : "Filtro subItemAnnexFire"
+    }
+  },
+  "itemAnnexFire" : {
+    "list": {
+      "log" : "Listado de itemAnnexFire"
+    },
+    "view": {
+      "log" : "Visualizar itemAnnexFire"
+    },
+    "add": {
+      "log" : "Agregar itemAnnexFire"
+    },
+    "edit": {
+      "log" : "Editar itemAnnexFire"
+    },
+    "delete": {
+      "log" : "Eliminar itemAnnexFire"
+    },
+    "filter": {
+      "log" : "Filtro itemAnnexFire"
+    }
+  },
   "account" : {
     "list": {
       "log" : "Listado de Cuentas"
