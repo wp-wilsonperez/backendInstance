@@ -37,8 +37,8 @@
       ]
     },
     {
-      "name": "subItemAnnexFire",
-      "show": "SubItemAnnexFire",
+      "name": "subItemAnnex",
+      "show": "SubItemAnnex",
       "actions" : [
         {
           "name": "list",
@@ -73,8 +73,8 @@
       ]
     },
     {
-      "name": "itemAnnexFire",
-      "show": "ItemAnnexFire",
+      "name": "itemAnnex",
+      "show": "ItemAnnex",
       "actions" : [
         {
           "name": "list",

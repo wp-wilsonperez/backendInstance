@@ -1,18 +1,18 @@
 
 import moment from 'moment';
 
-import ItemAnnexFire from "../models/itemAnnexFire";
+import ItemAnnex from "../models/itemAnnex";
 import PolicyAnnex from "../models/policyAnnex";
 
-let itemAnnexFireController = function (app, control={auth, passport, acl}){
+let itemAnnexController = function (app, control={auth, passport, acl}){
 
    function controller (req, res, next) {
-      req.controller = "itemAnnexFire";
+      req.controller = "itemAnnex";
       return next();
    }
 
    function findAction (callback){
-      ItemAnnexFire.find({}, function (err, docs) {
+      ItemAnnex.find({}, function (err, docs) {
          if (!err) {
 
             PolicyAnnex.populate(docs, {path: "policyAnnex"},function(err, docs){
@@ -22,13 +22,13 @@ let itemAnnexFireController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/itemAnnexFire/filter',[control.auth, controller], (req, res) => {
+   app.get('/itemAnnex/filter',[control.auth, controller], (req, res) => {
       let $filter =  global.filter(req.query.filter);
-      ItemAnnexFire.find($filter, function (err, docs) {
+      ItemAnnex.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             PolicyAnnex.populate(docs, {path: "policyAnnex"},function(err, docs){
-               res.send({msg: "OK", itemAnnexFires: docs});
+               res.send({msg: "OK", itemAnnexs: docs});
             });
          } else {
             res.send({
@@ -40,13 +40,13 @@ let itemAnnexFireController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.get('/itemAnnexFire/list', [control.auth, controller, control.acl], (req, res) => {
+   app.get('/itemAnnex/list', [control.auth, controller, control.acl], (req, res) => {
 
-      ItemAnnexFire.find({}, function (err, docs) {
+      ItemAnnex.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             PolicyAnnex.populate(docs, {path: "policyAnnex"},function(err, docs){
-               res.send({msg: "OK", itemAnnexFires: docs});
+               res.send({msg: "OK", itemAnnexs: docs});
             });
          } else {
             res.send({
@@ -58,12 +58,12 @@ let itemAnnexFireController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.get('/itemAnnexFire/view/:id', [control.auth, controller, control.acl], (req, res) => {
+   app.get('/itemAnnex/view/:id', [control.auth, controller, control.acl], (req, res) => {
 
-      ItemAnnexFire.findById(req.params.id, function (err, doc) {
+      ItemAnnex.findById(req.params.id, function (err, doc) {
          if (!err) {
             control.log(req.route.path, req.user);
-            res.send({msg: "OK", itemAnnexFire: doc});
+            res.send({msg: "OK", itemAnnex: doc});
          } else {
             res.send({msg: 'ERR', err: err});
          }
@@ -71,9 +71,9 @@ let itemAnnexFireController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.post('/itemAnnexFire/add', [control.auth, controller, control.acl], (req, res) => {
+   app.post('/itemAnnex/add', [control.auth, controller, control.acl], (req, res) => {
 
-      let itemAnnexFire = new ItemAnnexFire({
+      let itemAnnex = new ItemAnnex({
          name: req.body.name,
          idRamo: req.body.idRamo,
          ramo: req.body.idRamo,
@@ -86,7 +86,7 @@ let itemAnnexFireController = function (app, control={auth, passport, acl}){
          userUpdate: req.user.idUser
       });
 
-      itemAnnexFire.save((err, doc) => {
+      itemAnnex.save((err, doc) => {
          if(!err){
             control.log(req.route.path, req.user);
             res.send({msg: "OK", doc: doc});
@@ -97,7 +97,7 @@ let itemAnnexFireController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.post('/itemAnnexFire/edit/:id', [control.auth, controller, control.acl], (req, res) => {
+   app.post('/itemAnnex/edit/:id', [control.auth, controller, control.acl], (req, res) => {
 
       let filter = {
          _id: req.params.id
@@ -114,7 +114,7 @@ let itemAnnexFireController = function (app, control={auth, passport, acl}){
          userUpdate: req.user.idUser
       };
 
-      ItemAnnexFire.findOneAndUpdate(filter, update, function (err, doc) {
+      ItemAnnex.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
                control.log(req.route.path, req.user);
@@ -127,13 +127,13 @@ let itemAnnexFireController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.delete('/itemAnnexFire/delete/:id', [control.auth, controller, control.acl], (req, res) => {
+   app.delete('/itemAnnex/delete/:id', [control.auth, controller, control.acl], (req, res) => {
 
       let filter = {
          _id: req.params.id
       }
 
-      ItemAnnexFire.findByIdAndRemove(filter, function (err, doc) {
+      ItemAnnex.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
                control.log(req.route.path, req.user);
@@ -148,4 +148,4 @@ let itemAnnexFireController = function (app, control={auth, passport, acl}){
 
 }
 
-export default itemAnnexFireController
+export default itemAnnexController

@@ -1,9 +1,9 @@
 
 import mongoose from 'mongoose';
 
-let SubItemAnnexFireSchema = new mongoose.Schema({
-	idItemAnnexFire: {type: String, require: true},
-	itemAnnexFire: { type: mongoose.Schema.ObjectId, ref: "ItemAnnexFire"},
+let SubItemAnnexSchema = new mongoose.Schema({
+	idItemAnnex: {type: String, require: true},
+	itemAnnex: { type: mongoose.Schema.ObjectId, ref: "ItemAnnex"},
 	numberSubItem: {type: Number},
 	ValueSubItem: {type: Number},
 	tasa: {type: Number},
@@ -20,4 +20,4 @@ let SubItemAnnexFireSchema = new mongoose.Schema({
 	userUpdate: {type: String, require: true}
 });
 
-export default mongoose.model('SubItemAnnexFire', SubItemAnnexFireSchema)
+export default mongoose.model('SubItemAnnex', SubItemAnnexSchema)
