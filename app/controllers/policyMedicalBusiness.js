@@ -34,7 +34,7 @@ let policyMedicalBusinessController = function (app, control={auth, passport, ac
 
             Insurance.populate(docs, {path: "insurance"},function(err, docs){
                User.populate(docs, {path: "user"},function(err, docs){
-                  res.send({msg: "OK", bankInsurances: docs});
+                  res.send({msg: "OK", policyMedicalBusinesses: docs});
                });
             });
             
@@ -56,7 +56,7 @@ let policyMedicalBusinessController = function (app, control={auth, passport, ac
 
             Insurance.populate(docs, {path: "insurance"},function(err, docs){
                User.populate(docs, {path: "user"},function(err, docs){
-                  res.send({msg: "OK", bankInsurances: docs});
+                  res.send({msg: "OK", policyMedicalBusinesses: docs});
                });
             });
             
