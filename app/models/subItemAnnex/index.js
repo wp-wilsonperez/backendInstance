@@ -5,6 +5,8 @@ let SubItemAnnexSchema = new mongoose.Schema({
 	idItemAnnex: {type: String, require: true},
 	itemAnnex: { type: mongoose.Schema.ObjectId, ref: "ItemAnnex"},
 	numberSubItem: {type: Number},
+	name: {type: String},
+	planAlternative: {type: String},
 	ValueSubItem: {type: Number},
 	tasa: {type: Number},
 	calcFloat: {type: Number},
