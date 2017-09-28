@@ -85,7 +85,7 @@ let walletPaymentController = function (app, control={auth, passport, acl}){
 
    app.post('/walletPayment/add', [control.auth, controller, control.acl], (req, res) => {
 
-      let walletPayment = new WalletPayment({
+      let walletPaymentData = {
          idWallet: req.body.idWallet,
          wallet: req.body.idWallet,
          idBank: req.body.idBank,
@@ -103,7 +103,15 @@ let walletPaymentController = function (app, control={auth, passport, acl}){
          userCreate: req.user.idUser,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
-      });
+      };
+      if(req.body.percentagePrima){
+         walletPaymentData["percentagePrima"] = req.body.percentagePrima;
+      }
+      if(req.body.percentageIVA){
+         walletPaymentData["percentageIVA"] = req.body.percentageIVA;
+      }
+
+      let walletPayment = new WalletPayment(walletPaymentData);
 
       walletPayment.save((err, doc) => {
          if(!err){
@@ -141,6 +149,12 @@ let walletPaymentController = function (app, control={auth, passport, acl}){
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };
+      if(req.body.percentagePrima){
+         update["percentagePrima"] = req.body.percentagePrima;
+      }
+      if(req.body.percentageIVA){
+         update["percentageIVA"] = req.body.percentageIVA;
+      }
 
       WalletPayment.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {

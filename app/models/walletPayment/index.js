@@ -20,6 +20,8 @@ let WalletPaymentSchema = new mongoose.Schema({
 	balance: {type: Number},
 	paymentDate: {type: Date},
 	moneyObservation: {type: String},
+	percentagePrima: {type: Number},
+	percentageIVA: {type: Number},
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},

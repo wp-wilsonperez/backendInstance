@@ -109,6 +109,66 @@
       {
         "id": "99097f2c1b",
         "name": "Dinero Electrónico"
+      },
+      {
+        "id": "99097f2c18",
+        "name": "Nota de Crédito"
+      },
+      {
+        "id": "99097f2c19",
+        "name": "Anticipos"
+      },
+      {
+        "id": "99097f2c16",
+        "name": "Ajustes de Saldo"
+      },
+      {
+        "id": "99097f2c17",
+        "name": "Cheque a la vista"
+      },
+      {
+        "id": "99097f2d1e",
+        "name": "Cheque Posfechado"
+      },
+      {
+        "id": "99097f2d1f",
+        "name": "Crédito Directo"
+      },
+      {
+        "id": "99097f2d1c",
+        "name": "Cheque Protestado"
+      },
+      {
+        "id": "99097f2d1d",
+        "name": "Cruce de Cuentas"
+      },
+      {
+        "id": "99097f2d1a",
+        "name": "Débito Bancario"
+      },
+      {
+        "id": "99097f2d1b",
+        "name": "Exedente"
+      },
+      {
+        "id": "99097f2d18",
+        "name": "Factura"
+      },
+      {
+        "id": "99097f2d19",
+        "name": "Letra de Cambio"
+      },
+      {
+        "id": "99097f2d16",
+        "name": "Nota de Debito"
+      },
+      {
+        "id": "99097f2d17",
+        "name": "Retenciones"
+      },
+      {
+        "id": "99097f2e1e",
+        "name": "Transferencias bancarias"
       }
     ],
     "one":{
@@ -116,7 +176,22 @@
       "99097f2c1c" : "Tarjeta Crédito",
       "99097f2c1d" : "Tarjeta Débito",
       "99097f2c1a" : "Cheque",
-      "99097f2c1b" : "Dinero Electrónico"
+      "99097f2c1b" : "Dinero Electrónico",
+      "99097f2c18" : "Nota de Crédito",
+      "99097f2c19" : "Anticipos",
+      "99097f2c16" : "Ajustes de Saldo",
+      "99097f2c17" : "Cheque a la vista",
+      "99097f2d1e" : "Cheque Posfechado",
+      "99097f2d1f" : "Crédito Directo",
+      "99097f2d1c" : "Cheque Protestado",
+      "99097f2d1d" : "Cruce de Cuentas",
+      "99097f2d1a" : "Débito Bancario",
+      "99097f2d1b" : "Exedente",
+      "99097f2d18" : "Factura",
+      "99097f2d19" : "Letra de Cambio",
+      "99097f2d16" : "Nota de Debito",
+      "99097f2d17" : "Retenciones",
+      "99097f2e1e" : "Transferencias bancarias"
     }
   },
   "sinisterState" : {
