@@ -112,7 +112,6 @@ let $ramoData = [
    { "_id" : "599223167f05fc0933b64406", "name" : "Vida Individual", "codRamo": 1, "description" : "Vida Individual", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"}
 ];
 Ramo.insertMany($ramoData, (err, docs) => {
-   console.log(err);
    answer("ramo", $ramoData.length);
 });
 /********PLAN********/

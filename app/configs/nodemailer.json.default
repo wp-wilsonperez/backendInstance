@@ -1,4 +1,5 @@
 {
+	"name": "NAME",
 	"mail": "testmail",
-	"password"s: "testpass"
+	"password": "testpass"
 }

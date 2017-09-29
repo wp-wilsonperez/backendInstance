@@ -2,14 +2,22 @@
 import moment from 'moment';
 import multer from 'multer';
 import fs from 'fs';
+import sha1 from 'sha1';
+import nodemailer from 'nodemailer';
+
+import generator from 'generate-password';
 
 import Client from "../models/client";
 import TypeClient from "../models/typeClient";
 import City from "../models/city";
 import MaritalStatus from "../models/maritalStatus";
 
+import mailConfig from "../configs/nodemailer";
+
 const pathRender = `uploads/client`;
 const pathClient = `./public/${pathRender}`;
+
+let smtpTransport =  nodemailer.createTransport(`smtps://${mailConfig.mail}%40gmail.com:${mailConfig.password}@smtp.gmail.com`);
 
 if (!fs.existsSync(pathClient)){
     fs.mkdirSync(pathClient);
@@ -111,7 +119,9 @@ let clientController = function (app, control={auth, passport, acl}){
 
    app.post('/client/add', [control.auth, controller, control.acl], (req, res) => {
 
-      let client = new Client({
+      let password = generator.generate({ length: 8, numbers: true});
+
+      let dataClient = {
          name: req.body.name,
          lastName: req.body.lastName,
          doc: req.body.doc,
@@ -139,15 +149,39 @@ let clientController = function (app, control={auth, passport, acl}){
          city: req.body.idCity,
          idMaritalStatus: req.body.idMaritalStatus,
          maritalStatus: req.body.idMaritalStatus,
+         user: req.body.mail,
+         password: sha1(password),
+         confirm: false,
          dateCreate: moment(),
          userCreate: req.user.idUser,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
-      });
+      };
+
+      let client = new Client(dataClient);
 
       client.save((err, doc) => {
          if(!err){
             control.log(req.route.path, req.user);
+            let html = "";
+               html += "<br>Usuario: "+dataClient.user+"</br>";
+               html += "<br>Contraseña: "+password+"</br>";
+               html += "<br>HORA DE ENVIO: "+moment().format("YYYY-MM-DD H:mm:ss")+"</br>";
+            let mailOptions = {
+               from: `${dataClient.name}<${dataClient.mail}@gmail.com>`,
+               to: dataClient.user,
+               subject: "Registro de YTODOSEGURO",
+               html: html
+            };
+            smtpTransport.sendMail(mailOptions, function(error, response){
+               if(error){
+                  console.log("No Send");
+                  console.log(error);
+               }else{
+                  console.log("Send");
+               }
+            });
+
             res.send({msg: "OK", doc: doc});
          } else {
             res.send({msg: 'ERR', err: err});
