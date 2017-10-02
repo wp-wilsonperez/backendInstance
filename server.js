@@ -103,6 +103,9 @@ passport.use(bearerStrategy);
 passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
+import apiClientController from './app/controllers/apiClient';
+apiClientController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), log: logAction});
+
 import subItemAnnexController from './app/controllers/subItemAnnex';
 subItemAnnexController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
