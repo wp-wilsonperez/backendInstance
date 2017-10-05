@@ -5,12 +5,18 @@ import multer from 'multer';
 import fs from 'fs';
 import acl from "../configs/acl";
 
+import generator from 'generate-password';
+
 import User from "../models/user";
 import Role from "../models/role";
 import Branch from "../models/branch";
 
 const pathRender = `uploads/user`;
 const pathUser = `./public/${pathRender}`;
+
+import mailConfig from "../configs/nodemailer";
+
+let smtpTransport =  nodemailer.createTransport(`smtps://${mailConfig.mail}%40gmail.com:${mailConfig.password}@smtp.gmail.com`);
 
 if (!fs.existsSync(pathUser)){
     fs.mkdirSync(pathUser);
@@ -69,6 +75,58 @@ let userController = function (app, control={auth, passport, acl}){
 
       })(req, res, next);
       
+   });
+
+   app.get('/apiClient/recoveryPassword', [controller], (req, res) => {
+      let $filter = {
+         mail: req.query.mail
+      };
+      User.findOne($filter, function (err, doc) {
+         if (typeof docs !== 'undefined') {
+            //control.log(req.route.path, req.user);
+            let filter = {
+               _id: doc._id
+            }
+            let password = generator.generate({ length: 8, numbers: true});
+            let update = {
+               password: sha1(password)
+            };
+            User.findOneAndUpdate(filter, update, function (err, doc) {
+               if (!err) {
+                  
+                  let html = "";
+                     html += "<br>Cedula: "+doc.cedula+"</br>";
+                     html += "<br>Correo: "+doc.mail+"</br>";
+                     html += "<br>Contraseña: "+password+"</br>";
+                     html += "<br>HORA DE ENVIO: "+moment().format("YYYY-MM-DD H:mm:ss")+"</br>";
+                  let mailOptions = {
+                     from: `${mailConfig.name}<${mailConfig.mail}@gmail.com>`,
+                     to: doc.mail,
+                     subject: "Recuperar Contraseña YTODOSEGURO",
+                     html: html
+                  };
+                  smtpTransport.sendMail(mailOptions, function(error, response){
+                     if(error){
+                        console.log("No Send");
+                        console.log(error);
+                     }else{
+                        console.log("Send");
+                     }
+                  });
+
+               } else {
+                  res.send({msg: 'ERR', err: err});
+               }
+            });
+            res.send({msg: "OK", client: doc});
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
+      });
+
    });
    
    app.get('/user/logout', (req, res) => {
