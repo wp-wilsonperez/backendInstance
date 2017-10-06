@@ -4,6 +4,7 @@ import moment from 'moment';
 import multer from 'multer';
 import fs from 'fs';
 import acl from "../configs/acl";
+import nodemailer from 'nodemailer';
 
 import generator from 'generate-password';
 
