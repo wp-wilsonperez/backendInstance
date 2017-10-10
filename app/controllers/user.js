@@ -78,7 +78,7 @@ let userController = function (app, control={auth, passport, acl}){
       
    });
 
-   app.get('/apiClient/recoveryPassword', [controller], (req, res) => {
+   app.get('/user/recoveryPassword', [controller], (req, res) => {
       let $filter = {
          mail: req.query.mail
       };
