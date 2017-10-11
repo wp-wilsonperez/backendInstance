@@ -4,7 +4,7 @@ import moment from 'moment';
 import WalletPayment from "../models/walletPayment";
 
 import Wallet from "../models/wallet";
-import Bank from "../models/bank";
+//import Bank from "../models/bank";
 
 let walletPaymentController = function (app, control={auth, passport, acl}){
 
@@ -18,9 +18,7 @@ let walletPaymentController = function (app, control={auth, passport, acl}){
          if (!err) {
             
             Wallet.populate(docs, {path: "wallet"},function(err, docs){
-               Bank.populate(docs, {path: "bank"},function(err, docs){
-                  callback(docs);
-               });
+               callback(docs);
             });
          }
       });
@@ -33,9 +31,7 @@ let walletPaymentController = function (app, control={auth, passport, acl}){
             control.log(req.route.path, req.user);
 
             Wallet.populate(docs, {path: "wallet"},function(err, docs){
-               Bank.populate(docs, {path: "bank"},function(err, docs){
-                  res.send({msg: "OK", walletPayments: docs});
-               });
+               res.send({msg: "OK", walletPayments: docs});
             });
             
          } else {
@@ -55,9 +51,7 @@ let walletPaymentController = function (app, control={auth, passport, acl}){
             control.log(req.route.path, req.user);
 
             Wallet.populate(docs, {path: "wallet"},function(err, docs){
-               Bank.populate(docs, {path: "bank"},function(err, docs){
-                  res.send({msg: "OK", walletPayments: docs});
-               });
+               res.send({msg: "OK", walletPayments: docs});
             });
             
          } else {
@@ -88,17 +82,11 @@ let walletPaymentController = function (app, control={auth, passport, acl}){
       let walletPaymentData = {
          idWallet: req.body.idWallet,
          wallet: req.body.idWallet,
-         idBank: req.body.idBank,
-         bank: req.body.idBank,
-         moneyType: req.body.moneyType,
-         document: req.body.document,
-         details: req.body.details,
          ctaCteNumber: req.body.ctaCteNumber,
          expirationDate: req.body.expirationDate,
          paymentValue: req.body.paymentValue,
-         balance: req.body.balance,
-         paymentDate: req.body.paymentDate,
-         moneyObservation: req.body.moneyObservation,
+         arrayWalletPayment: [],
+         paymentFlag: false,
          dateCreate: moment(),
          userCreate: req.user.idUser,
          dateUpdate: moment(),
@@ -135,17 +123,11 @@ let walletPaymentController = function (app, control={auth, passport, acl}){
       let update = {
          idWallet: req.body.idWallet,
          wallet: req.body.idWallet,
-         idBank: req.body.idBank,
-         bank: req.body.idBank,
-         moneyType: req.body.moneyType,
-         document: req.body.document,
-         details: req.body.details,
          ctaCteNumber: req.body.ctaCteNumber,
          expirationDate: req.body.expirationDate,
          paymentValue: req.body.paymentValue,
-         balance: req.body.balance,
-         paymentDate: req.body.paymentDate,
-         moneyObservation: req.body.moneyObservation,
+         arrayWalletPayment: req.body.arrayWalletPayment,
+         paymentFlag: true,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };
@@ -184,6 +166,26 @@ let walletPaymentController = function (app, control={auth, passport, acl}){
          } else {
             res.send({msg: 'ERR', err: err});
          }            
+      });
+
+   });
+
+   app.get('/walletPayment/print',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      WalletPayment.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
+
+            Wallet.populate(docs, {path: "wallet"},function(err, docs){
+                  res.send({msg: "OK", walletPayments: docs});
+            });
+            
+         } else {
+            res.send({
+               msg : 'ERR',
+               err : err.code
+            });
+         }
       });
 
    });

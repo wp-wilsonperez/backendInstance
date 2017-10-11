@@ -116,12 +116,11 @@ let billingController = function (app, control={auth, passport, acl}){
                             wallet:docWallet._id,
                             expirationDate:$expirationDate,
                             paymentValue: $paymentValue,
+                            arrayWalletPayment: [],
                             dateCreate:$moment,
                             userCreate: req.user.idUser,
                             dateUpdate:$moment,
                             userUpdate:req.user.idUser
-
-
                         }
                         $walletPayment.push(obj);
                         $expirationDate = moment($expirationDate).add(1, 'month');

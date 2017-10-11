@@ -789,6 +789,12 @@
           "show": "Eliminar",
           "type": "delete",
           "menu": false
+        },
+        {
+          "name": "print",
+          "show": "Imprimir",
+          "type": "get",
+          "menu": false
         }
       ]
     },
