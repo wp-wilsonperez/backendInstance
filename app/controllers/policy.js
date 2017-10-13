@@ -1,4 +1,5 @@
 
+import mongoose from 'mongoose';
 import moment from 'moment';
 
 import Policy from "../models/policy";
@@ -175,6 +176,53 @@ let policyController = function (app, control={auth, passport, acl}){
          });
 
       }
+   });
+
+   app.get('/policy/clone/:id', [control.auth, controller, control.acl], (req, res) => {
+
+      let $moment = moment();
+      /*$policy["dateCreate"] = $moment;
+      $policy["userCreate"] = req.user.idUser;
+      $policy["dateUpdate"] = $moment;
+      $policy["userUpdate"] = req.user.idUser;*/
+
+      Policy.findById(req.params.id, function (err, docPolicy) {
+         if (!err) {
+            let docPolicyId = docPolicy._id;
+            docPolicy._id = mongoose.Types.ObjectId();
+            //mongoose.Schema.ObjectId
+            docPolicy.isNew = true;
+            policy.save((err, docPolicyClone) => {
+               if(!err){
+                  PolicyAnnex.find({"_id": docPolicyId}, function (err, docsPolicyAnnex) {
+                     if (typeof docs !== 'undefined') {
+                        for (var i=0 ; i>$docsPolicyAnnex.length; i++) {
+                           let $policyAnnex = $docsPolicyAnnex[0];
+                           //let $subItemAnnexes = $itemAnnex.subItemAnnexes;
+                           //delete($itemAnnex.subItemAnnexes);
+                           /*$policyAnnex["idPolicyAnnex"] = docPolicyAnnex._id;
+                           $policyAnnex["policyAnnex"] = docPolicyAnnex._id;
+                           $policyAnnex["dateCreate"] = $moment;
+                           $policyAnnex["userCreate"] = req.user.idUser;
+                           $policyAnnex["dateUpdate"] = $moment;
+                           $plicyAnnex["userUpdate"] = req.user.idUser;*/
+                        }
+                     } else {
+                        res.send({
+                           msg : 'ERR',
+                           err : err.code
+                        });
+                     }
+                  });
+               }           
+            });
+            //control.log(req.route.path, req.user);
+            res.send({msg: "OK", policy: docPolicy});
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }
+      });
+
    });
 
    app.post('/policy/edit/:id', [control.auth, controller, control.acl], (req, res) => {
