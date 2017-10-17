@@ -103,6 +103,22 @@ passport.use(bearerStrategy);
 passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
+
+import binnacleExpirationDateController from './app/controllers/binnacleExpirationDate';
+binnacleExpirationDateController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
+
+import clearanceTimeController from './app/controllers/clearanceTime';
+clearanceTimeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
+
+import expirationDateController from './app/controllers/expirationDate';
+expirationDateController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
+
+import noRenewalRamoController from './app/controllers/noRenewalRamo';
+noRenewalRamoController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
+
+import noRenewalController from './app/controllers/noRenewal';
+noRenewalController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
+
 import apiClientController from './app/controllers/apiClient';
 apiClientController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), log: logAction});
 

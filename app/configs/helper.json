@@ -271,5 +271,26 @@
       "99097f2c1c" : "Masculino",
       "99097f2c1d" : "Empresa"
     }
+  },
+  "typePolicy" : {
+    "list":[
+      {
+        "id": "99097f2c1f",
+        "name": "Nuevo"
+      },
+      {
+        "id": "99097f2c1c",
+        "name": "Renovado"
+      },
+      {
+        "id": "99097f2c1d",
+        "name": "No Renovado"
+      }
+    ],
+    "one":{
+      "99097f2c1f" : "Nuevo",
+      "99097f2c1c" : "Renovado",
+      "99097f2c1d" : "No Renovado"
+    }
   }
 }
