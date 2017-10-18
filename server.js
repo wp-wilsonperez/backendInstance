@@ -104,6 +104,9 @@ passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
 
+import letterDocxController from './app/controllers/letterDocx';
+letterDocxController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), log: logAction});
+
 import binnacleExpirationDateController from './app/controllers/binnacleExpirationDate';
 binnacleExpirationDateController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 

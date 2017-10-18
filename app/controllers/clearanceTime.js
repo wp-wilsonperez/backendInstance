@@ -87,7 +87,7 @@ let clearanceTimeController = function (app, control={auth, passport, acl}){
 
       let clearanceTime = new ClearanceTime({
          idRamo: req.body.idRamo,
-         bank: req.body.idRamo,
+         ramo: req.body.idRamo,
          idInsurance: req.body.idInsurance,
          insurance: req.body.idInsurance,
          time: req.body.time,
@@ -118,7 +118,7 @@ let clearanceTimeController = function (app, control={auth, passport, acl}){
 
       let update = {
          idRamo: req.body.idRamo,
-         bank: req.body.idRamo,
+         ramo: req.body.idRamo,
          idInsurance: req.body.idInsurance,
          insurance: req.body.idInsurance,
          time: req.body.time,
