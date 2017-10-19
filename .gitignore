@@ -21,6 +21,7 @@ bin-release/
 public/uploads/user/*
 public/uploads/account/*
 public/uploads/business/*
+public/download/*
 nodemailer.json
 node_modules
 ignore
