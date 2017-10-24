@@ -86,7 +86,7 @@ let deductibleController = function (app, control={auth, passport, acl}){
          ramo: req.body.idRamo,
          idInsurance: req.body.idInsurance,
          insurance: req.body.idInsurance,
-         desciption: req.body.desciption,
+         description: req.body.description,
          dateCreate: moment(),
          userCreate: req.user.idUser,
          dateUpdate: moment(),
@@ -116,7 +116,7 @@ let deductibleController = function (app, control={auth, passport, acl}){
          ramo: req.body.idRamo,
          idInsurance: req.body.idInsurance,
          insurance: req.body.idInsurance,
-         desciption: req.body.desciption,
+         description: req.body.description,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };

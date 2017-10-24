@@ -17,6 +17,7 @@ let SinisterSchema = new mongoose.Schema({
 	idRamo: {type: String, require: true},
 	ramo: { type: mongoose.Schema.ObjectId, ref: "Ramo"},
 	sinisterState: {type: String},
+	settlementDate: {type: Date},
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},

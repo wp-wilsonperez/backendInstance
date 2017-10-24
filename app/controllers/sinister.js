@@ -149,6 +149,7 @@ let sinisterController = function (app, control={auth, passport, acl}){
          idRamo: req.body.idRamo,
          ramo: req.body.idRamo,
          sinisterState: req.body.sinisterState,
+         settlementDate: req.body.settlementDate,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };
