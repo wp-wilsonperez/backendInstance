@@ -92,9 +92,12 @@ let bearerStrategy = new BearerStrategy(
    function(token, cb) {
       Token.findOne({token: token}, function(err, doc) {
          if (err) { return cb(err); }
-         //console.log(doc);
+         console.log("-------------------");
+         console.log(doc);
          if (!doc) { return cb(null, false); }
-         return cb(null, doc);
+         User.findOne({_id: doc.idUser}, (err, docUser) => {
+            return cb(null, docUser);
+         })
       });
    });
 
@@ -375,6 +378,9 @@ global.filter = function(query){
 }
 
 function ensureACL (req, res, next){
+   console.log("**********REQ_USER**********");
+   console.log(req.user);
+   console.log("**********++++++**********");
    let $moduleAllow = {
       "user": {
          "adduserImg": true,

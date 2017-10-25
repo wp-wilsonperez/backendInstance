@@ -7,6 +7,7 @@ let InsuranceSchema = new mongoose.Schema({
 	cellPhone: {type: String},
 	phones: {type: String},
 	address: {type: String},
+	logo: {type: String},
 	img1: {type: String},
 	img2: {type: String},
 	img3: {type: String},
