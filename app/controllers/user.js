@@ -71,7 +71,7 @@ let userController = function (app, control={auth, passport, acl}){
             req.logIn(user, function (err) {
                if (err) { return res.status(401).send({"login": false}); }
                control.log(req.route.path, req.user);
-               return res.send({"login": true, "user": user});
+               return res.send({"login": true, "user": req.user});
             });
 
       })(req, res, next);

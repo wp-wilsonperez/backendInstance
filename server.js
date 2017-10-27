@@ -70,15 +70,25 @@ let localStrategy = new LocalStrategy({
             expiration: moment()
          });
 
-         token.save((err, doc) => { console.log("has been created a access token");});
-         return done(null, {
-            _id: doc._id,
-            cedula: doc.cedula,
+         var dataUser = {
+            token:generatedToken,
             name: doc.name,
-            lastName: doc.lastName,
-            userImg: doc.userImg,
-            idBranch: doc.idBranch,
-            token: generatedToken
+           lastName: doc.lastName,
+           cedula: doc.cedula,
+           mail: doc.mail,
+           phone: doc.phone,
+           idRole: doc.idRole,
+           idBranch: doc.idBranch,
+           dateCreate: doc.dateCreate,
+           userCreate: doc.userCreate,
+           dateUpdate: doc.dateUpdate,
+           userUpdate: doc.userUpdate,
+           userImg: doc.userImg
+         };
+
+         token.save((err, doc) => {
+            console.log("has been created a access token");
+            return done(null, dataUser);
          });
       }else {
          done(null, false, {
@@ -327,9 +337,9 @@ function logAction (path, user){
 
    let $controller = path.split("/")[1];
    let $action = path.split("/")[2];
-   console.log(jsonLogs);
+   /*console.log(jsonLogs);
    console.log($controller);
-   console.log($action);
+   console.log($action);*/
    
    let $msg = "";
    if(jsonLogs[$controller]){
