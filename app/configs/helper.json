@@ -292,5 +292,47 @@
       "99097f2c1c" : "Renovado",
       "99097f2c1d" : "No Renovado"
     }
+  },
+  "typeList" : {
+    "list":[
+      {
+        "id": "99097f2c1f",
+        "name": "User"
+      },
+      {
+        "id": "99097f2c1c",
+        "name": "Sucursal"
+      },
+      {
+        "id": "99097f2c1d",
+        "name": "Global"
+      }
+    ],
+    "one":{
+      "99097f2c1f" : "User",
+      "99097f2c1c" : "Sucursal",
+      "99097f2c1d" : "Global"
+    }
+  },
+  "typeIncome" : {
+    "list":[
+      {
+        "id": "99097f2c1f",
+        "name": "User"
+      },
+      {
+        "id": "99097f2c1c",
+        "name": "Sucursal"
+      },
+      {
+        "id": "99097f2c1d",
+        "name": "Global"
+      }
+    ],
+    "one":{
+      "99097f2c1f" : "User",
+      "99097f2c1c" : "Sucursal",
+      "99097f2c1d" : "Global"
+    }
   }
 }

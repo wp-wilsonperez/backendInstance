@@ -16,6 +16,7 @@ let UserSchema = new mongoose.Schema({
 	branch: { type: mongoose.Schema.ObjectId, ref: "Branch"},
 	userImg: {type: String, default: ""},
 	Enabled: {type: Number, require: true},
+	codRecipient :{type: String},
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},

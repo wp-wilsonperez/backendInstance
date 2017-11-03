@@ -10,6 +10,7 @@ let BusinessSchema = new mongoose.Schema({
 	cellPhone: {type: String, require: true},
 	map: {type: String, require: true},
 	mail: {type: String, require: true},
+	codRecipient :{type: String},
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},

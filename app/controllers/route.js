@@ -188,6 +188,90 @@ let routeController = function (app, control={auth, passport, acl}){
 
    });
 
+   app.get('/route/dateReception', [control.auth, controller, control.acl], (req, res) => {
+
+      let filter = {
+         _id: req.params.id
+      }
+
+      let update = {
+         dateReception: moment()
+      };
+
+      Route.findOneAndUpdate(filter, update, function (err, doc) {
+         if (!err) {
+            //control.log(req.route.path, req.user);
+            res.send({msg: "OK", update: doc});
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }
+      });
+
+   });
+
+   app.get('/route/dateMessenger', [control.auth, controller, control.acl], (req, res) => {
+
+      let filter = {
+         _id: req.params.id
+      }
+
+      let update = {
+         dateMessenger: moment()
+      };
+
+      Route.findOneAndUpdate(filter, update, function (err, doc) {
+         if (!err) {
+            //control.log(req.route.path, req.user);
+            res.send({msg: "OK", update: doc});
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }
+      });
+
+   });
+
+   app.get('/route/dateReEntry', [control.auth, controller, control.acl], (req, res) => {
+
+      let filter = {
+         _id: req.params.id
+      }
+
+      let update = {
+         dateReEntry: moment()
+      };
+
+      Route.findOneAndUpdate(filter, update, function (err, doc) {
+         if (!err) {
+            //control.log(req.route.path, req.user);
+            res.send({msg: "OK", update: doc});
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }
+      });
+
+   });
+
+   app.get('/route/dateReturn', [control.auth, controller, control.acl], (req, res) => {
+
+      let filter = {
+         _id: req.params.id
+      }
+
+      let update = {
+         dateReturn: moment()
+      };
+
+      Route.findOneAndUpdate(filter, update, function (err, doc) {
+         if (!err) {
+            //control.log(req.route.path, req.user);
+            res.send({msg: "OK", update: doc});
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }
+      });
+
+   });
+
 }
 
 export default routeController

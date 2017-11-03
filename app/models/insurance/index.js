@@ -16,6 +16,7 @@ let InsuranceSchema = new mongoose.Schema({
 	web: {type: String},
 	mail: {type: String},
 	Enable: {type: Boolean},
+	codRecipient :{type: String},
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},

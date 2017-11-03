@@ -38,6 +38,7 @@ let ClientSchema = new mongoose.Schema({
 	user: {type: String},
 	password: {type: String},
 	confirm: {type: Boolean},
+	codRecipient :{type: String},
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},

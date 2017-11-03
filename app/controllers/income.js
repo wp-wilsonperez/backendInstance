@@ -96,10 +96,15 @@ let incomeController = function (app, control={auth, passport, acl}){
    app.post('/income/add', [control.auth, controller, control.acl], (req, res) => {
 
       let income = new Income({
-         name: req.body.name,
-         month: req.body.month,
-         interest: req.body.interest,
-         totalMonths: req.body.totalMonths,
+         typeSend: req.body.typeSend,
+         idSend: req.body.idSend,
+         send: req.body.idSend,
+         idUserAddress: req.body.idUserAddress,
+         userAddress: req.body.idUserAddress,
+         dateIncome: req.body.dateIncome,
+         dateReception: req.body.dateReception,
+         details: req.body.details,
+         observations: req.body.observations,
          dateCreate: moment(),
          userCreate: req.user.idUser,
          dateUpdate: moment(),
@@ -124,10 +129,15 @@ let incomeController = function (app, control={auth, passport, acl}){
       }
 
       let update = {
-         name: req.body.name,
-         month: req.body.month,
-         interest: req.body.interest,
-         totalMonths: req.body.totalMonths,
+         typeSend: req.body.typeSend,
+         idSend: req.body.idSend,
+         send: req.body.idSend,
+         idUserAddress: req.body.idUserAddress,
+         userAddress: req.body.idUserAddress,
+         dateIncome: req.body.dateIncome,
+         dateReception: req.body.dateReception,
+         details: req.body.details,
+         observations: req.body.observations,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };
@@ -160,6 +170,27 @@ let incomeController = function (app, control={auth, passport, acl}){
          } else {
             res.send({msg: 'ERR', err: err});
          }            
+      });
+
+   });
+
+   app.post('/income/dateReception', [control.auth, controller, control.acl], (req, res) => {
+
+      let filter = {
+         _id: req.params.id
+      }
+
+      let update = {
+         dateReception:  moment()
+      };
+
+      Income.findOneAndUpdate(filter, update, function (err, doc) {
+         if (!err) {
+            //control.log(req.route.path, req.user);
+            res.send({msg: "OK", update: doc});
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }
       });
 
    });
