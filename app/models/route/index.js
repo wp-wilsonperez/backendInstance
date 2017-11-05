@@ -8,6 +8,7 @@ autoIncrement.initialize(connection);
 let RouteSchema = new mongoose.Schema({
 	routeNumber: {type:  Number},
 	typeReception: {type: String, require: true},
+	routeStatus: {type: String},
 	idUserSend: {type: String},
 	userSend: { type: mongoose.Schema.ObjectId, ref: "User"},
 	typeRecipient: {type: String},

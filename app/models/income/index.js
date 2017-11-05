@@ -8,10 +8,10 @@ autoIncrement.initialize(connection);
 let IncomeSchema = new mongoose.Schema({
 	incomeNumber: {type:  Number},
 	typeSend: {type: String},
+	incomeStatus: {type: String},
 	idSend: {type: Object}, //CLIENT, BUSINESS, INSURANCE, USER
 	send: {type: Object},
-	idUserAddress: {type: String},
-	userAddress: { type: mongoose.Schema.ObjectId, ref: "User"},
+	idUserAddress: {type: incomeStatusngoose.Schema.ObjectId, ref: "User"},
 	dateIncome: {type: String, require: true},
 	dateReception: {type: String, require: true},
 	details: {type: String, require: true},
