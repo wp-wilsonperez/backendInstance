@@ -19,14 +19,8 @@ let routeController = function (app, control={auth, passport, acl}){
       Route.find({}, function (err, docs) {
          if (!err) {
 
-            Client.populate(docs, {path: "client"},function(err, docs){
-               Business.populate(docs, {path: "business"},function(err, docs){
-                  Insurance.populate(docs, {path: "insarance"},function(err, docs){
-                     User.populate(docs, {path: "user"},function(err, docs){
-                        callback(docs);
-                     });
-                  });
-               });
+            User.populate(docs, {path: "userSend"},function(err, docs){
+               callback(docs);
             });
          }
       });
@@ -37,14 +31,8 @@ let routeController = function (app, control={auth, passport, acl}){
       Route.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
-            Client.populate(docs, {path: "client"},function(err, docs){
-               Business.populate(docs, {path: "business"},function(err, docs){
-                  Insurance.populate(docs, {path: "insarance"},function(err, docs){
-                     User.populate(docs, {path: "user"},function(err, docs){
-                        res.send({msg: "OK", routes: docs});
-                     });
-                  });
-               });
+            User.populate(docs, {path: "userSend"},function(err, docs){
+               res.send({msg: "OK", routes: docs});
             });
          } else {
             res.send({
@@ -61,14 +49,8 @@ let routeController = function (app, control={auth, passport, acl}){
       Route.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
-            Client.populate(docs, {path: "client"},function(err, docs){
-               Business.populate(docs, {path: "business"},function(err, docs){
-                  Insurance.populate(docs, {path: "insarance"},function(err, docs){
-                     User.populate(docs, {path: "user"},function(err, docs){
-                        res.send({msg: "OK", routes: docs});
-                     });
-                  });
-               });
+            User.populate(docs, {path: "userSend"},function(err, docs){
+               res.send({msg: "OK", routes: docs});
             });
          } else {
             res.send({
@@ -99,12 +81,8 @@ let routeController = function (app, control={auth, passport, acl}){
          typeReception: req.body.typeReception,
          idUserSend: req.body.idUserSend,
          userSend: req.body.idUserSend,
-         idClientRecipient: req.body.idClientRecipient,
-         clientRecipient: req.body.idClientRecipient,
-         idBusinessRecipent: req.body.idBusinessRecipent,
-         businessRecipent: req.body.idBusinessRecipent,
-         idInsuranceRecipent: req.body.idInsuranceRecipent,
-         insuranceRecipent: req.body.idInsuranceRecipent,
+         idRecipient: req.body.idRecipient,
+         recipient: req.body.recipient,
          dateRoute: req.body.dateRoute,
          dateReception: req.body.dateReception,
          dateMessenger: req.body.dateMessenger,
@@ -139,12 +117,8 @@ let routeController = function (app, control={auth, passport, acl}){
          typeReception: req.body.typeReception,
          idUserSend: req.body.idUserSend,
          userSend: req.body.idUserSend,
-         idClientRecipient: req.body.idClientRecipient,
-         clientRecipient: req.body.idClientRecipient,
-         idBusinessRecipent: req.body.idBusinessRecipent,
-         businessRecipent: req.body.idBusinessRecipent,
-         idInsuranceRecipent: req.body.idInsuranceRecipent,
-         insuranceRecipent: req.body.idInsuranceRecipent,
+         idRecipient: req.body.idRecipient,
+         recipient: req.body.recipient,
          dateRoute: req.body.dateRoute,
          dateReception: req.body.dateReception,
          dateMessenger: req.body.dateMessenger,
@@ -190,85 +164,97 @@ let routeController = function (app, control={auth, passport, acl}){
 
    app.get('/route/dateReception', [control.auth, controller, control.acl], (req, res) => {
 
-      let filter = {
-         _id: req.params.id
-      }
-
+      let incomes = req.body.idsDate;
       let update = {
-         dateReception: moment()
+         dateReception:  moment(),
+         incomeStatus: incomes.status
       };
 
-      Route.findOneAndUpdate(filter, update, function (err, doc) {
-         if (!err) {
-            //control.log(req.route.path, req.user);
-            res.send({msg: "OK", update: doc});
-         } else {
-            res.send({msg: 'ERR', err: err});
+      for (var i = 0; i < incomes.ids.length; i++) {
+         let filter = {
+            _id: incomes.ids[i]._id
          }
-      });
+         Route.findOneAndUpdate(filter, update, function (err, doc) {
+            if (!err) {
+               //control.log(req.route.path, req.user);
+            } else {
+            }
+         });
+      }
+      //res.send({msg: 'ERR', err: err});
+      res.send({msg: "OK"});
 
    });
 
    app.get('/route/dateMessenger', [control.auth, controller, control.acl], (req, res) => {
 
-      let filter = {
-         _id: req.params.id
-      }
-
+      let incomes = req.body.idsDate;
       let update = {
-         dateMessenger: moment()
+         dateReception:  moment(),
+         incomeStatus: incomes.status
       };
 
-      Route.findOneAndUpdate(filter, update, function (err, doc) {
-         if (!err) {
-            //control.log(req.route.path, req.user);
-            res.send({msg: "OK", update: doc});
-         } else {
-            res.send({msg: 'ERR', err: err});
+      for (var i = 0; i < incomes.ids.length; i++) {
+         let filter = {
+            _id: incomes.ids[i]._id
          }
-      });
+         Route.findOneAndUpdate(filter, update, function (err, doc) {
+            if (!err) {
+               //control.log(req.route.path, req.user);
+            } else {
+            }
+         });
+      }
+      //res.send({msg: 'ERR', err: err});
+      res.send({msg: "OK"});
 
    });
 
    app.get('/route/dateReEntry', [control.auth, controller, control.acl], (req, res) => {
 
-      let filter = {
-         _id: req.params.id
-      }
-
+      let incomes = req.body.idsDate;
       let update = {
-         dateReEntry: moment()
+         dateReception:  moment(),
+         incomeStatus: incomes.status
       };
 
-      Route.findOneAndUpdate(filter, update, function (err, doc) {
-         if (!err) {
-            //control.log(req.route.path, req.user);
-            res.send({msg: "OK", update: doc});
-         } else {
-            res.send({msg: 'ERR', err: err});
+      for (var i = 0; i < incomes.ids.length; i++) {
+         let filter = {
+            _id: incomes.ids[i]._id
          }
-      });
+         Route.findOneAndUpdate(filter, update, function (err, doc) {
+            if (!err) {
+               //control.log(req.route.path, req.user);
+            } else {
+            }
+         });
+      }
+      //res.send({msg: 'ERR', err: err});
+      res.send({msg: "OK"});
 
    });
 
    app.get('/route/dateReturn', [control.auth, controller, control.acl], (req, res) => {
 
-      let filter = {
-         _id: req.params.id
-      }
-
+      let incomes = req.body.idsDate;
       let update = {
-         dateReturn: moment()
+         dateReception:  moment(),
+         incomeStatus: incomes.status
       };
 
-      Route.findOneAndUpdate(filter, update, function (err, doc) {
-         if (!err) {
-            //control.log(req.route.path, req.user);
-            res.send({msg: "OK", update: doc});
-         } else {
-            res.send({msg: 'ERR', err: err});
+      for (var i = 0; i < incomes.ids.length; i++) {
+         let filter = {
+            _id: incomes.ids[i]._id
          }
-      });
+         Route.findOneAndUpdate(filter, update, function (err, doc) {
+            if (!err) {
+               //control.log(req.route.path, req.user);
+            } else {
+            }
+         });
+      }
+      //res.send({msg: 'ERR', err: err});
+      res.send({msg: "OK"});
 
    });
 

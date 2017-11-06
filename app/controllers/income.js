@@ -3,9 +3,6 @@ import moment from 'moment';
 
 import Income from "../models/income";
 
-import Client from "../models/client";
-import Business from "../models/business";
-import Insurance from "../models/insurance";
 import User from "../models/user";
 
 let incomeController = function (app, control={auth, passport, acl}){
@@ -18,15 +15,8 @@ let incomeController = function (app, control={auth, passport, acl}){
    function findAction (callback){
       Income.find({}, function (err, docs) {
          if (!err) {
-
-            Client.populate(docs, {path: "client"},function(err, docs){
-               Business.populate(docs, {path: "business"},function(err, docs){
-                  Insurance.populate(docs, {path: "insarance"},function(err, docs){
-                     User.populate(docs, {path: "user"},function(err, docs){
-                        callback(docs);
-                     });
-                  });
-               });
+            User.populate(docs, {path: "userAddress"},function(err, docs){
+               callback(docs);
             });
          }
       });
@@ -37,14 +27,8 @@ let incomeController = function (app, control={auth, passport, acl}){
       Income.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
-            Client.populate(docs, {path: "client"},function(err, docs){
-               Business.populate(docs, {path: "business"},function(err, docs){
-                  Insurance.populate(docs, {path: "insarance"},function(err, docs){
-                     User.populate(docs, {path: "user"},function(err, docs){
-                        res.send({msg: "OK", incomes: docs});
-                     });
-                  });
-               });
+            User.populate(docs, {path: "userAddress"},function(err, docs){
+               res.send({msg: "OK", incomes: docs});
             });
          } else {
             res.send({
@@ -61,14 +45,8 @@ let incomeController = function (app, control={auth, passport, acl}){
       Income.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
-            Client.populate(docs, {path: "client"},function(err, docs){
-               Business.populate(docs, {path: "business"},function(err, docs){
-                  Insurance.populate(docs, {path: "insarance"},function(err, docs){
-                     User.populate(docs, {path: "user"},function(err, docs){
-                        res.send({msg: "OK", incomes: docs});
-                     });
-                  });
-               });
+            User.populate(docs, {path: "userAddress"},function(err, docs){
+               res.send({msg: "OK", incomes: docs});
             });
          } else {
             res.send({
@@ -98,7 +76,7 @@ let incomeController = function (app, control={auth, passport, acl}){
       let income = new Income({
          typeSend: req.body.typeSend,
          idSend: req.body.idSend,
-         send: req.body.idSend,
+         send: req.body.send,
          idUserAddress: req.body.idUserAddress,
          userAddress: req.body.idUserAddress,
          dateIncome: req.body.dateIncome,
@@ -131,7 +109,7 @@ let incomeController = function (app, control={auth, passport, acl}){
       let update = {
          typeSend: req.body.typeSend,
          idSend: req.body.idSend,
-         send: req.body.idSend,
+         send: req.body.send,
          idUserAddress: req.body.idUserAddress,
          userAddress: req.body.idUserAddress,
          dateIncome: req.body.dateIncome,
@@ -176,22 +154,25 @@ let incomeController = function (app, control={auth, passport, acl}){
 
    app.post('/income/dateReception', [control.auth, controller, control.acl], (req, res) => {
 
-      let filter = {
-         _id: req.params.id
-      }
-
+      let incomes = req.body.idsDate;
       let update = {
-         dateReception:  moment()
+         dateReception:  moment(),
+         incomeStatus: incomes.status
       };
 
-      Income.findOneAndUpdate(filter, update, function (err, doc) {
-         if (!err) {
-            //control.log(req.route.path, req.user);
-            res.send({msg: "OK", update: doc});
-         } else {
-            res.send({msg: 'ERR', err: err});
+      for (var i = 0; i < incomes.ids.length; i++) {
+         let filter = {
+            _id: incomes.ids[i]._id
          }
-      });
+         Income.findOneAndUpdate(filter, update, function (err, doc) {
+            if (!err) {
+               //control.log(req.route.path, req.user);
+            } else {
+            }
+         });
+      }
+      //res.send({msg: 'ERR', err: err});
+      res.send({msg: "OK"});
 
    });
 
