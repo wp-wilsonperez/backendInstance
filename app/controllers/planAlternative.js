@@ -87,7 +87,9 @@ let planAlternativeController = function (app, control={auth, passport, acl}){
 
       let planAlternative = new PlanAlternative({
          idAlternative: req.body.idAlternative,
+         alternative: req.body.idAlternative,
          idPlanAssociation: req.body.idPlanAssociation,
+         planAssociation: req.body.idPlanAssociation,
          value: req.body.value,
          dateCreate: moment(),
          userCreate: req.user.idUser,
@@ -116,7 +118,9 @@ let planAlternativeController = function (app, control={auth, passport, acl}){
 
       let update = {
          idAlternative: req.body.idAlternative,
+         alternative: req.body.idAlternative,
          idPlanAssociation: req.body.idPlanAssociation,
+         planAssociation: req.body.idPlanAssociation,
          value: req.body.value,
          dateUpdate: moment(),
          userUpdate: req.user.idUser

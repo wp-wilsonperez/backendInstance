@@ -5,7 +5,6 @@ import PlanAssociation from "../models/planAssociation";
 
 import Plan from "../models/plan";
 import Ramo from "../models/ramo";
-import Bank from "../models/bank";
 import Insurance from "../models/insurance";
 
 let planAssociationController = function (app, control={auth, passport, acl}){
@@ -19,9 +18,11 @@ let planAssociationController = function (app, control={auth, passport, acl}){
       PlanAssociation.find({}, function (err, docs) {
          if (!err) {
             
-            Bank.populate(docs, {path: "bank"},function(err, docs){
-               Insurance.populate(docs, {path: "insurance"},function(err, docs){
-                  callback(docs);
+            Plan.populate(docs, {path: "plan"},function(err, docs){
+               Ramo.populate(docs, {path: "ramo"},function(err, docs){
+                  Insurance.populate(docs, {path: "insurance"},function(err, docs){
+                     callback(docs);
+                  });
                });
             });
          }
@@ -34,9 +35,11 @@ let planAssociationController = function (app, control={auth, passport, acl}){
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 
-            Bank.populate(docs, {path: "bank"},function(err, docs){
-               Insurance.populate(docs, {path: "insurance"},function(err, docs){
-                  res.send({msg: "OK", planAssociations: docs});
+            Plan.populate(docs, {path: "plan"},function(err, docs){
+               Ramo.populate(docs, {path: "ramo"},function(err, docs){
+                  Insurance.populate(docs, {path: "insurance"},function(err, docs){
+                     res.send({msg: "OK", planAssociations: docs});
+                  });
                });
             });
             
@@ -56,9 +59,11 @@ let planAssociationController = function (app, control={auth, passport, acl}){
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 
-            Bank.populate(docs, {path: "bank"},function(err, docs){
-               Insurance.populate(docs, {path: "insurance"},function(err, docs){
-                  res.send({msg: "OK", planAssociations: docs});
+            Plan.populate(docs, {path: "plan"},function(err, docs){
+               Ramo.populate(docs, {path: "ramo"},function(err, docs){
+                  Insurance.populate(docs, {path: "insurance"},function(err, docs){
+                     res.send({msg: "OK", planAssociations: docs});
+                  });
                });
             });
             

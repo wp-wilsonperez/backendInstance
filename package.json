@@ -40,7 +40,8 @@
     "passport-http-bearer": "^1.0.1",
     "passport-local": "^1.0.0",
     "serve-favicon": "^2.4.2",
-    "sha1": "^1.1.1"
+    "sha1": "^1.1.1",
+    "xlsx": "^0.11.8"
   },
   "devDependencies": {
     "cors": "^2.8.3"

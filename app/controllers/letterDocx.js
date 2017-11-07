@@ -1,6 +1,7 @@
 
 import JSZip from 'jszip';
 import Docxtemplater from 'docxtemplater';
+var xlsx = require('xlsx');
 import fs from 'fs';
 import path from 'path';
 import moment from 'moment';
@@ -448,6 +449,50 @@ let letterDocxController = function (app, control={auth, passport}){
           //res.setHeader('Access-Control-Allow-Headers', 'X-DEBUGKIT-ID');
           res.send({"status": "ok", "doc_name": outPutFile});
       });
+
+   });
+
+   app.get('/letterDocx/docSinisterNotification/:idSinister', [controller], (req, res) => {
+
+      /*CreditNote.findById(req.params.id, function (err, doc) {
+         if (!err) {
+            res.send({msg: "OK", creditNote: doc});
+         } else {
+            res.send({msg: 'ERR', err: err});
+         }
+      });*/
+      let data = {
+         date : "Cuenca, 04 de Octubre del 2017",
+         letter_number : "756",
+         client_name : "JUAN PEREZ",
+         insurence_name : "VAZSEGUROS",
+         policy_name : "POLIZA DE VEHICULOS",
+         policy_placa : "VH-43500",
+         policy_anexo : "02",
+         policy_number : "43500",
+         ramo_name : "Vehiculo",
+         ramo_detail : "TOYOTA COROLLA/PLATA",
+         billing_number : "25023",
+         billing_value : "467.04",
+         credit_number : "20550",
+         credit_value : "Vehiculo",
+         user_name : "Ing. Diana Moncayo V.",
+         user_role : "Jefe Dpto. de Emision"
+      };
+
+      var pathXlsx = path.resolve(__dirname+'/../letters', 'DocumentacionSiniestro.xlsx');
+      var workbook = xlsx.readFile(pathXlsx);
+
+      //xlsx.writeFile(workbook, 'out.xlsb');
+      var outPutFile = moment().format('YYYY-MM-DD-h:mm:ss') + 'DocumentacionSiniestro.xlsx';
+      var pathCake = __dirname+'/../../public/download/'+outPutFile;
+      xlsx.writeFileAsync(pathCake, workbook, (err) => {
+        if (err) throw err;
+        res.send({"status": "ok", "doc_name": outPutFile});
+
+      });
+
+      
 
    });
 
