@@ -79,7 +79,7 @@ let routeController = function (app, control={auth, passport, acl}){
 
       let route = new Route({
          typeReception: req.body.typeReception,
-         routeStatus: null,
+         routeStatus: req.body.routeStatus ,
          idUserSend: req.body.idUserSend,
          userSend: req.body.idUserSend,
          idRecipient: req.body.idRecipient,
@@ -187,7 +187,7 @@ let routeController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.get('/route/dateMessenger', [control.auth, controller, control.acl], (req, res) => {
+   app.post('/route/dateMessenger', [control.auth, controller, control.acl], (req, res) => {
 
       let incomes = req.body.idsDate;
       let update = {
@@ -211,7 +211,7 @@ let routeController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.get('/route/dateReEntry', [control.auth, controller, control.acl], (req, res) => {
+   app.post('/route/dateReEntry', [control.auth, controller, control.acl], (req, res) => {
 
       let incomes = req.body.idsDate;
       let update = {
@@ -235,7 +235,7 @@ let routeController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.get('/route/dateReturn', [control.auth, controller, control.acl], (req, res) => {
+   app.post('/route/dateReturn', [control.auth, controller, control.acl], (req, res) => {
 
       let incomes = req.body.idsDate;
       let update = {
