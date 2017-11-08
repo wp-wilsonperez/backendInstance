@@ -165,15 +165,15 @@ let routeController = function (app, control={auth, passport, acl}){
 
    app.get('/route/dateReception', [control.auth, controller, control.acl], (req, res) => {
 
-      let incomes = req.body.idsDate;
+      let routes = req.body.idsDate;
       let update = {
          dateReception:  moment(),
-         incomeStatus: incomes.status
+         routeStatus: routes.status
       };
 
-      for (var i = 0; i < incomes.ids.length; i++) {
+      for (var i = 0; i < routes.ids.length; i++) {
          let filter = {
-            _id: incomes.ids[i]._id
+            _id: routes.ids[i]._id
          }
          Route.findOneAndUpdate(filter, update, function (err, doc) {
             if (!err) {
@@ -189,15 +189,15 @@ let routeController = function (app, control={auth, passport, acl}){
 
    app.post('/route/dateMessenger', [control.auth, controller, control.acl], (req, res) => {
 
-      let incomes = req.body.idsDate;
+      let routes = req.body.idsDate;
       let update = {
          dateReception:  moment(),
-         incomeStatus: incomes.status
+         routeStatus: routes.status
       };
 
-      for (var i = 0; i < incomes.ids.length; i++) {
+      for (var i = 0; i < routes.ids.length; i++) {
          let filter = {
-            _id: incomes.ids[i]._id
+            _id: routes.ids[i]._id
          }
          Route.findOneAndUpdate(filter, update, function (err, doc) {
             if (!err) {
@@ -213,15 +213,15 @@ let routeController = function (app, control={auth, passport, acl}){
 
    app.post('/route/dateReEntry', [control.auth, controller, control.acl], (req, res) => {
 
-      let incomes = req.body.idsDate;
+      let routes = req.body.idsDate;
       let update = {
          dateReception:  moment(),
-         incomeStatus: incomes.status
+         routeStatus: routes.status
       };
 
-      for (var i = 0; i < incomes.ids.length; i++) {
+      for (var i = 0; i < routes.ids.length; i++) {
          let filter = {
-            _id: incomes.ids[i]._id
+            _id: routes.ids[i]._id
          }
          Route.findOneAndUpdate(filter, update, function (err, doc) {
             if (!err) {
@@ -237,15 +237,15 @@ let routeController = function (app, control={auth, passport, acl}){
 
    app.post('/route/dateReturn', [control.auth, controller, control.acl], (req, res) => {
 
-      let incomes = req.body.idsDate;
+      let routes = req.body.idsDate;
       let update = {
          dateReception:  moment(),
-         incomeStatus: incomes.status
+         routeStatus: routes.status
       };
 
-      for (var i = 0; i < incomes.ids.length; i++) {
+      for (var i = 0; i < routes.ids.length; i++) {
          let filter = {
-            _id: incomes.ids[i]._id
+            _id: routes.ids[i]._id
          }
          Route.findOneAndUpdate(filter, update, function (err, doc) {
             if (!err) {
