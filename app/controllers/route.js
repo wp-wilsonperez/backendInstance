@@ -79,6 +79,7 @@ let routeController = function (app, control={auth, passport, acl}){
 
       let route = new Route({
          typeReception: req.body.typeReception,
+         typeRecipient: req.body.typeRecipient,
          routeStatus: req.body.routeStatus ,
          idUserSend: req.body.idUserSend,
          userSend: req.body.idUserSend,
