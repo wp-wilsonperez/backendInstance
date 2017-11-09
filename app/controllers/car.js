@@ -89,10 +89,10 @@ let carController = function (app, control={auth, passport, acl}){
       Car.findById(req.params.id, function (err, doc) {
          if (!err) {
             control.log(req.route.path, req.user);
-            Client.populate(docs, {path: "client"},function(err, docs){
-               Ramo.populate(docs, {path: "ramo"},function(err, docs){
-                  CarBrand.populate(docs, {path: "carBrand"},function(err, docs){
-                     CarModel.populate(docs, {path: "carModel"},function(err, docs){
+            Client.populate(doc, {path: "client"},function(err, doc){
+               Ramo.populate(doc, {path: "ramo"},function(err, doc){
+                  CarBrand.populate(doc, {path: "carBrand"},function(err, doc){
+                     CarModel.populate(doc, {path: "carModel"},function(err, doc){
                         res.send({msg: "OK", car: doc});
                      });
                   });
@@ -108,7 +108,6 @@ let carController = function (app, control={auth, passport, acl}){
    app.post('/car/add', [control.auth, controller, control.acl], (req, res) => {
 
       let car = new Car({
-         name: req.body.name,
          idClient: req.body.idClient,
          client: req.body.idClient,
          idRamo: req.body.idRamo,
@@ -117,6 +116,8 @@ let carController = function (app, control={auth, passport, acl}){
          carBrand: req.body.idCarBrand,
          idCarModel: req.body.idCarModel,
          carModel: req.body.idCarModel,
+         idCarColor: req.body.idCarColor,
+         carColor: req.body.idCarColor,
          chasis: req.body.chasis,
          motor: req.body.motor,
          placa: req.body.placa,
@@ -149,7 +150,6 @@ let carController = function (app, control={auth, passport, acl}){
       }
 
       let update = {
-         name: req.body.name,
          idClient: req.body.idClient,
          client: req.body.idClient,
          idRamo: req.body.idRamo,
@@ -158,6 +158,8 @@ let carController = function (app, control={auth, passport, acl}){
          carBrand: req.body.idCarBrand,
          idCarModel: req.body.idCarModel,
          carModel: req.body.idCarModel,
+         idCarColor: req.body.idCarColor,
+         carColor: req.body.idCarColor,
          chasis: req.body.chasis,
          motor: req.body.motor,
          placa: req.body.placa,
