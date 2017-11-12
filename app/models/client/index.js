@@ -6,6 +6,7 @@ let ClientSchema = new mongoose.Schema({
 	lastName: {type: String, require: true},
 	doc: {type: String},
 	docType: {type: String},
+	phones: {type: String},
 	cellPhone: {type: String},
 	mail: {type: String},
 	address: {type: String},
