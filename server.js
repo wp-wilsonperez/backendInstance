@@ -439,9 +439,17 @@ function ensureACL (req, res, next){
          }
          if($grant[$controller]){
             if($grant[$controller][$action]){
-               return next();
+              app.locals.typeList = null;
+              if($controller=='policy'){
+                if($grant[$controller]['typeList']){
+                  req.typeList = null;
+                  app.locals.typeList = $grant[$controller]['typeList'];
+                }
+                return next();
+              }
             }
-         }
+          }
+         
          //console.log($grant);
          return res.send({msg: 'ERR', err: "No privileges"});
       } else {
