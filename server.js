@@ -441,13 +441,11 @@ function ensureACL (req, res, next){
          if($grant[$controller]){
             if($grant[$controller][$action]){
               app.locals.typeList = null;
-              if($controller=='policy'){
-                if($grant[$controller]['typeList']){
-                  req.typeList = null;
-                  app.locals.typeList = $grant[$controller]['typeList'];
-                }
-                return next();
+              if($grant[$controller]['typeList']){
+                req.typeList = null;
+                app.locals.typeList = $grant[$controller]['typeList'];
               }
+              return next();
             }
           }
          
