@@ -126,6 +126,7 @@ let clientController = function (app, control={auth, passport, acl}){
          lastName: req.body.lastName,
          doc: req.body.doc,
          docType: req.body.docType,
+         phones: req.body.phones,
          cellPhone: req.body.cellPhone,
          mail: req.body.mail,
          address: req.body.address,

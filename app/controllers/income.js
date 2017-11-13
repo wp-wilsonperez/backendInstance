@@ -75,9 +75,10 @@ let incomeController = function (app, control={auth, passport, acl}){
 
       let income = new Income({
          typeSend: req.body.typeSend,
-         incomeStatus: null,
+         incomeStatus: req.body.incomeStatus,
          idSend: req.body.idSend,
          send: req.body.send,
+         typeSend:req.body.typeSend,
          idUserAddress: req.body.idUserAddress,
          userAddress: req.body.idUserAddress,
          dateIncome: req.body.dateIncome,

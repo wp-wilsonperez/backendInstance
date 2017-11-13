@@ -70,6 +70,7 @@ let carController = function (app, control={auth, passport, acl}){
                      CarModel.populate(docs, {path: "carModel"},function(err, docs){
                         res.send({msg: "OK", cars: docs});
                      });
+                     
                   });
                });
             });
