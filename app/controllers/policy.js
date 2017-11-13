@@ -7,6 +7,8 @@ import PolicyAnnex from "../models/policyAnnex";
 import ItemAnnex from "../models/itemAnnex";
 import SubItemAnnex from "../models/subItemAnnex";
 
+import User from "../models/user";
+
 let policyController = function (app, control={auth, passport, acl}){
 
    function controller (req, res, next) {
@@ -40,7 +42,17 @@ let policyController = function (app, control={auth, passport, acl}){
 
    app.get('/policy/list', [control.auth, controller, control.acl], (req, res) => {
 
-      Policy.find({}, function (err, docs) {
+      let typeList = app.locals.typeList;
+      let filter = {};
+      if(typeList=="99097f2c1f"){
+         filter = {"userCreate": req.user.idUser};
+      } else if(typeList=="99097f2c1c"){
+         filter = {"branchCreate": req.user.idBranch};
+      } else {
+         filter = {};
+      }
+
+      Policy.find(filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             res.send({msg: "OK", policies: docs});
@@ -77,6 +89,7 @@ let policyController = function (app, control={auth, passport, acl}){
          delete($policy.policyAnnex);
          $policy["dateCreate"] = $moment;
          $policy["userCreate"] = req.user.idUser;
+         $policy["branchCreate"] = req.user.idBranch;
          $policy["dateUpdate"] = $moment;
          $policy["userUpdate"] = req.user.idUser;
          let policy = new Policy($policy);
@@ -162,6 +175,7 @@ let policyController = function (app, control={auth, passport, acl}){
             dateCancellation: req.body.dateCancellation,
             dateCreate: moment(),
             userCreate: req.user.idUser,
+            branchCreate: req.user.idBranch,
             dateUpdate: moment(),
             userUpdate: req.user.idUser
          });

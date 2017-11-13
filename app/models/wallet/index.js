@@ -14,6 +14,7 @@ let WalletSchema = new mongoose.Schema({
 	detailsWallet: {type: String},
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
+	branchCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},
 	userUpdate: {type: String, require: true}
 });

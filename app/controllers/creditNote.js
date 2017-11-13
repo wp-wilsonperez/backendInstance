@@ -38,7 +38,17 @@ let creditNoteController = function (app, control={auth, passport, acl}){
 
    app.get('/creditNote/list', [control.auth, controller, control.acl], (req, res) => {
 
-      CreditNote.find({}, function (err, docs) {
+      let typeList = app.locals.typeList;
+      let filter = {};
+      if(typeList=="99097f2c1f"){
+         filter = {"userCreate": req.user.idUser};
+      } else if(typeList=="99097f2c1c"){
+         filter = {"branchCreate": req.user.idBranch};
+      } else {
+         filter = {};
+      }
+
+      CreditNote.find(filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 
@@ -93,6 +103,7 @@ let creditNoteController = function (app, control={auth, passport, acl}){
          observation: req.body.observation,
          dateCreate: moment(),
          userCreate: req.user.idUser,
+         branchCreate: req.user.idBranch,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       });

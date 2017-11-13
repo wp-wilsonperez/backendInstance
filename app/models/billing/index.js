@@ -19,6 +19,7 @@ let BillingSchema = new mongoose.Schema({
 	totalBillingValue: {type: Number, require: true},
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
+	branchCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},
 	userUpdate: {type: String, require: true}
 });

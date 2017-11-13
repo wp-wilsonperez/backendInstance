@@ -42,7 +42,17 @@ let incomeController = function (app, control={auth, passport, acl}){
 
    app.get('/income/list', [control.auth, controller, control.acl], (req, res) => {
 
-      Income.find({}, function (err, docs) {
+      let typeList = app.locals.typeList;
+      let filter = {};
+      if(typeList=="99097f2c1f"){
+         filter = {"userCreate": req.user.idUser};
+      } else if(typeList=="99097f2c1c"){
+         filter = {"branchCreate": req.user.idBranch};
+      } else {
+         filter = {};
+      }
+
+      Income.find(filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             User.populate(docs, {path: "userAddress"},function(err, docs){
@@ -87,6 +97,7 @@ let incomeController = function (app, control={auth, passport, acl}){
          observations: req.body.observations,
          dateCreate: moment(),
          userCreate: req.user.idUser,
+         branchCreate: req.user.idBranch,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       });

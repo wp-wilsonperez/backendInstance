@@ -41,7 +41,17 @@ let billingController = function (app, control={auth, passport, acl}){
 
    app.get('/billing/list', [control.auth, controller, control.acl], (req, res) => {
 
-      Billing.find({}, function (err, docs) {
+      let typeList = app.locals.typeList;
+      let filter = {};
+      if(typeList=="99097f2c1f"){
+         filter = {"userCreate": req.user.idUser};
+      } else if(typeList=="99097f2c1c"){
+         filter = {"branchCreate": req.user.idBranch};
+      } else {
+         filter = {};
+      }
+
+      Billing.find(filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 
@@ -78,6 +88,7 @@ let billingController = function (app, control={auth, passport, acl}){
       delete($billinData.items);
       $billinData["dateCreate"] = $moment;
       $billinData["userCreate"] = req.user.idUser;
+      $billinData["branchCreate"] = req.user.idBranch;
       $billinData["dateUpdate"] = $moment;
       $billinData["userUpdate"] = req.user.idUser;
       let billing = new Billing($billinData);

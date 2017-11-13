@@ -47,7 +47,17 @@ let sinisterController = function (app, control={auth, passport, acl}){
 
    app.get('/sinister/list', [control.auth, controller, control.acl], (req, res) => {
 
-      Sinister.find({}, function (err, docs) {
+      let typeList = app.locals.typeList;
+      let filter = {};
+      if(typeList=="99097f2c1f"){
+         filter = {"userCreate": req.user.idUser};
+      } else if(typeList=="99097f2c1c"){
+         filter = {"branchCreate": req.user.idBranch};
+      } else {
+         filter = {};
+      }
+
+      Sinister.find(filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 
@@ -89,6 +99,7 @@ let sinisterController = function (app, control={auth, passport, acl}){
       delete($sinisterCarDocumentation.items);
       $sinisterData["dateCreate"] = $moment;
       $sinisterData["userCreate"] = req.user.idUser;
+      $sinisterData["branchCreate"] = req.user.idBranch;
       $sinisterData["dateUpdate"] = $moment;
       $sinisterData["userUpdate"] = req.user.idUser;
       let sinister = new Sinister($sinisterData);

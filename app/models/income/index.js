@@ -19,6 +19,7 @@ let IncomeSchema = new mongoose.Schema({
 	observations: {type: String},
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
+	branchCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},
 	userUpdate: {type: String, require: true}
 });

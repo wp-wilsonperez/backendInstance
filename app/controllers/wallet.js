@@ -38,7 +38,17 @@ let walletController = function (app, control={auth, passport, acl}){
 
    app.get('/wallet/list', [control.auth, controller, control.acl], (req, res) => {
 
-      Wallet.find({}, function (err, docs) {
+      let typeList = app.locals.typeList;
+      let filter = {};
+      if(typeList=="99097f2c1f"){
+         filter = {"userCreate": req.user.idUser};
+      } else if(typeList=="99097f2c1c"){
+         filter = {"branchCreate": req.user.idBranch};
+      } else {
+         filter = {};
+      }
+
+      Wallet.find(filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 
@@ -76,6 +86,7 @@ let walletController = function (app, control={auth, passport, acl}){
          detailsWallet: req.body.detailsWallet,
          dateCreate: moment(),
          userCreate: req.user.idUser,
+         branchCreate: req.user.idBranch,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       });

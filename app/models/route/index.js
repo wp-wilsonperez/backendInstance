@@ -23,6 +23,7 @@ let RouteSchema = new mongoose.Schema({
 	observations: {type: String},
 	dateCreate: {type: Date},
 	userCreate: {type: String, require: true},
+	branchCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},
 	userUpdate: {type: String, require: true}
 });

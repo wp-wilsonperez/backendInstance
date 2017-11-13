@@ -72,6 +72,7 @@ let localStrategy = new LocalStrategy({
 
          var dataUser = {
             token:generatedToken,
+            idUser: doc._id,
             name: doc.name,
            lastName: doc.lastName,
            cedula: doc.cedula,

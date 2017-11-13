@@ -30,6 +30,7 @@ let PolicySchema = new mongoose.Schema({
 	dateCancellation: {type: String, require: true},
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
+	branchCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},
 	userUpdate: {type: String, require: true}
 });

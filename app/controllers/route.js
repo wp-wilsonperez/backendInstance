@@ -46,7 +46,17 @@ let routeController = function (app, control={auth, passport, acl}){
 
    app.get('/route/list', [control.auth, controller, control.acl], (req, res) => {
 
-      Route.find({}, function (err, docs) {
+      let typeList = app.locals.typeList;
+      let filter = {};
+      if(typeList=="99097f2c1f"){
+         filter = {"userCreate": req.user.idUser};
+      } else if(typeList=="99097f2c1c"){
+         filter = {"branchCreate": req.user.idBranch};
+      } else {
+         filter = {};
+      }
+
+      Route.find(filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             User.populate(docs, {path: "userSend"},function(err, docs){
@@ -94,6 +104,7 @@ let routeController = function (app, control={auth, passport, acl}){
          observations: req.body.observations,
          dateCreate: moment(),
          userCreate: req.user.idUser,
+         branchCreate: req.user.idBranch,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       });

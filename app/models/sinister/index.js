@@ -20,6 +20,7 @@ let SinisterSchema = new mongoose.Schema({
 	settlementDate: {type: Date},
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
+	branchCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},
 	userUpdate: {type: String, require: true}
 });
