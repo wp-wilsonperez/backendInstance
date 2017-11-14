@@ -93,6 +93,7 @@ let planAssociationController = function (app, control={auth, passport, acl}){
    app.post('/planAssociation/add', [control.auth, controller, control.acl], (req, res) => {
 
       let planAssociation = new PlanAssociation({
+         name: req.body.name,
          idPlan: req.body.idPlan,
          plan: req.body.idPlan,
          idRamo: req.body.idRamo,
@@ -125,6 +126,7 @@ let planAssociationController = function (app, control={auth, passport, acl}){
       }
 
       let update = {
+         name: req.body.name,
          idPlan: req.body.idPlan,
          plan: req.body.idPlan,
          idRamo: req.body.idRamo,

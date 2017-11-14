@@ -2,6 +2,7 @@
 import mongoose from 'mongoose';
 
 let PlanAssociationSchema = new mongoose.Schema({
+	name: {type: String, require: true},
 	idPlan: {type: String, require: true},
 	plan: { type: mongoose.Schema.ObjectId, ref: "Plan"},
 	idRamo: {type: String, require: true},
