@@ -8,7 +8,7 @@ let DependentSchema = new mongoose.Schema({
 	name: {type: String, require: true},
 	lastName: {type: String, require: true},
 	relationship: {type: String, require: true},
-	birthdate: {type: Date, require: true},
+	birthdate: {type: String, require: true},
 	workingDetails: {type: String, require: true},
 	sex: {type: String, require: true},
 	notCovered: {type: Boolean, require: true},
