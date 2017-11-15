@@ -88,7 +88,7 @@ let noRenewalController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.post('/bankInsurance/edit/:id', [control.auth, controller, control.acl], (req, res) => {
+   app.post('/noRenewal/edit/:id', [control.auth, controller, control.acl], (req, res) => {
 
       let filter = {
          _id: req.params.id

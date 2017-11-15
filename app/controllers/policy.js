@@ -154,6 +154,7 @@ let policyController = function (app, control={auth, passport, acl}){
             annexedNumber: req.body.annexedNumber,
             certificateNumber: req.body.certificateNumber,
             idInsurance: req.body.idInsurance,
+            idClient:req.body.idClient,
             insurance: req.body.idInsurance,
             idRamo: req.body.idRamo,
             ramo: req.body.idRamo,
