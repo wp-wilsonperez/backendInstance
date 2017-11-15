@@ -87,7 +87,7 @@ let businessController = function (app, control={auth, passport, acl}){
             control.log(req.route.path, req.user);
             res.send({msg: "OK", doc: doc});
          } else {
-            res.send({msg: 'ERR', err: err});
+            return res.send({msg: 'ERR1', err: err});
          }            
       });
 
