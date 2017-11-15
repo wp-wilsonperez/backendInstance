@@ -118,6 +118,12 @@ passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
 
+import sinisterGeneralDocumentationController from './app/controllers/sinisterGeneralDocumentation';
+sinisterGeneralDocumentationController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
+
+import sinisterGeneralController from './app/controllers/sinisterGeneral';
+sinisterGeneralController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
+
 import letterDocxController from './app/controllers/letterDocx';
 letterDocxController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), log: logAction});
 
