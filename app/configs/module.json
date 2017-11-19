@@ -5,6 +5,7 @@
       "show": "Ciudad",
       "actions" : [
         {
+          "typeList":"",
           "name": "list",
           "show": "Listado",
           "type": "get",
