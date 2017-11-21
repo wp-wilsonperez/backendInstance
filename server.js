@@ -103,8 +103,8 @@ let bearerStrategy = new BearerStrategy(
    function(token, cb) {
       Token.findOne({token: token}, function(err, doc) {
          if (err) { return cb(err); }
-         console.log("-------------------");
-         console.log(doc);
+         /*console.log("-------------------");
+         console.log(doc);*/
          if (!doc) { return cb(null, false); }
          User.findOne({_id: doc.idUser}, (err, docUser) => {
             return cb(null, docUser);
@@ -394,10 +394,34 @@ global.filter = function(query){
    return $filter;
 }
 
+global.error = function(error, type, controller){
+  if(type == 0){
+    if(controller=='business'){
+      console.log(error);
+      if(error.name && error.name=='ValidationError' && error.errors.ruc){
+        return 'El ruc ya esta registrado';
+      }
+    }
+    return "Error en base de datos";
+  }
+  else if(type==1)
+    return "Error de duplicado";
+   let $params = type=100 ? type : [];
+   let $filter={};
+   $params.forEach(function (item, index) {
+      if(item.condition == "="){
+         $filter[item.field] = item.value;
+      }
+   });
+   $msg="mensaje altertativo";
+   console.log($filter);
+   return $msg;
+}
+
 function ensureACL (req, res, next){
-   console.log("**********REQ_USER**********");
+   /*console.log("**********REQ_USER**********");
    console.log(req.user);
-   console.log("**********++++++**********");
+   console.log("**********++++++**********");*/
    let $moduleAllow = {
       "user": {
          "adduserImg": true,

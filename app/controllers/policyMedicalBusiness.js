@@ -39,10 +39,8 @@ let policyMedicalBusinessController = function (app, control={auth, passport, ac
             });
             
          } else {
-            res.send({
-               msg : 'ERR',
-               err : err.code
-            });
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -61,10 +59,8 @@ let policyMedicalBusinessController = function (app, control={auth, passport, ac
             });
             
          } else {
-            res.send({
-               msg : 'ERR',
-               err : err.code
-            });
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -77,7 +73,8 @@ let policyMedicalBusinessController = function (app, control={auth, passport, ac
             control.log(req.route.path, req.user);
             res.send({msg: "OK", policyMedicalBusiness: doc});
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -122,7 +119,8 @@ let policyMedicalBusinessController = function (app, control={auth, passport, ac
                res.send({msg: "OK", update: docs});
             });
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }            
       });
 
@@ -169,7 +167,8 @@ let policyMedicalBusinessController = function (app, control={auth, passport, ac
                res.send({msg: "OK", update: docs});
             });
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -188,7 +187,8 @@ let policyMedicalBusinessController = function (app, control={auth, passport, ac
                res.send({msg: "OK", update: docs});
             });
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }            
       });
 

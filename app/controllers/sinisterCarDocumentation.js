@@ -34,10 +34,8 @@ let sinisterCarDocumentationController = function (app, control={auth, passport,
             });
             
          } else {
-            res.send({
-               msg : 'ERR',
-               err : err.code
-            });
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -54,10 +52,8 @@ let sinisterCarDocumentationController = function (app, control={auth, passport,
             });
             
          } else {
-            res.send({
-               msg : 'ERR',
-               err : err.code
-            });
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -70,7 +66,8 @@ let sinisterCarDocumentationController = function (app, control={auth, passport,
             control.log(req.route.path, req.user);
             res.send({msg: "OK", sinisterCarDocumentation: doc});
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -100,7 +97,8 @@ let sinisterCarDocumentationController = function (app, control={auth, passport,
                res.send({msg: "OK", update: docs});
             });
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }            
       });
 
@@ -132,7 +130,8 @@ let sinisterCarDocumentationController = function (app, control={auth, passport,
                res.send({msg: "OK", update: docs});
             });
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -151,7 +150,8 @@ let sinisterCarDocumentationController = function (app, control={auth, passport,
                res.send({msg: "OK", update: docs});
             });
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }            
       });
 

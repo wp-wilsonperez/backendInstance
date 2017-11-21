@@ -13,10 +13,8 @@ let paramController = function (app, control={auth, passport, acl}){
       if(helper){
          res.send({msg: "OK", params: helper});
       } else {
-         res.send({
-            msg : 'ERR',
-            err : "incorrect"
-         });
+         let error=global.error('incorrecto', 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
       }
    });
 

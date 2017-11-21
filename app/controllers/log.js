@@ -14,10 +14,8 @@ let logController = function (app, control={auth, passport, acl}){
          if (typeof docs !== 'undefined') {
             res.send({msg: "OK", logs: docs});
          } else {
-            res.send({
-               msg : 'ERR',
-               err : err.code
-            });
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
    });

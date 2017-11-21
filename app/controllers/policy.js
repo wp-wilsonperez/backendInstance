@@ -31,10 +31,8 @@ let policyController = function (app, control={auth, passport, acl}){
             control.log(req.route.path, req.user);
             res.send({msg: "OK", policies: docs});
          } else {
-            res.send({
-               msg : 'ERR',
-               err : err.code
-            });
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -57,10 +55,8 @@ let policyController = function (app, control={auth, passport, acl}){
             control.log(req.route.path, req.user);
             res.send({msg: "OK", policies: docs});
          } else {
-            res.send({
-               msg : 'ERR',
-               err : err.code
-            });
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -73,7 +69,8 @@ let policyController = function (app, control={auth, passport, acl}){
             control.log(req.route.path, req.user);
             res.send({msg: "OK", policy: doc});
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -132,7 +129,8 @@ let policyController = function (app, control={auth, passport, acl}){
                               }
                               ItemAnnex.insertMany($subItemAnnexes, (err, docsWalletPayment) => { });
                            } else {
-                              res.send({msg: 'ERR', err: err});
+                              let error=global.error(err, 0, req.controller);
+                              res.send({msg: 'ERROR', err: error});
                            }
                         });
                      }
@@ -140,11 +138,13 @@ let policyController = function (app, control={auth, passport, acl}){
                         res.send({msg: "OK", update: docs});
                      });
                   } else {
-                     res.send({msg: 'ERR', err: err});
+                     let error=global.error(err, 0, req.controller);
+                     res.send({msg: 'ERROR', err: error});
                   }
                });
             } else {
-               res.send({msg: 'ERR', err: err});
+               let error=global.error(err, 0, req.controller);
+               res.send({msg: 'ERROR', err: error});
             }            
          });
 
@@ -185,7 +185,8 @@ let policyController = function (app, control={auth, passport, acl}){
                control.log(req.route.path, req.user);
                res.send({msg: "OK", doc: doc});
             } else {
-               res.send({msg: 'ERR', err: err});
+               let error=global.error(err, 0, req.controller);
+               res.send({msg: 'ERROR', err: error});
             }            
          });
 
@@ -222,10 +223,8 @@ let policyController = function (app, control={auth, passport, acl}){
                            $plicyAnnex["userUpdate"] = req.user.idUser;*/
                         }
                      } else {
-                        res.send({
-                           msg : 'ERR',
-                           err : err.code
-                        });
+                        let error=global.error(err, 0, req.controller);
+                        return res.send({msg: 'ERROR', err: error});
                      }
                   });
                }           
@@ -233,7 +232,8 @@ let policyController = function (app, control={auth, passport, acl}){
             //control.log(req.route.path, req.user);
             res.send({msg: "OK", policy: docPolicy});
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -280,7 +280,8 @@ let policyController = function (app, control={auth, passport, acl}){
                res.send({msg: "OK", update: docs});
             });
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -299,7 +300,8 @@ let policyController = function (app, control={auth, passport, acl}){
                res.send({msg: "OK", update: docs});
             });
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }            
       });
 

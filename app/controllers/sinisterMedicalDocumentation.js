@@ -39,10 +39,8 @@ let sinisterMedicalDocumentationController = function (app, control={auth, passp
             });
             
          } else {
-            res.send({
-               msg : 'ERR',
-               err : err.code
-            });
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -61,10 +59,8 @@ let sinisterMedicalDocumentationController = function (app, control={auth, passp
             });
             
          } else {
-            res.send({
-               msg : 'ERR',
-               err : err.code
-            });
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -77,7 +73,8 @@ let sinisterMedicalDocumentationController = function (app, control={auth, passp
             control.log(req.route.path, req.user);
             res.send({msg: "OK", sinisterMedicalDocumentation: doc});
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -110,7 +107,8 @@ let sinisterMedicalDocumentationController = function (app, control={auth, passp
                res.send({msg: "OK", update: docs});
             });
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }            
       });
 
@@ -145,7 +143,8 @@ let sinisterMedicalDocumentationController = function (app, control={auth, passp
                res.send({msg: "OK", update: docs});
             });
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -164,7 +163,8 @@ let sinisterMedicalDocumentationController = function (app, control={auth, passp
                res.send({msg: "OK", update: docs});
             });
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }            
       });
 

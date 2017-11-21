@@ -30,10 +30,8 @@ let billingController = function (app, control={auth, passport, acl}){
             res.send({msg: "OK", billings: docs});
             
          } else {
-            res.send({
-               msg : 'ERR',
-               err : err.code
-            });
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -58,10 +56,8 @@ let billingController = function (app, control={auth, passport, acl}){
             res.send({msg: "OK", billings: docs});
             
          } else {
-            res.send({
-               msg : 'ERR',
-               err : err.code
-            });
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -74,7 +70,8 @@ let billingController = function (app, control={auth, passport, acl}){
             control.log(req.route.path, req.user);
             res.send({msg: "OK", billing: doc});
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -142,11 +139,13 @@ let billingController = function (app, control={auth, passport, acl}){
                      res.send({msg: "OK", update: docs});
                   });
                } else {
-                  res.send({msg: 'ERR', err: err});
+                  let error=global.error(err, 0, req.controller);
+                  res.send({msg: 'ERROR', err: error});
                }
             });
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }            
       });
 
@@ -190,7 +189,8 @@ let billingController = function (app, control={auth, passport, acl}){
                res.send({msg: "OK", update: docs});
             });
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -209,7 +209,8 @@ let billingController = function (app, control={auth, passport, acl}){
                res.send({msg: "OK", update: docs});
             });
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }            
       });
 

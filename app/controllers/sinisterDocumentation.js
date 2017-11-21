@@ -28,10 +28,8 @@ let sinisterDocumentationController = function (app, control={auth, passport, ac
             res.send({msg: "OK", sinisterDocumentations: docs});
             
          } else {
-            res.send({
-               msg : 'ERR',
-               err : err.code
-            });
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -46,10 +44,8 @@ let sinisterDocumentationController = function (app, control={auth, passport, ac
             res.send({msg: "OK", sinisterDocumentations: docs});
             
          } else {
-            res.send({
-               msg : 'ERR',
-               err : err.code
-            });
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -62,7 +58,8 @@ let sinisterDocumentationController = function (app, control={auth, passport, ac
             control.log(req.route.path, req.user);
             res.send({msg: "OK", sinisterDocumentation: doc});
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -87,7 +84,8 @@ let sinisterDocumentationController = function (app, control={auth, passport, ac
                res.send({msg: "OK", update: docs});
             });
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }            
       });
 
@@ -114,7 +112,8 @@ let sinisterDocumentationController = function (app, control={auth, passport, ac
                res.send({msg: "OK", update: docs});
             });
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -133,7 +132,8 @@ let sinisterDocumentationController = function (app, control={auth, passport, ac
                res.send({msg: "OK", update: docs});
             });
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }            
       });
 

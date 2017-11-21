@@ -27,10 +27,8 @@ let roleController = function (app, control={auth, passport, acl}){
             control.log(req.route.path, req.user);
             res.send({msg: "OK", roles: docs});
          } else {
-            res.send({
-               msg : 'ERR',
-               err : err.code
-            });
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -43,10 +41,8 @@ let roleController = function (app, control={auth, passport, acl}){
             control.log(req.route.path, req.user);
             res.send({msg: "OK", roles: docs});
          } else {
-            res.send({
-               msg : 'ERR',
-               err : err.code
-            });
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -59,7 +55,8 @@ let roleController = function (app, control={auth, passport, acl}){
             control.log(req.route.path, req.user);
             res.send({msg: "OK", role: doc});
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -83,7 +80,8 @@ let roleController = function (app, control={auth, passport, acl}){
                res.send({msg: "OK", update: docs});
             });
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }            
       });
 
@@ -109,7 +107,8 @@ let roleController = function (app, control={auth, passport, acl}){
                res.send({msg: "OK", update: docs});
             });
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -128,7 +127,8 @@ let roleController = function (app, control={auth, passport, acl}){
                res.send({msg: "OK", update: docs});
             });
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }            
       });
 
@@ -142,7 +142,8 @@ let roleController = function (app, control={auth, passport, acl}){
             let $grant = doc.grant != "" ? JSON.parse(doc.grant) : {};
             res.send({msg: "OK", grant: $grant, module: module});
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
@@ -156,7 +157,7 @@ let roleController = function (app, control={auth, passport, acl}){
 
       let $grant = req.body.grant;
       if (typeof($grant) !== "object") {
-         return res.send({msg: 'ERR', err: "the format is not an objet"});
+         return res.send({msg: 'ERROR', err: "the format is not an objet"});
       }
       let update = {
          grant: JSON.stringify($grant)
@@ -169,7 +170,8 @@ let roleController = function (app, control={auth, passport, acl}){
                res.send({msg: "OK", update: docs});
             });
          } else {
-            res.send({msg: 'ERR', err: err});
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
          }
       });
 
