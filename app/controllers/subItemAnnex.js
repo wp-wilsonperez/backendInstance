@@ -71,12 +71,20 @@ let subItemAnnexController = function (app, control={auth, passport, acl}){
    app.post('/subItemAnnex/add', [control.auth, controller, control.acl], (req, res) => {
 
       let subItemAnnex = new SubItemAnnex({
+         idItemAnnex: req.body.idItemAnnex,
+         itemAnnex: req.body.idItemAnnex,
+         numberSubItem: req.body.numberSubItem,
          name: req.body.name,
-         idRamo: req.body.idRamo,
-         ramo: req.body.idRamo,
-         idInsurance: req.body.idInsurance,
-         insurance: req.body.idInsurance,
-         desciption: req.body.desciption,
+         planAlternative: req.body.planAlternative,
+         ValueSubItem: req.body.ValueSubItem,
+         tasa: req.body.tasa,
+         calcFloat: req.body.calcFloat,
+         primaNeta: req.body.primaNeta,
+         detailsSubItem: req.body.detailsSubItem,
+         observationsSubItem: req.body.observationsSubItem,
+         exclusionDate: req.body.exclusionDate,
+         inclusionDate: req.body.inclusionDate,
+         modificationDate: req.body.modificationDate,
          dateCreate: moment(),
          userCreate: req.user.idUser,
          dateUpdate: moment(),
@@ -102,12 +110,20 @@ let subItemAnnexController = function (app, control={auth, passport, acl}){
       }
 
       let update = {
+         idItemAnnex: req.body.idItemAnnex,
+         itemAnnex: req.body.idItemAnnex,
+         numberSubItem: req.body.numberSubItem,
          name: req.body.name,
-         idRamo: req.body.idRamo,
-         ramo: req.body.idRamo,
-         idInsurance: req.body.idInsurance,
-         insurance: req.body.idInsurance,
-         desciption: req.body.desciption,
+         planAlternative: req.body.planAlternative,
+         ValueSubItem: req.body.ValueSubItem,
+         tasa: req.body.tasa,
+         calcFloat: req.body.calcFloat,
+         primaNeta: req.body.primaNeta,
+         detailsSubItem: req.body.detailsSubItem,
+         observationsSubItem: req.body.observationsSubItem,
+         exclusionDate: req.body.exclusionDate,
+         inclusionDate: req.body.inclusionDate,
+         modificationDate: req.body.modificationDate,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };
