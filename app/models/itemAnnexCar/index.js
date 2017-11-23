@@ -13,7 +13,7 @@ let ItemAnnexCarSchema = new mongoose.Schema({
 	amparoPatrimonial: {type: Number, require: true},
 	rc: {type: String, require: true},
 	others: {type: String, require: true},
-	prima: {type: Number, require: true},
+	othersPrima: {type: Number, require: true},
 	detailsCar: {type: String, require: true},
 	prima: {type: Number, require: true},
 	exclusionDate: {type: Date, require: true},

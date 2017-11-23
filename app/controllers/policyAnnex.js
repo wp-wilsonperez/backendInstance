@@ -1,9 +1,32 @@
 
 import moment from 'moment';
-
+import multer from 'multer';
+import fs from 'fs';
 import PolicyAnnex from "../models/policyAnnex";
 
 import Policy from "../models/policy";
+
+const pathRender = `uploads/policyAnnex`;
+const pathPolicyAnnex = `./public/${pathRender}`;
+
+if (!fs.existsSync(pathPolicyAnnex)){
+    fs.mkdirSync(pathPolicyAnnex);
+}
+
+let storage = multer.diskStorage({
+   destination: function(req, file, callback) {
+      callback(null, pathPolicyAnnex);
+   },
+   filename: function(req, file, callback){
+      var basename = file.originalname.split(/[\\/]/).pop(),
+      pos = basename.lastIndexOf(".");
+      if (basename === "" || pos < 1)
+         return "";
+      callback(null, file.fieldname + '-' + Date.now() + '.' + basename.slice(pos + 1));
+   }
+});
+
+let upload = multer({storage: storage}).single("policyAnnexImg");
 
 let policyAnnexController = function (app, control={auth, passport, acl}){
 
@@ -175,6 +198,34 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
          }            
+      });
+
+   });
+
+   app.post('/policyAnnex/addpolicyAnnexImg', [control.auth, controller, control.acl], (req, res) => {
+
+      upload(req , res , function(err) {
+         if(!err){
+            let $policyAnnexImg = `${req.file.filename}`;
+            res.send({msg: "OK", policyAnnexImg: $policyAnnexImg, path: pathRender});
+         } else {
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
+         }
+      });
+
+   });
+
+   app.delete('/policyAnnex/deletepolicyAnnexImg/:name', [control.auth, controller, control.acl], (req, res) => {
+
+      let $policyAnnexImgPath = `${pathPolicyAnnex}/${req.params.name}`;
+      fs.unlink($policyAnnexImgPath, function (err) {
+         if(!err){
+            res.send({msg: "OK"});
+         } else {
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
+         }
       });
 
    });
