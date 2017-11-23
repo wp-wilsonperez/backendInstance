@@ -455,6 +455,10 @@ function ensureACL (req, res, next){
       "dependent": {
          "adddependentImg": true,
          "deletedependentImg": true
+      },
+      "policyAnnex": {
+         "addpolicyAnnexImg": true,
+         "deletepolicyAnnexImg": true
       }
    };
    let $controller = req.route.path.split("/")[1];
