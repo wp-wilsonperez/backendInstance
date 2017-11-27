@@ -4,6 +4,9 @@ import mongoose from 'mongoose';
 let BillingPolicySchema = new mongoose.Schema({
 	idBilling: {type: String, require: true},
 	billing: { type: mongoose.Schema.ObjectId, ref: "Billing"},
+	idPolicy: {type: String, require: true},
+	policy: { type: mongoose.Schema.ObjectId, ref: "Policy"},
+	policyNumber: { type: Number},
 	idRamo: {type: String, require: true},
 	ramo: { type: Object},
 	annexNumber: {type: Number, require: true},
@@ -13,6 +16,7 @@ let BillingPolicySchema = new mongoose.Schema({
 	superBank: {type: Number, require: true},
 	segCamp: {type: Number, require: true},
 	issue: {type: Number, require: true},
+	otherWithIVA2: {type: Number, require: true},
 	IVA: {type: Number, require: true},
 	others: {type: Number, require: true},
 	totalValue: {type: Number, require: true},
