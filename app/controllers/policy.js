@@ -93,8 +93,6 @@ let policyController = function (app, control={auth, passport, acl}){
 
          policy.save((err, docPolicy) => {
             if(!err){
-               let $itemAnnexes = $policyAnnex.itemAnnexes;
-               delete($policyAnnexes.itemAnnexes);
                $policyAnnex["idPolicy"] = docPolicy._id;
                $policyAnnex["policy"] = docPolicy._id;
                $policyAnnex["dateCreate"] = $moment;
@@ -105,35 +103,6 @@ let policyController = function (app, control={auth, passport, acl}){
 
                policyAnnex.save((err, docPolicyAnnex) => {
                   if(!err){
-                     for (var i=0 ; i>$itemAnnexes.length; i++) {
-                        let $itemAnnex = $itemAnnexes[0];
-                        let $subItemAnnexes = $itemAnnex.subItemAnnexes;
-                        delete($itemAnnex.subItemAnnexes);
-                        $itemAnnex["idPolicyAnnex"] = docPolicyAnnex._id;
-                        $itemAnnex["policyAnnex"] = docPolicyAnnex._id;
-                        $itemAnnex["dateCreate"] = $moment;
-                        $itemAnnex["userCreate"] = req.user.idUser;
-                        $itemAnnex["dateUpdate"] = $moment;
-                        $itemAnnex["userUpdate"] = req.user.idUser;
-                        let itemAnnex = new ItemAnnex($itemAnnex);
-
-                        itemAnnex.save((err, docItemAnnex) => {
-                           if(!err){
-                              for(let i = 0; i < $subItemAnnexes.length; i++){
-                                 $subItemAnnexes["idItemAnnex"] = docItemAnnex._id;
-                                 $subItemAnnexes["itemAnnex"] = docItemAnnex._id;
-                                 $subItemAnnexes["dateCreate"] = $moment;
-                                 $subItemAnnexes["userCreate"] = req.user.idUser;
-                                 $subItemAnnexes["dateUpdate"] = $moment;
-                                 $subItemAnnexes["userUpdate"] = req.user.idUser;
-                              }
-                              ItemAnnex.insertMany($subItemAnnexes, (err, docsWalletPayment) => { });
-                           } else {
-                              let error=global.error(err, 0, req.controller);
-                              res.send({msg: 'ERROR', err: error});
-                           }
-                        });
-                     }
                      findAction(function(docs){
                         res.send({msg: "OK", update: docs});
                      });
@@ -292,6 +261,24 @@ let policyController = function (app, control={auth, passport, acl}){
       let filter = {
          _id: req.params.id
       }
+
+      Policy.findByIdAndRemove(filter, function (err, doc) {
+         if(!err){
+            findAction(function(docs){
+               control.log(req.route.path, req.user);
+               res.send({msg: "OK", update: docs});
+            });
+         } else {
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
+         }            
+      });
+
+   });
+
+   app.delete('/policy/report', [control.auth, controller, control.acl], (req, res) => {
+
+      let filter = {}
 
       Policy.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
