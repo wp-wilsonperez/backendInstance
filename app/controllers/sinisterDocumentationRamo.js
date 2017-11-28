@@ -3,6 +3,9 @@ import moment from 'moment';
 
 import SinisterDocumentationRamo from "../models/sinisterDocumentationRamo";
 
+import SinisterDocumentation from "../models/sinisterDocumentation";
+import Ramo from "../models/ramo";
+
 let sinisterDocumentationRamoController = function (app, control={auth, passport, acl}){
 
    function controller (req, res, next) {
@@ -24,8 +27,11 @@ let sinisterDocumentationRamoController = function (app, control={auth, passport
       SinisterDocumentationRamo.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
-
-            res.send({msg: "OK", sinisterDocumentationRamos: docs});
+            SinisterDocumentationRamo.populate(docs, {path: "sinisterDocumentationRamo"},function(err, docs){
+               SinisterDocumentation.populate(docs, {path: "sinisterDocumentation"},function(err, docs){
+                  res.send({msg: "OK", sinisterDocumentationRamos: docs});
+               });
+            });
             
          } else {
             let error=global.error(err, 0, req.controller);
@@ -40,8 +46,11 @@ let sinisterDocumentationRamoController = function (app, control={auth, passport
       SinisterDocumentationRamo.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
-
-            res.send({msg: "OK", sinisterDocumentationRamos: docs});
+            SinisterDocumentationRamo.populate(docs, {path: "sinisterDocumentationRamo"},function(err, docs){
+               SinisterDocumentation.populate(docs, {path: "sinisterDocumentation"},function(err, docs){
+                  res.send({msg: "OK", sinisterDocumentationRamos: docs});
+               });
+            });
             
          } else {
             let error=global.error(err, 0, req.controller);
@@ -56,7 +65,11 @@ let sinisterDocumentationRamoController = function (app, control={auth, passport
       SinisterDocumentationRamo.findById(req.params.id, function (err, doc) {
          if (!err) {
             control.log(req.route.path, req.user);
-            res.send({msg: "OK", sinisterDocumentationRamo: doc});
+            SinisterDocumentationRamo.populate(docs, {path: "sinisterDocumentationRamo"},function(err, docs){
+               SinisterDocumentation.populate(docs, {path: "sinisterDocumentation"},function(err, docs){
+                  res.send({msg: "OK", sinisterDocumentationRamo: doc});
+               });
+            });
          } else {
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
