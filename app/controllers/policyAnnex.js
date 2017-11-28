@@ -207,6 +207,17 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
                   }
                ]
             */
+            let itemAnnexArray = req.body.itemAnnexArray;
+            let itemAnnexDoc = doc.itemAnnex;
+            for (var i=0 ; i>$itemAnnexArray.length; i++) {
+               let $e = itemAnnexArray[i];
+               if(itemAnnexDoc[$e.index]){
+                  itemAnnexDoc[$e.index][$e.field]=[$e.value];
+               }else{
+                  //itemAnnexDoc[$e.index][$e.field]=[$e.value];
+               }
+            }
+            update["itemAnnex"]=itemAnnexDoc;
             PolicyAnnex.findOneAndUpdate(filter, update, function (err, doc) {
                if (!err) {
                   findAction(function(docs){
