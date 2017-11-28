@@ -27,8 +27,8 @@ let sinisterDocumentationRamoController = function (app, control={auth, passport
       SinisterDocumentationRamo.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
-            SinisterDocumentationRamo.populate(docs, {path: "sinisterDocumentationRamo"},function(err, docs){
-               SinisterDocumentation.populate(docs, {path: "sinisterDocumentation"},function(err, docs){
+            SinisterDocumentation.populate(docs, {path: "sinisterDocumentation"},function(err, docs){
+               Ramo.populate(docs, {path: "ramo"},function(err, docs){
                   res.send({msg: "OK", sinisterDocumentationRamos: docs});
                });
             });
@@ -46,8 +46,8 @@ let sinisterDocumentationRamoController = function (app, control={auth, passport
       SinisterDocumentationRamo.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
-            SinisterDocumentationRamo.populate(docs, {path: "sinisterDocumentationRamo"},function(err, docs){
-               SinisterDocumentation.populate(docs, {path: "sinisterDocumentation"},function(err, docs){
+            SinisterDocumentation.populate(docs, {path: "sinisterDocumentation"},function(err, docs){
+               Ramo.populate(docs, {path: "ramo"},function(err, docs){
                   res.send({msg: "OK", sinisterDocumentationRamos: docs});
                });
             });
@@ -65,8 +65,8 @@ let sinisterDocumentationRamoController = function (app, control={auth, passport
       SinisterDocumentationRamo.findById(req.params.id, function (err, doc) {
          if (!err) {
             control.log(req.route.path, req.user);
-            SinisterDocumentationRamo.populate(docs, {path: "sinisterDocumentationRamo"},function(err, docs){
-               SinisterDocumentation.populate(docs, {path: "sinisterDocumentation"},function(err, docs){
+            SinisterDocumentation.populate(docs, {path: "sinisterDocumentation"},function(err, docs){
+               Ramo.populate(docs, {path: "ramo"},function(err, docs){
                   res.send({msg: "OK", sinisterDocumentationRamo: doc});
                });
             });
@@ -82,7 +82,9 @@ let sinisterDocumentationRamoController = function (app, control={auth, passport
 
       let sinisterDocumentationRamo = new SinisterDocumentationRamo({
          idSinisterDocumentation: req.body.idSinisterDocumentation,
+         sinisterDocumentation: req.body.idSinisterDocumentation,
          idRamo: req.body.idRamo,
+         ramo: req.body.idRamo,
          dateCreate: moment(),
          userCreate: req.user.idUser,
          dateUpdate: moment(),
@@ -111,7 +113,9 @@ let sinisterDocumentationRamoController = function (app, control={auth, passport
 
       let update = {
          idSinisterDocumentation: req.body.idSinisterDocumentation,
+         sinisterDocumentation: req.body.idSinisterDocumentation,
          idRamo: req.body.idRamo,
+         ramo: req.body.idRamo,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };
