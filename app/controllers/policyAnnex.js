@@ -126,6 +126,9 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
          segCamp: req.body.segCamp,
          valueIssue: req.body.valueIssue,
          totalValue: req.body.totalValue,
+         others: req.body.others,
+         hasBilling: req.body.hasBilling,
+         isBilling: req.body.isBilling,
          itemAnnex: req.body.itemAnnex,
          dateCreate: moment(),
          userCreate: req.user.idUser,
@@ -165,6 +168,9 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
          segCamp: req.body.segCamp,
          valueIssue: req.body.valueIssue,
          totalValue: req.body.totalValue,
+         others: req.body.others,
+         hasBilling: req.body.hasBilling,
+         isBilling: req.body.isBilling,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };

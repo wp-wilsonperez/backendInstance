@@ -12,7 +12,10 @@ let PolicyAnnexSchema = new mongoose.Schema({
 	iva: {type: Number, require: true},
 	segCamp: {type: String, require: true},
 	valueIssue: {type: Number, require: true},
+	others: {type: String},
 	totalValue: {type: Number, require: true},
+	hasBilling: {type: Boolean},
+	isBilling: {type: Boolean},
 	itemAnnex: [{
 		numberItem: {type: Number},
 		travelfrom: {type: String},
