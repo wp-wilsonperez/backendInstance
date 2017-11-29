@@ -140,6 +140,7 @@ let policyController = function (app, control={auth, passport, acl}){
             frequencyPayment: req.body.idFrequencyPayment,
             idCity: req.body.idCity,
             city: req.body.idCity,
+            idRamo: req.body.idRamo,
             dateAdmission: req.body.dateAdmission,
             dateCancellation: req.body.dateCancellation,
             dateCreate: moment(),
@@ -147,6 +148,7 @@ let policyController = function (app, control={auth, passport, acl}){
             branchCreate: req.user.idBranch,
             dateUpdate: moment(),
             userUpdate: req.user.idUser
+           
          });
 
          policy.save((err, doc) => {
