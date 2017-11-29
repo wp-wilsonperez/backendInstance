@@ -39,7 +39,7 @@ let PolicyAnnexSchema = new mongoose.Schema({
 			exclusionDate: {type: Date},
 			inclusionDate: {type: Date},
 			modificationDate: {type: Date},
-			subItemAnnex: [{
+			subItems: [{
 				numberSubItem: {type: Number},
 				name: {type: String},
 				planAlternative: {type: String},
