@@ -129,7 +129,6 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
          others: req.body.others,
          hasBilling: req.body.hasBilling,
          isBilling: req.body.isBilling,
-         itemAnnex: req.body.itemAnnex,
          dateCreate: moment(),
          userCreate: req.user.idUser,
          dateUpdate: moment(),
@@ -175,67 +174,38 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
          userUpdate: req.user.idUser
       };
 
-      PolicyAnnex.findById(req.params.id, function (err, doc) {
+      PolicyAnnex.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
-            //control.log(req.route.path, req.user);
-            /*structure itenAnnexArray
-               [
-                  {
-                     "new": false,
-                     "index": index_of_array,
-                     "field"; "name_field_subdocument",
-                     "value": "value_field_subdocuemnt",
-                     subItemAnnexArray: [
-                        {
-                           "new": false,
-                           "index": index_of_array,
-                           "field"; "name_field_subdocument",
-                           "value": "value_field_subdocuemnt"
-                        },
-                        {
-                           "new": true,
-                           "field"; "value",
-                           "field"; "value",
-                           ...
-                        }
-                     ]
-                  },
-                  {
-                     "new": true,
-                     "field"; "value",
-                     "field"; "value",
-                     ...,
-                     "subItemAnnex"; [{
-                        "field"; "value",
-                        "field"; "value",
-                        ...
-                     }],
-                  }
-               ]
-            */
-            let itemAnnexArray = req.body.itemAnnexArray;
-            let itemAnnexDoc = doc.itemAnnex;
-            for (var i=0 ; i>$itemAnnexArray.length; i++) {
-               let $e = itemAnnexArray[i];
-               if(itemAnnexDoc[$e.index]){
-                  itemAnnexDoc[$e.index][$e.field]=[$e.value];
-               }else{
-                  //itemAnnexDoc[$e.index][$e.field]=[$e.value];
-               }
-            }
-            update["itemAnnex"]=itemAnnexDoc;
-            PolicyAnnex.findOneAndUpdate(filter, update, function (err, doc) {
-               if (!err) {
-                  findAction(function(docs){
-                     control.log(req.route.path, req.user);
-                     res.send({msg: "OK", update: doc});
-                  });
-               } else {
-                  let error=global.error(err, 0, req.controller);
-                  res.send({msg: 'ERROR', err: error});
-               }
+            findAction(function(docs){
+               control.log(req.route.path, req.user);
+               res.send({msg: "OK", update: doc});
             });
+         } else {
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
+         }
+      });
 
+   });
+
+   app.post('/policyAnnex/editItems/:id', [control.auth, controller, control.acl], (req, res) => {
+
+      let filter = {
+         _id: req.params.id
+      }
+
+      let update = {
+         itemAnnex: req.body.itemAnnex,
+         dateUpdate: moment(),
+         userUpdate: req.user.idUser
+      };
+
+      PolicyAnnex.findOneAndUpdate(filter, update, function (err, doc) {
+         if (!err) {
+            findAction(function(docs){
+               control.log(req.route.path, req.user);
+               res.send({msg: "OK", update: doc});
+            });
          } else {
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
