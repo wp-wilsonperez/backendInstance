@@ -67,7 +67,7 @@ let PolicyAnnexSchema = new mongoose.Schema({
 				observationsSubItem: {type: String},
 				exclusionDate: {type: Date},
 				inclusionDate: {type: Date},
-				modificationDate: {type: Date}
+				modificationDate: {type: Date},
 				extraDetails: {type: String},
 				extraValue: {type: Number},
 				extraTasa: {type: Number},
