@@ -39,6 +39,22 @@ let PolicyAnnexSchema = new mongoose.Schema({
 			exclusionDate: {type: Date},
 			inclusionDate: {type: Date},
 			modificationDate: {type: Date},
+			idCar: {type: String},
+			tasa: {type: Number},
+			carUse: {type: String},
+			interest: {type: Number},
+			carValue: {type: Number},
+			amparoPatrimonial: {type: Number},
+			rc: {type: String},
+			others: {type: String},
+			othersPrima: {type: Number},
+			detailsCar: {type: String},
+			prima: {type: Number},//end annexCar
+			idPlanAlternative: {type: String},
+			value: {type: Number},
+			idClient: {type: String},
+			alternative: {type: Object},
+			annexDate: {type: Date},
 			subItems: [{
 				numberSubItem: {type: Number},
 				name: {type: String},
@@ -52,6 +68,9 @@ let PolicyAnnexSchema = new mongoose.Schema({
 				exclusionDate: {type: Date},
 				inclusionDate: {type: Date},
 				modificationDate: {type: Date}
+				extraDetails: {type: String},
+				extraValue: {type: Number},
+				extraTasa: {type: Number},
 			}]
 		}]
 	},
