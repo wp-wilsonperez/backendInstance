@@ -6,6 +6,7 @@ import Policy from "../models/policy";
 import PolicyAnnex from "../models/policyAnnex";
 import ItemAnnex from "../models/itemAnnex";
 import SubItemAnnex from "../models/subItemAnnex";
+import Insurance from "../models/insurance";
 
 import User from "../models/user";
 
@@ -19,7 +20,9 @@ let policyController = function (app, control={auth, passport, acl}){
    function findAction (callback){
       Policy.find({}, function (err, docs) {
          if (!err) {
-            callback(docs)
+            Insurance.populate(docs, {path: "insurance"},function(err, docs){
+               callback(docs)
+            });
          }
       });
    }
@@ -29,7 +32,9 @@ let policyController = function (app, control={auth, passport, acl}){
       Policy.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
-            res.send({msg: "OK", policies: docs});
+            Insurance.populate(docs, {path: "insurance"},function(err, docs){
+               res.send({msg: "OK", policies: docs});
+            });
          } else {
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
@@ -53,7 +58,9 @@ let policyController = function (app, control={auth, passport, acl}){
       Policy.find(filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
-            res.send({msg: "OK", policies: docs});
+            Insurance.populate(docs, {path: "insurance"},function(err, docs){
+               res.send({msg: "OK", policies: docs});
+            });
          } else {
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
@@ -123,8 +130,11 @@ let policyController = function (app, control={auth, passport, acl}){
             annexedNumber: req.body.annexedNumber,
             certificateNumber: req.body.certificateNumber,
             idInsurance: req.body.idInsurance,
-            idClient:req.body.idClient,
             insurance: req.body.idInsurance,
+            idRamo: req.body.idRamo,
+            ramo: req.body.idRamo,
+            idClient:req.body.idClient,
+            client:req.body.idClient,
             idUser: req.body.idUser,
             user: req.body.idUser,
             idDeductible: req.body.idDeductible,
@@ -221,8 +231,11 @@ let policyController = function (app, control={auth, passport, acl}){
          annexedNumber: req.body.annexedNumber,
          certificateNumber: req.body.certificateNumber,
          idInsurance: req.body.idInsurance,
-         idClient:req.body.idClient,
          insurance: req.body.idInsurance,
+         idRamo: req.body.idRamo,
+         ramo: req.body.idRamo,
+         idClient:req.body.idClient,
+         client:req.body.idClient,
          idUser: req.body.idUser,
          user: req.body.idUser,
          idDeductible: req.body.idDeductible,

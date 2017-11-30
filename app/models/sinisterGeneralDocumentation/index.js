@@ -11,6 +11,8 @@ let SinisterGeneralDocumentationSchema = new mongoose.Schema({
 	sendDate: {type: Date},
 	responsibleReception: {type: String},
 	receptionDate: {type: Date},
+	numberAllBilling: {type: Number, require: true},
+	totalBillingValue: {type: Number, require: true},
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},
