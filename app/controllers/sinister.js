@@ -2,8 +2,8 @@
 import moment from 'moment';
 
 import Sinister from "../models/sinister";
-import SinisterCar from "../models/sinisterCar";
-import SinisterCarDocumentation from "../models/sinisterCarDocumentation";
+import SinisterGeneral from "../models/sinisterGeneral";
+import SinisterGeneralDocumentation from "../models/sinisterGeneralDocumentation";
 
 import Ramo from "../models/ramo";
 
@@ -89,11 +89,11 @@ let sinisterController = function (app, control={auth, passport, acl}){
 
       let $data = req.body.sinister;
       let $sinisterData = $data;
-      let $sinisterCar = $data.item;
-      let $sinisterCarDocumentation = $data.item.items;
+      let $sinisterGeneral = $data.item;
+      let $sinisterGeneralDocumentation = $data.item.items;
       let $moment = moment();
       delete($sinisterData.item);
-      delete($sinisterCarDocumentation.items);
+      delete($sinisterGeneralDocumentation.items);
       $sinisterData["dateCreate"] = $moment;
       $sinisterData["userCreate"] = req.user.idUser;
       $sinisterData["branchCreate"] = req.user.idBranch;
@@ -104,24 +104,24 @@ let sinisterController = function (app, control={auth, passport, acl}){
       sinister.save((err, doc) => {
          if(!err){
             control.log(req.route.path, req.user);
-            $sinisterCar["idSinister"] = doc._id;
-            $sinisterCar["sinister"] = doc._id;
-            $sinisterCar["dateCreate"] = $moment;
-            $sinisterCar["userCreate"] = req.user.idUser;
-            $sinisterCar["dateUpdate"] = $moment;
-            $sinisterCar["userUpdate"] = req.user.idUser;
-            let sinisterCar = new SinisterCar($sinisterCar);
-            sinisterCar.save((err, doc) => {
+            $sinisterGeneral["idSinister"] = doc._id;
+            $sinisterGeneral["sinister"] = doc._id;
+            $sinisterGeneral["dateCreate"] = $moment;
+            $sinisterGeneral["userCreate"] = req.user.idUser;
+            $sinisterGeneral["dateUpdate"] = $moment;
+            $sinisterGeneral["userUpdate"] = req.user.idUser;
+            let sinisterGeneral = new SinisterCar($sinisterGeneral);
+            sinisterGeneral.save((err, doc) => {
                if(!err){
-                  $sinisterCarDocumentation.forEach(function (item, index) {
-                     $sinisterCarDocumentation[index]["idSinisterCar"]=doc._id;
-                     $sinisterCarDocumentation[index]["sinisterCar"]=doc._id;
-                     $sinisterCarDocumentation[index]["dateCreate"] = $moment;
-                     $sinisterCarDocumentation[index]["userCreate"] = req.user.idUser;
-                     $sinisterCarDocumentation[index]["dateUpdate"] = $moment;
-                     $sinisterCarDocumentation[index]["userUpdate"] = req.user.idUser;
+                  $sinisterGeneralDocumentation.forEach(function (item, index) {
+                     $sinisterGeneralDocumentation[index]["idSinisterGeneral"]=doc._id;
+                     $sinisterGeneralDocumentation[index]["sinisterGeneral"]=doc._id;
+                     $sinisterGeneralDocumentation[index]["dateCreate"] = $moment;
+                     $sinisterGeneralDocumentation[index]["userCreate"] = req.user.idUser;
+                     $sinisterGeneralDocumentation[index]["dateUpdate"] = $moment;
+                     $sinisterGeneralDocumentation[index]["userUpdate"] = req.user.idUser;
                   })
-                  SinisterCarDocumentation.insertMany($sinisterCarDocumentation, (err, docs) => {
+                  sinisterGeneralDocumentation.insertMany($sinisterGeneralDocumentation, (err, docs) => {
                   });
                }
             });
