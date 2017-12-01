@@ -188,7 +188,7 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.post('/policyAnnex/editItems/:id', [control.auth, controller, control.acl], (req, res) => {
+   app.post('/policyAnnex/editItems/:id', [control.auth, controller], (req, res) => {
 
       let filter = {
          _id: req.params.id

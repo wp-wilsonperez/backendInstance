@@ -4,6 +4,7 @@ import moment from 'moment';
 import Sinister from "../models/sinister";
 import SinisterGeneral from "../models/sinisterGeneral";
 import SinisterGeneralDocumentation from "../models/sinisterGeneralDocumentation";
+import SinisterCar from "../models/sinisterCar";
 
 import Ramo from "../models/ramo";
 
