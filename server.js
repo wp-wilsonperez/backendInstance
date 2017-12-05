@@ -118,6 +118,9 @@ passport.serializeUser((user, done) => { done(null, user) });
 passport.deserializeUser((user, done) => { done(null, user) });
 
 
+import authorizationTimeController from './app/controllers/authorizationTime';
+authorizationTimeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
+
 import sinisterGeneralDocumentationController from './app/controllers/sinisterGeneralDocumentation';
 sinisterGeneralDocumentationController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
@@ -408,6 +411,11 @@ global.error = function(error, type, controller){
     return "Error de duplicado";
   else if(type==2){
     if(controller=='clearanceTime'){
+      console.log(error);
+      if(error.duplicated && error.duplicated==3){
+        return 'El Ramo, La Aseguradora y La Sucursal ya estan registradas';
+      }
+    }else if(controller=='authorizationTime'){
       console.log(error);
       if(error.duplicated && error.duplicated==3){
         return 'El Ramo, La Aseguradora y La Sucursal ya estan registradas';

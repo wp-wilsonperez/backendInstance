@@ -69,6 +69,8 @@ let settingController = function (app, control={auth, passport, acl}){
          maxAttached: req.body.maxAttached,
          idSchedule: req.body.idSchedule,
          idMacs: req.body.idMacs,
+         sbancos: req.body.sbancos,
+         scampesino: req.body.scampesino,
          dateCreate: moment(),
          userCreate: req.user.idUser,
          dateUpdate: moment(),
@@ -99,6 +101,8 @@ let settingController = function (app, control={auth, passport, acl}){
          maxAttached: req.body.maxAttached,
          idSchedule: req.body.idSchedule,
          idMacs: req.body.idMacs,
+         sbancos: req.body.sbancos,
+         scampesino: req.body.scampesino,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };

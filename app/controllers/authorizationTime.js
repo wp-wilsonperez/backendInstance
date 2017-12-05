@@ -1,21 +1,21 @@
 
 import moment from 'moment';
 
-import ClearanceTime from "../models/clearanceTime";
+import AuthorizationTime from "../models/authorizationTime";
 
 import Ramo from "../models/ramo";
 import Insurance from "../models/insurance";
 import Branch from "../models/branch";
 
-let clearanceTimeController = function (app, control={auth, passport, acl}){
+let authorizationTimeController = function (app, control={auth, passport, acl}){
 
    function controller (req, res, next) {
-      req.controller = "clearanceTime";
+      req.controller = "authorizationTime";
       return next();
    }
 
    function findAction (callback){
-      ClearanceTime.find({}, function (err, docs) {
+      AuthorizationTime.find({}, function (err, docs) {
          if (!err) {
             
             Ramo.populate(docs, {path: "ramo"},function(err, docs){
@@ -29,16 +29,16 @@ let clearanceTimeController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/clearanceTime/filter',[control.auth, controller], (req, res) => {
+   app.get('/authorizationTime/filter',[control.auth, controller], (req, res) => {
       let $filter =  global.filter(req.query.filter);
-      ClearanceTime.find($filter, function (err, docs) {
+      AuthorizationTime.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 
             Ramo.populate(docs, {path: "ramo"},function(err, docs){
                Insurance.populate(docs, {path: "insurance"},function(err, docs){
                   Branch.populate(docs, {path: "branch"},function(err, docs){
-                     res.send({msg: "OK", clearanceTimes: docs});
+                     res.send({msg: "OK", authorizationTimes: docs});
                   });
                });
             });
@@ -51,16 +51,16 @@ let clearanceTimeController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.get('/clearanceTime/list', [control.auth, controller, control.acl], (req, res) => {
+   app.get('/authorizationTime/list', [control.auth, controller, control.acl], (req, res) => {
 
-      ClearanceTime.find({}, function (err, docs) {
+      AuthorizationTime.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 
             Ramo.populate(docs, {path: "ramo"},function(err, docs){
                Insurance.populate(docs, {path: "insurance"},function(err, docs){
                   Branch.populate(docs, {path: "branch"},function(err, docs){
-                     res.send({msg: "OK", clearanceTimes: docs});
+                     res.send({msg: "OK", authorizationTimes: docs});
                   });
                });
             });
@@ -73,12 +73,12 @@ let clearanceTimeController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.get('/clearanceTime/view/:id', [control.auth, controller, control.acl], (req, res) => {
+   app.get('/authorizationTime/view/:id', [control.auth, controller, control.acl], (req, res) => {
 
-      ClearanceTime.findById(req.params.id, function (err, doc) {
+      AuthorizationTime.findById(req.params.id, function (err, doc) {
          if (!err) {
             control.log(req.route.path, req.user);
-            res.send({msg: "OK", clearanceTime: doc});
+            res.send({msg: "OK", authorizationTime: doc});
          } else {
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
@@ -87,9 +87,9 @@ let clearanceTimeController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.post('/clearanceTime/add', [control.auth, controller, control.acl], (req, res) => {
+   app.post('/authorizationTime/add', [control.auth, controller, control.acl], (req, res) => {
 
-      let clearanceTime = new ClearanceTime({
+      let authorizationTime = new AuthorizationTime({
          idRamo: req.body.idRamo,
          ramo: req.body.idRamo,
          idInsurance: req.body.idInsurance,
@@ -111,10 +111,10 @@ let clearanceTimeController = function (app, control={auth, passport, acl}){
          ]
       }
 
-      ClearanceTime.find({}, function (err, docs) {
+      AuthorizationTime.find({}, function (err, docs) {
          if(!err){
             if(!docs){
-               clearanceTime.save((err, doc) => {
+               authorizationTime.save((err, doc) => {
                   if(!err){
                      findAction(function(docs){
                         control.log(req.route.path, req.user);
@@ -134,7 +134,7 @@ let clearanceTimeController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.post('/clearanceTime/edit/:id', [control.auth, controller, control.acl], (req, res) => {
+   app.post('/authorizationTime/edit/:id', [control.auth, controller, control.acl], (req, res) => {
 
       let filter = {
          _id: req.params.id
@@ -152,7 +152,7 @@ let clearanceTimeController = function (app, control={auth, passport, acl}){
          userUpdate: req.user.idUser
       };
 
-      ClearanceTime.findOneAndUpdate(filter, update, function (err, doc) {
+      AuthorizationTime.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
                control.log(req.route.path, req.user);
@@ -166,13 +166,13 @@ let clearanceTimeController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.delete('/clearanceTime/delete/:id', [control.auth, controller, control.acl], (req, res) => {
+   app.delete('/authorizationTime/delete/:id', [control.auth, controller, control.acl], (req, res) => {
 
       let filter = {
          _id: req.params.id
       }
 
-      ClearanceTime.findByIdAndRemove(filter, function (err, doc) {
+      AuthorizationTime.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
                control.log(req.route.path, req.user);
@@ -188,4 +188,4 @@ let clearanceTimeController = function (app, control={auth, passport, acl}){
 
 }
 
-export default clearanceTimeController
+export default authorizationTimeController

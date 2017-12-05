@@ -11,6 +11,8 @@ let SettingSchema = new mongoose.Schema({
 			mac: {type: String}
 		}
 	],
+	sbancos: {type: String},
+	scampesino: {type: String},
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},
