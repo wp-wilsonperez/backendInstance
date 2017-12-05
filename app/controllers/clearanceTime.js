@@ -87,6 +87,8 @@ let clearanceTimeController = function (app, control={auth, passport, acl}){
          ramo: req.body.idRamo,
          idInsurance: req.body.idInsurance,
          insurance: req.body.idInsurance,
+         idBranch: req.body.idBranch,
+         branch: req.body.idBranch,
          time: req.body.time,
          dateCreate: moment(),
          userCreate: req.user.idUser,
@@ -94,16 +96,33 @@ let clearanceTimeController = function (app, control={auth, passport, acl}){
          userUpdate: req.user.idUser
       });
 
-      clearanceTime.save((err, doc) => {
+      let dataFilter = {
+         "$and" : [
+            {"idRamo": req.body.idRamo},
+            {"idInsurance": req.body.idInsurance},
+            {"idBranch": req.body.idBranch}
+         ]
+      }
+
+      ClearanceTime.find({}, function (err, docs) {
          if(!err){
-            findAction(function(docs){
-               control.log(req.route.path, req.user);
-               res.send({msg: "OK", update: docs});
-            });
-         } else {
-            let error=global.error(err, 0, req.controller);
-            res.send({msg: 'ERROR', err: error});
-         }            
+            if(!docs){
+               clearanceTime.save((err, doc) => {
+                  if(!err){
+                     findAction(function(docs){
+                        control.log(req.route.path, req.user);
+                        res.send({msg: "OK", update: docs});
+                     });
+                  } else {
+                     let error=global.error(err, 0, req.controller);
+                     res.send({msg: 'ERROR', err: error});
+                  }            
+               });
+            } else{
+               let error=global.error({duplicated: 3}, 1, req.controller);
+               res.send({msg: 'ERROR', err: error});
+            }
+         }
       });
 
    });
@@ -119,6 +138,8 @@ let clearanceTimeController = function (app, control={auth, passport, acl}){
          ramo: req.body.idRamo,
          idInsurance: req.body.idInsurance,
          insurance: req.body.idInsurance,
+         idBranch: req.body.idBranch,
+         branch: req.body.idBranch,
          time: req.body.time,
          dateUpdate: moment(),
          userUpdate: req.user.idUser

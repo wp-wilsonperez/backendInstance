@@ -406,6 +406,14 @@ global.error = function(error, type, controller){
   }
   else if(type==1)
     return "Error de duplicado";
+  else if(type==2){
+    if(controller=='clearanceTime'){
+      console.log(error);
+      if(error.duplicated && error.duplicated==3){
+        return 'El Ramo, La Aseguradora y La Sucursal ya estan registradas';
+      }
+    }
+  }
    let $params = type=100 ? type : [];
    let $filter={};
    $params.forEach(function (item, index) {
