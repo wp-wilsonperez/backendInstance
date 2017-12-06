@@ -382,7 +382,10 @@ global.filter = function(query){
    /*
       req.param.filter
       [
-         {'condition': "=", 'field': 'name_field', 'value': 'value_of_field'}
+        {'condition': "=", 'field': 'name_field', 'value': 'value_of_field'},
+        {'condition': "or", fields:
+          [{'field': 'name_field', 'value': 'value_of_field'}] min length of array is "2"
+        }
       ]
    */
    //console.log("PARAMS");
@@ -390,7 +393,13 @@ global.filter = function(query){
    let $filter={};
    $params.forEach(function (item, index) {
       if(item.condition == "="){
-         $filter[item.field] = item.value;
+        $filter[item.field] = item.value;
+      }else if(item.condition == "or"){
+        let filterOR = [];
+        $item.fields.forEach(function (item2, index2) {
+          $filterOR[index2][item2.field] = item2.value;
+        });
+        $filter["$or"] = $filterOR;
       }
    });
    console.log($filter);
