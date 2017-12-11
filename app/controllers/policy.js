@@ -4,10 +4,8 @@ import moment from 'moment';
 
 import Policy from "../models/policy";
 import PolicyAnnex from "../models/policyAnnex";
-import ItemAnnex from "../models/itemAnnex";
-import SubItemAnnex from "../models/subItemAnnex";
 import Insurance from "../models/insurance";
-
+import Ramo from "../models/ramo";
 import User from "../models/user";
 
 let policyController = function (app, control={auth, passport, acl}){
@@ -21,7 +19,9 @@ let policyController = function (app, control={auth, passport, acl}){
       Policy.find({}, function (err, docs) {
          if (!err) {
             Insurance.populate(docs, {path: "insurance"},function(err, docs){
-               callback(docs)
+               Ramo.populate(docs, {path: "ramo"},function(err, docs){
+                  callback(docs)
+               });
             });
          }
       });
@@ -33,7 +33,9 @@ let policyController = function (app, control={auth, passport, acl}){
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             Insurance.populate(docs, {path: "insurance"},function(err, docs){
-               res.send({msg: "OK", policies: docs});
+               Ramo.populate(docs, {path: "ramo"},function(err, docs){
+                  res.send({msg: "OK", policies: docs});
+               });
             });
          } else {
             let error=global.error(err, 0, req.controller);
@@ -59,7 +61,9 @@ let policyController = function (app, control={auth, passport, acl}){
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             Insurance.populate(docs, {path: "insurance"},function(err, docs){
-               res.send({msg: "OK", policies: docs});
+               Ramo.populate(docs, {path: "ramo"},function(err, docs){
+                  res.send({msg: "OK", policies: docs});
+               });
             });
          } else {
             let error=global.error(err, 0, req.controller);
@@ -193,14 +197,6 @@ let policyController = function (app, control={auth, passport, acl}){
                      if (typeof docs !== 'undefined') {
                         for (var i=0 ; i>$docsPolicyAnnex.length; i++) {
                            let $policyAnnex = $docsPolicyAnnex[0];
-                           //let $subItemAnnexes = $itemAnnex.subItemAnnexes;
-                           //delete($itemAnnex.subItemAnnexes);
-                           /*$policyAnnex["idPolicyAnnex"] = docPolicyAnnex._id;
-                           $policyAnnex["policyAnnex"] = docPolicyAnnex._id;
-                           $policyAnnex["dateCreate"] = $moment;
-                           $policyAnnex["userCreate"] = req.user.idUser;
-                           $policyAnnex["dateUpdate"] = $moment;
-                           $plicyAnnex["userUpdate"] = req.user.idUser;*/
                         }
                      } else {
                         let error=global.error(err, 0, req.controller);

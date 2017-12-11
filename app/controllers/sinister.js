@@ -155,6 +155,7 @@ let sinisterController = function (app, control={auth, passport, acl}){
          beneficiary: req.body.beneficiary,
          dateSinester: req.body.dateSinester,
          dateNotification: req.body.dateNotification,
+         trackingDate: req.body.trackingDate,
          beneficiary: req.body.beneficiary,
          idRamo: req.body.idRamo,
          ramo: req.body.idRamo,

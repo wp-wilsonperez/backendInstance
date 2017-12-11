@@ -13,6 +13,7 @@ let SinisterSchema = new mongoose.Schema({
 	beneficiary: {type: String},
 	dateSinister: {type: String},
 	dateNotification: {type: String},
+	trackingDate: {type: Date},
 	beneficiary: {type: String},
 	idRamo: {type: String, require: true},
 	ramo: { type: mongoose.Schema.ObjectId, ref: "Ramo"},
