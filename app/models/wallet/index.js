@@ -12,6 +12,7 @@ let WalletSchema = new mongoose.Schema({
 	expirationDate: {type: Date},
 	paymentValue: {type: Number},
 	detailsWallet: {type: String},
+	trackingDate: {type: Date},
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
 	branchCreate: {type: String, require: true},

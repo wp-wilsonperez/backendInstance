@@ -81,6 +81,7 @@ let walletController = function (app, control={auth, passport, acl}){
          expirationDate: req.body.expirationDate,
          paymentValue: req.body.paymentValue,
          detailsWallet: req.body.detailsWallet,
+         trackingDate: req.body.trackingDate,
          dateCreate: moment(),
          userCreate: req.user.idUser,
          branchCreate: req.user.idBranch,
@@ -114,6 +115,7 @@ let walletController = function (app, control={auth, passport, acl}){
          expirationDate: req.body.expirationDate,
          paymentValue: req.body.paymentValue,
          detailsWallet: req.body.detailsWallet,
+         trackingDate: req.body.trackingDate,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };

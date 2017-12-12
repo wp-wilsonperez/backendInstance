@@ -19,6 +19,8 @@ let SinisterSchema = new mongoose.Schema({
 	ramo: { type: mongoose.Schema.ObjectId, ref: "Ramo"},
 	sinisterState: {type: String},
 	settlementDate: {type: Date},
+	approvalDate: {type: Date},
+	checkApproved: {type: Boolean},
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
 	branchCreate: {type: String, require: true},
