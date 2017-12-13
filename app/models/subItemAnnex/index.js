@@ -7,7 +7,7 @@ let SubItemAnnexSchema = new mongoose.Schema({
 	numberSubItem: {type: Number},
 	name: {type: String},
 	planAlternative: {type: String},
-	ValueSubItem: {type: Number},
+	valueSubItem: {type: Number},
 	tasa: {type: Number},
 	calcFloat: {type: Number},
 	primaNeta: {type: Number},

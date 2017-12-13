@@ -83,6 +83,7 @@ let planAlternativeController = function (app, control={auth, passport, acl}){
    app.post('/planAlternative/add', [control.auth, controller, control.acl], (req, res) => {
 
       let planAlternative = new PlanAlternative({
+          name: req.body.name,
          idAlternative: req.body.idAlternative,
          alternative: req.body.idAlternative,
          idPlanAssociation: req.body.idPlanAssociation,

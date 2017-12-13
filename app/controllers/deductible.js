@@ -25,9 +25,9 @@ let deductibleController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/deductible/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
-      Deductible.find($filter, function (err, docs) {
+   app.post('/deductible/filter',[control.auth, controller], (req, res) => {
+    let filter =  req.body.filter;
+      Deductible.find(filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             Ramo.populate(docs, {path: "ramo"},function(err, docs){

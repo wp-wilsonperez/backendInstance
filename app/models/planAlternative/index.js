@@ -2,6 +2,7 @@
 import mongoose from 'mongoose';
 
 let PlanAlternativeSchema = new mongoose.Schema({
+	name:{type: String,require:true},
 	idPlanAssociation: {type: String, require: true},
 	planAssociation: { type: mongoose.Schema.ObjectId, ref: "PlanAssociation"},
 	idAlternative: {type: String, require: true},

@@ -27,7 +27,7 @@ let tasaController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/tasa/filter',[control.auth, controller], (req, res) => {
+   app.get('/tasa/filter',[controller], (req, res) => {
       let $filter =  global.filter(req.query.filter);
       Tasa.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
