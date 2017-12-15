@@ -55,6 +55,7 @@ let PolicyAnnexSchema = new mongoose.Schema({
 			idClient: {type: String},
 			alternative: {type: Object},
 			annexDate: {type: Date},
+			agency: {type: String},
 			subItems: [{
 				numberSubItem: {type: Number},
 				name: {type: String},
@@ -71,6 +72,10 @@ let PolicyAnnexSchema = new mongoose.Schema({
 				extraDetails: {type: String},
 				extraValue: {type: Number},
 				extraTasa: {type: Number},
+				idClient: {type: String},
+				recipienteClient: {type: Object},
+				idPlanAlternative: {type: String},
+				recipientePlanAlternative: {type: Object}
 			}]
 		}]
 	},
