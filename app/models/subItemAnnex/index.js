@@ -19,7 +19,11 @@ let SubItemAnnexSchema = new mongoose.Schema({
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},
-	userUpdate: {type: String, require: true}
+	userUpdate: {type: String, require: true},
+	idClient :{type: String},
+	recipientClient:{type: Object},
+	idPlanAlternative:{type: String},
+	recipientPlanAlternative:{type:Object}
 });
 
 export default mongoose.model('SubItemAnnex', SubItemAnnexSchema)
