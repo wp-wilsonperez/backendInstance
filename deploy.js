@@ -92,7 +92,7 @@ TypeClient.insertMany($typeClientData, (err, docs) => {
 let $ramoData = [
    { "_id" : "599222be7f05fc0933b643f3", "name" : "Vehículos", "codRamo": 7, "description" : "Ramo para vehículos", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"},
    { "_id" : "599222ce7f05fc0933b643f4", "name" : "Vida Colectiva", "codRamo": 2, "description" : "Trámites de forma Colectiva", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"},
-   { "_id" : "599222d07f05fc0933b643f5", "name" : "Asistencia Médica", "codRamo": 3, "description" : "Trámites de forma Colectiva e Individuales", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"},
+   { "_id" : "599222d07f05fc0933b643f5", "name" : "Asistencia Médica Colectiva", "codRamo": 3, "description" : "Trámites de forma Colectiva e Individuales", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"},
    { "_id" : "599222d77f05fc0933b643f6", "name" : "Incendio y Aliadas", "codRamo": 5, "description" : "Incendio y Aliadas", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"},
    { "_id" : "599222fe7f05fc0933b643f7", "name" : "Lucro Cesante", "codRamo": 6, "description" : "Lucro Cesante", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"},
    { "_id" : "5992230f7f05fc0933b643f8", "name" : "Robo", "codRamo": 11, "description" : "Robo", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"},
@@ -110,6 +110,8 @@ let $ramoData = [
    { "_id" : "599223167f05fc0933b64404", "name" : "Buen Uso del Anticipo", "codRamo": 28, "description" : "Buen Uso del Anticipo", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"},
    { "_id" : "599223167f05fc0933b64405", "name" : "Transporte de Importaciones", "description" : "Transporte de Importaciones", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"},
    { "_id" : "599223167f05fc0933b64406", "name" : "Vida Individual", "codRamo": 1, "description" : "Vida Individual", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"}
+   { "_id" : "599223167f05fc0933b64407", "name" : "Asistencia Medica Individual", "description" : "Asistencia Medica Individual", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"}
+   { "_id" : "599223167f05fc0933b64408", "name" : "48 Horas", "description" : "48 Horas", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"}
 ];
 Ramo.insertMany($ramoData, (err, docs) => {
    answer("ramo", $ramoData.length);
