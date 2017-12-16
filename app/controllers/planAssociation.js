@@ -29,20 +29,16 @@ let planAssociationController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/planAssociation/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
-      PlanAssociation.find($filter, function (err, docs) {
+   app.post('/planAssociation/filter',[control.auth, controller], (req, res) => {
+    let filter =  req.body.filter;
+      PlanAssociation.find(filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
-
-            Plan.populate(docs, {path: "plan"},function(err, docs){
-               Ramo.populate(docs, {path: "ramo"},function(err, docs){
-                  Insurance.populate(docs, {path: "insurance"},function(err, docs){
-                     res.send({msg: "OK", planAssociations: docs});
-                  });
+            Ramo.populate(docs, {path: "ramo"},function(err, docs){
+               Insurance.populate(docs, {path: "insurance"},function(err, docs){
+                  res.send({msg: "OK", planAssociations: docs});
                });
             });
-            
          } else {
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
