@@ -137,6 +137,7 @@ let policyController = function (app, control={auth, passport, acl}){
             insurance: req.body.idInsurance,
             idRamo: req.body.idRamo,
             ramo: req.body.idRamo,
+            idPlan: req.body.idPlan,
             typeRecipient: req.body.typeRecipient,
             idRecipient: req.body.idRecipient,
             recipient: req.body.recipient,

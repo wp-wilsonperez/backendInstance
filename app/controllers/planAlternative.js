@@ -26,25 +26,18 @@ let planAlternativeController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/planAlternative/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
-      PlanAlternative.find($filter, function (err, docs) {
+   app.post('/planAlternative/filter',[control.auth, controller], (req, res) => {
+    let filter =  req.body.filter;
+      PlanAlternative.find(filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
-            control.log(req.route.path, req.user);
-
-            PlanAssociation.populate(docs, {path: "planAssociation"},function(err, docs){
-               Alternative.populate(docs, {path: "alternative"},function(err, docs){
-                  res.send({msg: "OK", planAlternatives: docs});
-               });
-            });
-            
+            res.send({msg: "OK", planAlternatives: docs});
          } else {
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
          }
       });
 
-   });
+   }); 
 
    app.get('/planAlternative/list', [control.auth, controller, control.acl], (req, res) => {
 
