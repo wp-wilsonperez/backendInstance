@@ -1,8 +1,9 @@
 
 import mongoose from 'mongoose';
+import uniqueValidator from 'mongoose-unique-validator';
 
 let InsuranceSchema = new mongoose.Schema({
-	ruc: {type: String, require: true},
+	ruc: {type: String, require: true, unique : true},
 	bussinesName: {type: String},
 	cellPhone: {type: String},
 	phones: {type: String},
@@ -22,5 +23,7 @@ let InsuranceSchema = new mongoose.Schema({
 	dateUpdate: {type: Date, require: true},
 	userUpdate: {type: String, require: true}
 });
+
+InsuranceSchema.plugin(uniqueValidator);
 
 export default mongoose.model('Insurance', InsuranceSchema)
