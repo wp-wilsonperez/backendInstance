@@ -8,6 +8,19 @@ import Insurance from "../models/insurance";
 import Ramo from "../models/ramo";
 import User from "../models/user";
 
+import JSZip from 'jszip';
+import Docxtemplater from 'docxtemplater';
+var xlsx = require('xlsx');
+import fs from 'fs';
+import path from 'path';
+
+const pathRender = `download`;
+const pathDownload = `./public/${pathRender}`;
+
+if (!fs.existsSync(pathDownload)){
+    fs.mkdirSync(pathDownload);
+}
+
 let policyController = function (app, control={auth, passport, acl}){
 
    function controller (req, res, next) {
@@ -282,6 +295,42 @@ let policyController = function (app, control={auth, passport, acl}){
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
          }            
+      });
+
+   });
+
+   app.post('/policy/report', [controller], (req, res) => {
+
+
+      let data = {
+         date : "Cuenca, 04 de Octubre del 2017",
+         letter_number : "756",
+         client_name : "JUAN PEREZ",
+         insurence_name : "VAZSEGUROS",
+         policy_name : "POLIZA DE VEHICULOS",
+         policy_placa : "VH-43500",
+         policy_anexo : "02",
+         policy_number : "43500",
+         ramo_name : "Vehiculo",
+         ramo_detail : "TOYOTA COROLLA/PLATA",
+         billing_number : "25023",
+         billing_value : "467.04",
+         credit_number : "20550",
+         credit_value : "Vehiculo",
+         user_name : "Ing. Diana Moncayo V.",
+         user_role : "Jefe Dpto. de Emision"
+      };
+
+      var pathXlsx = path.resolve(__dirname+'/../letters', 'LiquidacionSiniestroAMV.xlsx');
+      var workbook = xlsx.readFile(pathXlsx);
+
+      //xlsx.writeFile(workbook, 'out.xlsb');
+      var outPutFile = moment().format('YYYY-MM-DD-h:mm:ss') + 'LiquidacionSiniestroAMV.xlsx';
+      var pathCake = __dirname+'/../../public/download/'+outPutFile;
+      xlsx.writeFileAsync(pathCake, workbook, (err) => {
+        if (err) throw err;
+        res.send({"status": "ok", "doc_name": outPutFile});
+
       });
 
    });
