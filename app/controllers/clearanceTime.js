@@ -111,9 +111,23 @@ let clearanceTimeController = function (app, control={auth, passport, acl}){
          ]
       }
 
-      ClearanceTime.find({}, function (err, docs) {
+      clearanceTime.save((err, doc) => {
          if(!err){
-            if(!docs){
+            findAction(function(docs){
+               control.log(req.route.path, req.user);
+               res.send({msg: "OK", update: docs});
+            });
+         } else {
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
+         }            
+      });
+
+      /*ClearanceTime.find(dataFilter, function (err, docs) {
+         if(!err){
+            if(docs==[]){
+               console.log(docs);
+               console.log("------------------------");
                clearanceTime.save((err, doc) => {
                   if(!err){
                      findAction(function(docs){
@@ -130,7 +144,7 @@ let clearanceTimeController = function (app, control={auth, passport, acl}){
                res.send({msg: 'ERROR', err: error});
             }
          }
-      });
+      });*/
 
    });
 
