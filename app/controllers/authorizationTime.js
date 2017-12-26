@@ -111,7 +111,19 @@ let authorizationTimeController = function (app, control={auth, passport, acl}){
          ]
       }
 
-      AuthorizationTime.find({}, function (err, docs) {
+      authorizationTime.save((err, doc) => {
+         if(!err){
+            findAction(function(docs){
+               control.log(req.route.path, req.user);
+               res.send({msg: "OK", update: docs});
+            });
+         } else {
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
+         }            
+      });
+
+      /*AuthorizationTime.find(dataFilter, function (err, docs) {
          if(!err){
             if(!docs){
                authorizationTime.save((err, doc) => {
@@ -130,7 +142,7 @@ let authorizationTimeController = function (app, control={auth, passport, acl}){
                res.send({msg: 'ERROR', err: error});
             }
          }
-      });
+      });*/
 
    });
 

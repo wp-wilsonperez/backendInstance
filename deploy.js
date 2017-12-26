@@ -109,8 +109,8 @@ let $ramoData = [
    { "_id" : "599223167f05fc0933b64403", "name" : "Asistencia médica Internacional", "description" : "Asistencia médica Internacional", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"},
    { "_id" : "599223167f05fc0933b64404", "name" : "Buen Uso del Anticipo", "codRamo": 28, "description" : "Buen Uso del Anticipo", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"},
    { "_id" : "599223167f05fc0933b64405", "name" : "Transporte de Importaciones", "description" : "Transporte de Importaciones", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"},
-   { "_id" : "599223167f05fc0933b64406", "name" : "Vida Individual", "codRamo": 1, "description" : "Vida Individual", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"}
-   { "_id" : "599223167f05fc0933b64407", "name" : "Asistencia Medica Individual", "description" : "Asistencia Medica Individual", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"}
+   { "_id" : "599223167f05fc0933b64406", "name" : "Vida Individual", "codRamo": 1, "description" : "Vida Individual", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"},
+   { "_id" : "599223167f05fc0933b64407", "name" : "Asistencia Medica Individual", "description" : "Asistencia Medica Individual", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"},
    { "_id" : "599223167f05fc0933b64408", "name" : "48 Horas", "description" : "48 Horas", "Enable" : true, "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0"}
 ];
 Ramo.insertMany($ramoData, (err, docs) => {

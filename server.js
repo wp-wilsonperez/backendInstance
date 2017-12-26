@@ -107,7 +107,23 @@ let bearerStrategy = new BearerStrategy(
          console.log(doc);*/
          if (!doc) { return cb(null, false); }
          User.findOne({_id: doc.idUser}, (err, docUser) => {
-            return cb(null, docUser);
+          var dataUser = {
+              token: token,
+              idUser: docUser._id+'',
+              name: docUser.name,
+              lastName: docUser.lastName,
+              cedula: docUser.cedula,
+              mail: docUser.mail,
+              phone: docUser.phone,
+              idRole: docUser.idRole,
+              idBranch: docUser.idBranch,
+              dateCreate: docUser.dateCreate,
+              userCreate: docUser.userCreate,
+              dateUpdate: docUser.dateUpdate,
+              userUpdate: docUser.userUpdate,
+              userImg: docUser.userImg
+            };
+            return cb(null, dataUser);
          })
       });
    });
