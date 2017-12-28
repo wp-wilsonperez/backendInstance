@@ -200,6 +200,15 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
          userUpdate: req.user.idUser
       };
 
+      let totalValue=0, totalPrima=0;
+
+      for (var i = 0; i < req.body.itemAnnex.items; i++) {
+         totalValue+=req.body.itemAnnex.items[i].totalValueItem;
+         totalPrima+=req.body.itemAnnex.items[i].prima;
+      }
+      update['totalValue']=totalValue;
+      update['totalPrima']=totalPrima;
+
       PolicyAnnex.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
