@@ -202,9 +202,9 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
 
       let totalValue=0, totalPrima=0;
 
-      for (var i = 0; i < req.body.itemAnnex.items; i++) {
-         totalValue+=req.body.itemAnnex.items[i].totalValueItem;
-         totalPrima+=req.body.itemAnnex.items[i].prima;
+      for (var i = 0; i < update.itemAnnex.items.length; i++) {
+         totalValue+=update.itemAnnex.items[i].totalValueItem;
+         totalPrima+=update.itemAnnex.items[i].prima;
       }
       update['totalValue']=totalValue;
       update['totalPrima']=totalPrima;
