@@ -1,7 +1,7 @@
 
 import mongoose from 'mongoose';
 
-let ExpirationDateSchema = new mongoose.Schema({
+let RenewalSchema = new mongoose.Schema({
 	idPolicy: {type: String, require: true},
 	policy: { type: mongoose.Schema.ObjectId, ref: "Policy"},
 	numberPolicyOverdue: {type: Number},
@@ -16,4 +16,4 @@ let ExpirationDateSchema = new mongoose.Schema({
 });
 
 
-export default mongoose.model('ExpirationDate', ExpirationDateSchema)
+export default mongoose.model('Renewal', RenewalSchema)

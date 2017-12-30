@@ -3,7 +3,7 @@ import moment from 'moment';
 
 import BinnacleExpirationDate from "../models/binnacleExpirationDate";
 
-import ExpirationDate from "../models/expirationDate";
+import ExpirationDate from "../models/renewal";
 
 let binnacleExpirationDateController = function (app, control={auth, passport, acl}){
 

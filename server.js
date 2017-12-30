@@ -152,8 +152,8 @@ binnacleExpirationDateController(app, {passport: passport, auth: passport.authen
 import clearanceTimeController from './app/controllers/clearanceTime';
 clearanceTimeController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
-import expirationDateController from './app/controllers/expirationDate';
-expirationDateController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
+import renewalController from './app/controllers/renewal';
+renewalController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});
 
 import noRenewalRamoController from './app/controllers/noRenewalRamo';
 noRenewalRamoController(app, {passport: passport, auth: passport.authenticate('bearer', { session: false }), acl: ensureACL, log: logAction});

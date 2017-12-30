@@ -1,18 +1,18 @@
 
 import moment from 'moment';
 
-import ExpirationDate from "../models/expirationDate";
+import Renewal from "../models/renewal";
 
 
-let expirationDateController = function (app, control={auth, passport, acl}){
+let renewalController = function (app, control={auth, passport, acl}){
 
    function controller (req, res, next) {
-      req.controller = "expirationDate";
+      req.controller = "renewal";
       return next();
    }
 
    function findAction (callback){
-      ExpirationDate.find({}, function (err, docs) {
+      Renewal.find({}, function (err, docs) {
          if (!err) {
             
             callback(docs);
@@ -20,12 +20,12 @@ let expirationDateController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/expirationDate/filter',[control.auth, controller], (req, res) => {
+   app.get('/renewal/filter',[control.auth, controller], (req, res) => {
       let $filter =  global.filter(req.query.filter);
-      ExpirationDate.find($filter, function (err, docs) {
+      Renewal.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
-            res.send({msg: "OK", expirationDates: docs});
+            res.send({msg: "OK", renewals: docs});
          } else {
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
@@ -34,12 +34,12 @@ let expirationDateController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.get('/expirationDate/list', [control.auth, controller, control.acl], (req, res) => {
+   app.get('/renewal/list', [control.auth, controller, control.acl], (req, res) => {
 
-      ExpirationDate.find({}, function (err, docs) {
+      Renewal.find({}, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
-            res.send({msg: "OK", expirationDates: docs});
+            res.send({msg: "OK", renewals: docs});
          } else {
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
@@ -48,12 +48,12 @@ let expirationDateController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.get('/expirationDate/view/:id', [control.auth, controller, control.acl], (req, res) => {
+   app.get('/renewal/view/:id', [control.auth, controller, control.acl], (req, res) => {
 
-      ExpirationDate.findById(req.params.id, function (err, doc) {
+      Renewal.findById(req.params.id, function (err, doc) {
          if (!err) {
             control.log(req.route.path, req.user);
-            res.send({msg: "OK", expirationDate: doc});
+            res.send({msg: "OK", renewal: doc});
          } else {
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
@@ -62,9 +62,9 @@ let expirationDateController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.post('/expirationDate/add', [control.auth, controller, control.acl], (req, res) => {
+   app.post('/renewal/add', [control.auth, controller, control.acl], (req, res) => {
 
-      let expirationDate = new ExpirationDate({
+      let renewal = new Renewal({
          idPolicy: req.body.idPolicy,
          policy: req.body.idPolicy,
          numberPolicyOverdue: req.body.numberPolicyOverdue,
@@ -78,7 +78,7 @@ let expirationDateController = function (app, control={auth, passport, acl}){
          userUpdate: req.user.idUser
       });
 
-      expirationDate.save((err, doc) => {
+      renewal.save((err, doc) => {
          if(!err){
             findAction(function(docs){
                control.log(req.route.path, req.user);
@@ -92,7 +92,7 @@ let expirationDateController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.post('/expirationDate/edit/:id', [control.auth, controller, control.acl], (req, res) => {
+   app.post('/renewal/edit/:id', [control.auth, controller, control.acl], (req, res) => {
 
       let filter = {
          _id: req.params.id
@@ -110,7 +110,7 @@ let expirationDateController = function (app, control={auth, passport, acl}){
          userUpdate: req.user.idUser
       };
 
-      ExpirationDate.findOneAndUpdate(filter, update, function (err, doc) {
+      Renewal.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
             findAction(function(docs){
                control.log(req.route.path, req.user);
@@ -124,13 +124,13 @@ let expirationDateController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.delete('/expirationDate/delete/:id', [control.auth, controller, control.acl], (req, res) => {
+   app.delete('/renewal/delete/:id', [control.auth, controller, control.acl], (req, res) => {
 
       let filter = {
          _id: req.params.id
       }
 
-      ExpirationDate.findByIdAndRemove(filter, function (err, doc) {
+      Renewal.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
                control.log(req.route.path, req.user);
@@ -146,4 +146,4 @@ let expirationDateController = function (app, control={auth, passport, acl}){
 
 }
 
-export default expirationDateController
+export default renewalController
