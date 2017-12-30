@@ -200,9 +200,9 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
          userUpdate: req.user.idUser
       };
 
-      let totalValue=0, totalPrima=0;
+      let totalValue=0, totalPrima=0, $length=update.itemAnnex.items.length;
 
-      for (var i = 0; i < update.itemAnnex.items.length; i++) {
+      for (var i = 0; i < $length; i++) {
          totalValue+=update.itemAnnex.items[i].totalValueItem;
          totalPrima+=update.itemAnnex.items[i].prima;
       }
@@ -213,7 +213,7 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
          if (!err) {
             findAction(function(docs){
                control.log(req.route.path, req.user);
-               res.send({msg: "OK", update: doc});
+               res.send({msg: "OK", update: docs});
             });
          } else {
             let error=global.error(err, 0, req.controller);
