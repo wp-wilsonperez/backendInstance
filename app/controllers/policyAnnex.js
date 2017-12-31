@@ -204,7 +204,7 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
 
       for (var i = 0; i < $length; i++) {
          totalValue+=update.itemAnnex.items[i].totalValueItem;
-         totalPrima+=update.itemAnnex.items[i].prima;
+         totalPrima+=update.itemAnnex.items[i].totalValuePrimaItem;
       }
       update['totalValue']=totalValue;
       update['totalPrima']=totalPrima;
