@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 let RenewalSchema = new mongoose.Schema({
 	idPolicy: {type: String, require: true},
-	policy: { type: mongoose.Schema.ObjectId, ref: "Policy"},
+	policy: { type: Object, ref: "Policy"},
 	numberPolicyOverdue: {type: Number},
 	numberRenewedPolicy: {type: Number},
 	dateNewTerm: {type: Date},
