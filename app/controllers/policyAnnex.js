@@ -128,12 +128,13 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
          totalValue: req.body.totalValue,
          others: req.body.others,
          hasBilling: req.body.hasBilling,
-         isBilling: req.body.isBilling,
+         isBilling: false,
          dateCreate: moment(),
          userCreate: req.user.idUser,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       });
+      console.log(req.body);
 
       policyAnnex.save((err, doc) => {
          if(!err){
@@ -169,7 +170,6 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
          totalValue: req.body.totalValue,
          others: req.body.others,
          hasBilling: req.body.hasBilling,
-         isBilling: req.body.isBilling,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };
