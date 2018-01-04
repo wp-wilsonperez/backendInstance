@@ -4,6 +4,7 @@ import moment from 'moment';
 import BillingPolicy from "../models/billingPolicy";
 
 import Billing from "../models/billing";
+import PolicyAnnex from "../models/policyAnnex";
 
 let billingPolicyController = function (app, control={auth, passport, acl}){
 
@@ -102,6 +103,18 @@ let billingPolicyController = function (app, control={auth, passport, acl}){
 
       billingPolicy.save((err, doc) => {
          if(!err){
+            let filter = {
+               idPolicy: req.body.idPolicy
+            }
+            let update = {
+               isBilling: true,
+            };
+            PolicyAnnex.findOneAndUpdate(filter, update, function (err, doc) {
+               if (!err) {
+                  //control.log(req.route.path, req.user);
+               }
+            });
+            
             findAction(function(docs){
                control.log(req.route.path, req.user);
                res.send({msg: "OK", update: docs});
