@@ -203,11 +203,13 @@ let policyAnnexController = function (app, control={auth, passport, acl}){
       let totalValue=0, totalPrima=0, $length=update.itemAnnex.items.length;
 
       for (var i = 0; i < $length; i++) {
-         totalValue+=update.itemAnnex.items[i].totalValueItem;
-         totalPrima+=update.itemAnnex.items[i].totalValuePrimaItem;
+         totalValue+=parseFloat(update.itemAnnex.items[i].totalValueItem);
+         totalPrima+=parseFloat(update.itemAnnex.items[i].totalValuePrimaItem);
       }
       update['totalValue']=totalValue;
       update['totalPrima']=totalPrima;
+
+      console.log(req.body.itemAnnex);
 
       PolicyAnnex.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
