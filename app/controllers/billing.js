@@ -170,39 +170,53 @@ let billingController = function (app, control={auth, passport, acl}){
          _id: req.params.id
       }
 
-      let update = {
-         typeBilling: req.body.typeBilling,
-         idClient: req.body.idClient,
-         detailClient: req.body.detailClient,
-         idBusiness: req.body.idBusiness,
-         detailBusiness: req.body.detailBusiness,
-         idInsurance: req.body.idInsurance,
-         detailInsurance: req.body.detailInsurance,
-         idInsuraceCom: req.body.idInsuraceCom,
-         nameInsuranceCom: req.body.nameInsuranceCom,
-         billingNumber: req.body.billingNumber,
-         billingDate: req.body.billingDate,
-         firstPaymentDate: req.body.firstPaymentDate,
-         paymentType: req.body.paymentType,
-         initialPayment: req.body.initialPayment,
-         equalPayments: req.body.equalPayments,
-         valueEqualPayments: req.body.valueEqualPayments,
-         observationsBilling: req.body.observationsBilling,
-         totalPrimaValue: req.body.totalPrimaValue,
-         totalIVAValue: req.body.totalIVAValue,
-         totalBillingValue: req.body.totalBillingValue,
-         dateUpdate: moment(),
-         userUpdate: req.user.idUser
-      };
+      let $data = req.body.billing;
+      let $billinData = $data;
+      let $billingPolicy = $data.items;
+      let $moment = moment();
+      delete($billinData.items);
+      $billinData["dateUpdate"] = $moment;
+      $billinData["userUpdate"] = req.user.idUser;
+      let billing = new Billing($billinData);
 
-      Billing.findOneAndUpdate(filter, update, function (err, doc) {
+      let update = $billinData;
+
+      Billing.findOneAndUpdate(filter, update, function (err1, doc) {
          if (!err) {
-            findAction(function(docs){
-               control.log(req.route.path, req.user);
-               res.send({msg: "OK", update: docs});
+            //res.send({msg: "OK", update: docs});
+            filter = {
+               idBilling: req.params.id
+            }
+            BillingPolicy.remove(filter, function(err2, response) {
+
+               if (!err) {
+                  $billingPolicy.forEach(function (item, index) {
+                     $billingPolicy[index]["idBilling"]=doc._id;
+                     $billingPolicy[index]["billing"]=doc._id;
+                     $billingPolicy[index]["dateCreate"] = $moment;
+                     $billingPolicy[index]["userCreate"] = req.user.idUser;
+                     $billingPolicy[index]["dateUpdate"] = $moment;
+                     $billingPolicy[index]["userUpdate"] = req.user.idUser;
+                  })
+                  BillingPolicy.insertMany($billingPolicy, (err3, docs) => {
+                     if(!err){
+                        findAction(function(docs){
+                           res.send({msg: "OK", update: docs});
+                        });
+                     } else {
+                        let error=global.error(err3, 0, req.controller);
+                        res.send({msg: 'ERROR', err: error});
+                     }
+                  });
+
+               } else {
+                  let error=global.error(err2, 0, req.controller);
+                  res.send({msg: 'ERROR', err: error});
+               }
             });
+            
          } else {
-            let error=global.error(err, 0, req.controller);
+            let error=global.error(err1, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
          }
       });
