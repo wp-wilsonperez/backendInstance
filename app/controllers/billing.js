@@ -34,22 +34,6 @@ let billingController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/billing/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
-      Billing.find($filter, function (err, docs) {
-         if (typeof docs !== 'undefined') {
-            control.log(req.route.path, req.user);
-
-            res.send({msg: "OK", billings: docs});
-            
-         } else {
-            let error=global.error(err, 0, req.controller);
-            res.send({msg: 'ERROR', err: error});
-         }
-      });
-
-   });
-
    app.get('/billing/list', [control.auth, controller, control.acl], (req, res) => {
 
       let typeList = app.locals.typeList;
