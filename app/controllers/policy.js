@@ -10,7 +10,7 @@ import User from "../models/user";
 
 import JSZip from 'jszip';
 import Docxtemplater from 'docxtemplater';
-var xlsx = require('xlsx');
+import excelbuilder from 'msexcel-builder';
 import fs from 'fs';
 import path from 'path';
 
@@ -301,36 +301,52 @@ let policyController = function (app, control={auth, passport, acl}){
 
    app.post('/policy/report', [controller], (req, res) => {
 
+      let $filter =  global.filter(req.body.filter);
+      Policy.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
 
-      let data = {
-         date : "Cuenca, 04 de Octubre del 2017",
-         letter_number : "756",
-         client_name : "JUAN PEREZ",
-         insurence_name : "VAZSEGUROS",
-         policy_name : "POLIZA DE VEHICULOS",
-         policy_placa : "VH-43500",
-         policy_anexo : "02",
-         policy_number : "43500",
-         ramo_name : "Vehiculo",
-         ramo_detail : "TOYOTA COROLLA/PLATA",
-         billing_number : "25023",
-         billing_value : "467.04",
-         credit_number : "20550",
-         credit_value : "Vehiculo",
-         user_name : "Ing. Diana Moncayo V.",
-         user_role : "Jefe Dpto. de Emision"
-      };
+            var file = 'policy.xlsx';
+            var outPutFile = moment().format('YYYY-MM-DD-h:mm:ss') + file;
+            var pathDownload = __dirname+'/../../public/download/';
 
-      var pathXlsx = path.resolve(__dirname+'/../letters', 'LiquidacionSiniestroAMV.xlsx');
-      var workbook = xlsx.readFile(pathXlsx);
+            var workbook = excelbuilder.createWorkbook(pathDownload, outPutFile)
 
-      //xlsx.writeFile(workbook, 'out.xlsb');
-      var outPutFile = moment().format('YYYY-MM-DD-h:mm:ss') + 'LiquidacionSiniestroAMV.xlsx';
-      var pathCake = __dirname+'/../../public/download/'+outPutFile;
-      xlsx.writeFileAsync(pathCake, workbook, (err) => {
-        if (err) throw err;
-        res.send({"status": "ok", "doc_name": outPutFile});
+            var sheet1 = workbook.createSheet('sheet1', 10, 12);
 
+            var cols = [2,3,4,5,6,7,8,9,10];
+            var rowIni = 2;
+            sheet1.set(cols[0], rowIni, 'Agencia');
+            sheet1.set(cols[1], rowIni, 'Cuenta');
+            sheet1.set(cols[2], rowIni, 'Nº Vehiculos');
+            sheet1.set(cols[3], rowIni, 'Cliente');
+            sheet1.set(cols[4], rowIni, 'Póliza Vencida');
+            sheet1.set(cols[5], rowIni, 'Póliza Renovada');
+            sheet1.set(cols[6], rowIni, 'Estado');
+            sheet1.set(cols[7], rowIni, 'Nº Renovados');
+            sheet1.set(cols[8], rowIni, 'Fecha Vencimiento');
+
+            console.log(docs);
+            let $length = docs.length;
+            for (var i = 0; i < $length; i++) {
+               rowIni++;
+               sheet1.set(cols[0], rowIni, docs[i]);
+            }
+
+            workbook.save(function(err1, resp1){
+               if (!err1){
+                  console.log('congratulations, your workbook created');
+                  res.send({msg: "OK", doc_name: outPutFile, resp: resp1});
+               }
+               else{ 
+                  workbook.cancel();
+                  res.send({msg: "ERROR", err: err1});
+               }
+            });
+
+         } else {
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
+         }
       });
 
    });
