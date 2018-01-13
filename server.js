@@ -430,7 +430,7 @@ global.error = function(error, type, controller){
         return 'El ruc ya esta registrado';
       }
     }
-    return "Error en base de datos";
+    return error;
   }
   else if(type==1)
     return "Error de duplicado";

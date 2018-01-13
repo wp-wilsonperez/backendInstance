@@ -6,6 +6,10 @@ import BillingPolicy from "../models/billingPolicy";
 import Wallet from "../models/wallet";
 import WalletPayment from "../models/walletPayment";
 
+import Client from "../models/client";
+import Business from "../models/business";
+import Insurance from "../models/insurance";
+
 import JSZip from 'jszip';
 import Docxtemplater from 'docxtemplater';
 var xlsx = require('xlsx');
@@ -101,66 +105,89 @@ let billingController = function (app, control={auth, passport, acl}){
       $billinData["branchCreate"] = req.user.idBranch;
       $billinData["dateUpdate"] = $moment;
       $billinData["userUpdate"] = req.user.idUser;
-      let billing = new Billing($billinData);
+      
 
-      billing.save((err, doc) => {
-         if(!err){
-            control.log(req.route.path, req.user);
-            $billingPolicy.forEach(function (item, index) {
-               $billingPolicy[index]["idBilling"]=doc._id;
-               $billingPolicy[index]["billing"]=doc._id;
-               $billingPolicy[index]["dateCreate"] = $moment;
-               $billingPolicy[index]["userCreate"] = req.user.idUser;
-               $billingPolicy[index]["dateUpdate"] = $moment;
-               $billingPolicy[index]["userUpdate"] = req.user.idUser;
-            })
-            BillingPolicy.insertMany($billingPolicy, (err, docs) => {
+      let ClientBilling;
+      if($data.typeBilling=='99097f2c1f'){
+         ClientBilling = Client;
+      }
+      else if($data.typeBilling=='99097f2c1c'){
+         ClientBilling = Business;
+      }
+      else if($data.typeBilling=='99097f2c1d'){
+         ClientBilling = Insurance;
+      }
+      ClientBilling.findById($data.idDetailsClientBilling, function (err, doc) {
+         if (!err) {
+            //control.log(req.route.path, req.user);
+            //res.send({msg: "OK", billing: doc});
+            $billinData["detailsClientBilling"] = doc;
+            let billing = new Billing($billinData);
+            billing.save((err, doc) => {
                if(!err){
-                  let wallet = new Wallet({
-                     idBilling: doc._id,
-                     DetailsBillingData: doc,
-                     expirationDate: $billinData.firstPaymentDate,
-                     paymentValue: $billinData.valueEqualPayments,
-                     detailsWallet: "",
-                     dateCreate: $moment,
-                     userCreate: req.user.idUser,
-                     dateUpdate: $moment,
-                     userUpdate: req.user.idUser
-                  });
-                  wallet.save((err, docWallet) => {
-                     let $walletPayment =[];
-                     let $expirationDate = $billinData.firstPaymentDate;
-                     let $paymentValue = $billinData.valueEqualPayments;
-                     for(let i = 0; i < $billinData.equalPayments; i++){
-                        let obj= {
-                            idWallet:docWallet._id,
-                            wallet:docWallet._id,
-                            expirationDate:$expirationDate,
-                            paymentValue: $paymentValue,
-                            arrayWalletPayment: [],
-                            dateCreate:$moment,
-                            userCreate: req.user.idUser,
-                            dateUpdate:$moment,
-                            userUpdate:req.user.idUser
-                        }
-                        $walletPayment.push(obj);
-                        $expirationDate = moment($expirationDate).add(1, 'month');
+                  control.log(req.route.path, req.user);
+                  $billingPolicy.forEach(function (item, index) {
+                     $billingPolicy[index]["idBilling"]=doc._id;
+                     $billingPolicy[index]["billing"]=doc._id;
+                     $billingPolicy[index]["dateCreate"] = $moment;
+                     $billingPolicy[index]["userCreate"] = req.user.idUser;
+                     $billingPolicy[index]["dateUpdate"] = $moment;
+                     $billingPolicy[index]["userUpdate"] = req.user.idUser;
+                  })
+                  BillingPolicy.insertMany($billingPolicy, (err, docs) => {
+                     if(!err){
+                        let wallet = new Wallet({
+                           idBilling: doc._id,
+                           DetailsBillingData: doc,
+                           expirationDate: $billinData.firstPaymentDate,
+                           paymentValue: $billinData.valueEqualPayments,
+                           detailsWallet: "",
+                           dateCreate: $moment,
+                           userCreate: req.user.idUser,
+                           dateUpdate: $moment,
+                           userUpdate: req.user.idUser
+                        });
+                        wallet.save((err, docWallet) => {
+                           let $walletPayment =[];
+                           let $expirationDate = $billinData.firstPaymentDate;
+                           let $paymentValue = $billinData.valueEqualPayments;
+                           for(let i = 0; i < $billinData.equalPayments; i++){
+                              let obj= {
+                                  idWallet:docWallet._id,
+                                  wallet:docWallet._id,
+                                  expirationDate:$expirationDate,
+                                  paymentValue: $paymentValue,
+                                  arrayWalletPayment: [],
+                                  dateCreate:$moment,
+                                  userCreate: req.user.idUser,
+                                  dateUpdate:$moment,
+                                  userUpdate:req.user.idUser
+                              }
+                              $walletPayment.push(obj);
+                              $expirationDate = moment($expirationDate).add(1, 'month');
+                           }
+                           WalletPayment.insertMany($walletPayment, (err, docsWalletPayment) => { });
+                        });
+                        findAction(function(docs){
+                           res.send({msg: "OK", update: docs});
+                        });
+                     } else {
+                        let error=global.error(err, 0, req.controller);
+                        res.send({msg: 'ERROR', err: error});
                      }
-                     WalletPayment.insertMany($walletPayment, (err, docsWalletPayment) => { });
-                  });
-                  findAction(function(docs){
-                     res.send({msg: "OK", update: docs});
                   });
                } else {
                   let error=global.error(err, 0, req.controller);
                   res.send({msg: 'ERROR', err: error});
-               }
+               }            
             });
          } else {
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
-         }            
+         }
       });
+
+
 
    });
 
