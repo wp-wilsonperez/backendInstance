@@ -24,23 +24,21 @@ let billingPolicyController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/billingPolicy/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
-      BillingPolicy.find($filter, function (err, docs) {
-         if (typeof docs !== 'undefined') {
+   app.post('/billingPolicy/filter',[control.auth, controller], (req, res) => {
+    let filter =  req.body.filter;
+        BillingPolicy.find(filter, function (err, docs) {
+            if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
-
             Billing.populate(docs, {path: "billing"},function(err, docs){
-               res.send({msg: "OK", billingPolicies: docs});
+                res.send({msg: "OK", billingPolicies: docs});
             });
-            
-         } else {
+            } else {
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
-         }
-      });
-
-   });
+            }
+        });
+    
+    });
 
    app.get('/billingPolicy/list', [control.auth, controller, control.acl], (req, res) => {
 
