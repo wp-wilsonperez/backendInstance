@@ -38,6 +38,22 @@ let billingController = function (app, control={auth, passport, acl}){
       });
    }
 
+   app.get('/billing/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.query.filter);
+      Billing.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+            control.log(req.route.path, req.user);
+
+            res.send({msg: "OK", billings: docs});
+            
+         } else {
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
+         }
+      });
+
+   });
+
    app.get('/billing/list', [control.auth, controller, control.acl], (req, res) => {
 
       let typeList = app.locals.typeList;
@@ -79,7 +95,6 @@ let billingController = function (app, control={auth, passport, acl}){
    });
 
    app.post('/billing/add', [control.auth, controller, control.acl], (req, res) => {
-       console.log(req.body.billing);
       let $data = req.body.billing;
       let $billinData = $data;
       let $billingPolicy = $data.items;
@@ -193,13 +208,18 @@ let billingController = function (app, control={auth, passport, acl}){
       let update = $billinData;
 
       Billing.findOneAndUpdate(filter, update, function (err1, doc) {
-         if (!err) {
+         if (!err1) {
             //res.send({msg: "OK", update: docs});
             filter = {
                idBilling: req.params.id
             }
             BillingPolicy.remove(filter, function(err2, response) {
+<<<<<<< HEAD
                if (!err) {
+=======
+
+               if (!err2) {
+>>>>>>> c3c4acf7f496e6b6098020f53a9dd1de7fcce04b
                   $billingPolicy.forEach(function (item, index) {
                      $billingPolicy[index]["idBilling"]=doc._id;
                      $billingPolicy[index]["billing"]=doc._id;
@@ -209,7 +229,7 @@ let billingController = function (app, control={auth, passport, acl}){
                      $billingPolicy[index]["userUpdate"] = req.user.idUser;
                   })
                   BillingPolicy.insertMany($billingPolicy, (err3, docs) => {
-                     if(!err){
+                     if(!err3){
                         findAction(function(docs){
                            res.send({msg: "OK", update: docs});
                         });
