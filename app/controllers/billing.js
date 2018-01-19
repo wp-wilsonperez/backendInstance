@@ -214,12 +214,8 @@ let billingController = function (app, control={auth, passport, acl}){
                idBilling: req.params.id
             }
             BillingPolicy.remove(filter, function(err2, response) {
-<<<<<<< HEAD
-               if (!err) {
-=======
 
                if (!err2) {
->>>>>>> c3c4acf7f496e6b6098020f53a9dd1de7fcce04b
                   $billingPolicy.forEach(function (item, index) {
                      $billingPolicy[index]["idBilling"]=doc._id;
                      $billingPolicy[index]["billing"]=doc._id;
