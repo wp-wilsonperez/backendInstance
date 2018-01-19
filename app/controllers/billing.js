@@ -95,7 +95,6 @@ let billingController = function (app, control={auth, passport, acl}){
    });
 
    app.post('/billing/add', [control.auth, controller, control.acl], (req, res) => {
-
       let $data = req.body.billing;
       let $billinData = $data;
       let $billingPolicy = $data.items;
@@ -206,7 +205,6 @@ let billingController = function (app, control={auth, passport, acl}){
       $billinData["dateUpdate"] = $moment;
       $billinData["userUpdate"] = req.user.idUser;
       let billing = new Billing($billinData);
-
       let update = $billinData;
 
       Billing.findOneAndUpdate(filter, update, function (err1, doc) {
