@@ -12,7 +12,7 @@ import Insurance from "../models/insurance";
 
 import JSZip from 'jszip';
 import Docxtemplater from 'docxtemplater';
-var xlsx = require('xlsx');
+import excelbuilder from 'msexcel-builder';
 import fs from 'fs';
 import path from 'path';
 
@@ -269,38 +269,73 @@ let billingController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.post('/billing/report', [controller], (req, res) => {
+   app.post('/billing/report', [control.auth, controller, control.acl], (req, res) => {
 
+      let $filter =  global.filter(req.body.filter);
+      Billing.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
 
-      let data = {
-         date : "Cuenca, 04 de Octubre del 2017",
-         letter_number : "756",
-         client_name : "JUAN PEREZ",
-         insurence_name : "VAZSEGUROS",
-         policy_name : "POLIZA DE VEHICULOS",
-         policy_placa : "VH-43500",
-         policy_anexo : "02",
-         policy_number : "43500",
-         ramo_name : "Vehiculo",
-         ramo_detail : "TOYOTA COROLLA/PLATA",
-         billing_number : "25023",
-         billing_value : "467.04",
-         credit_number : "20550",
-         credit_value : "Vehiculo",
-         user_name : "Ing. Diana Moncayo V.",
-         user_role : "Jefe Dpto. de Emision"
-      };
+         /*Ramo.populate(docs, {path: "ramo"},function(err, docs){
+         City.populate(docs, {path: "city"},function(err, docs){
+         Branch.populate(docs, {path: "branchCreate"},function(err, docs){
+         PolicyType.populate(docs, {path: "policyType"},function(err, docs){*/
 
-      var pathXlsx = path.resolve(__dirname+'/../letters', 'LiquidacionSiniestroAMV.xlsx');
-      var workbook = xlsx.readFile(pathXlsx);
+            var file = 'billing.xlsx';
+            var outPutFile = moment().format('YYYY-MM-DD-h:mm:ss') + file;
+            var pathDownload = __dirname+'/../../public/download/';
+            var workbook = excelbuilder.createWorkbook(pathDownload, outPutFile)
+            var sheet1 = workbook.createSheet('sheet1', 10, 12);
 
-      //xlsx.writeFile(workbook, 'out.xlsb');
-      var outPutFile = moment().format('YYYY-MM-DD-h:mm:ss') + 'LiquidacionSiniestroAMV.xlsx';
-      var pathCake = __dirname+'/../../public/download/'+outPutFile;
-      xlsx.writeFileAsync(pathCake, workbook, (err) => {
-        if (err) throw err;
-        res.send({"status": "ok", "doc_name": outPutFile});
+            var cols = [2,3,4,5,6,7,8,9];
+            var rowIni = 2;
+            sheet1.set(cols[0], rowIni, 'Agencia');
+            sheet1.set(cols[1], rowIni, 'Ciudad');
+            sheet1.set(cols[2], rowIni, 'Nombre Cliente');
+            sheet1.set(cols[3], rowIni, 'Numero de Factura');
+            sheet1.set(cols[4], rowIni, 'Nombre Ramo');
+            sheet1.set(cols[5], rowIni, 'Fecha de Inicio de Vigencia');
+            sheet1.set(cols[6], rowIni, 'Fecha de fin de Vigencia');
+            sheet1.set(cols[7], rowIni, 'Fecha de Factura');
 
+            console.log(docs);
+            let $length = docs.length;
+            for (var i = 0; i < $length; i++) {
+               rowIni++;
+               let $cliente = '';
+                  if(docs[i].typeRecipient == 'CLIENTE'){
+                     $cliente = docs[i].recipient.name+' '+docs[i].recipient.lastName
+                  }
+               sheet1.set(cols[0], rowIni, docs[i]);
+               /*sheet1.set(cols[0], rowIni, docs[i].branchCreate.name);
+               sheet1.set(cols[1], rowIni, docs[i].city.name);
+               sheet1.set(cols[2], rowIni, $cliente);
+               sheet1.set(cols[3], rowIni, docs[i].policyNumber);
+               sheet1.set(cols[4], rowIni, docs[i].ramo.name);
+               sheet1.set(cols[5], rowIni, docs[i].policyType.name);
+               sheet1.set(cols[6], rowIni, docs[i].startDate);
+               sheet1.set(cols[7], rowIni, docs[i].finishDate);*/
+            }
+
+            workbook.save(function(err1, resp1){
+               if (!err1){
+                  console.log('congratulations, your workbook created');
+                  res.send({msg: "OK", doc_name: outPutFile});
+               }
+               else{ 
+                  workbook.cancel();
+                  res.send({msg: "ERROR", err: err1});
+               }
+            });
+
+         /*});
+         });
+         });
+         });*/
+
+         } else {
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
+         }
       });
 
    });
