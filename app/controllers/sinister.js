@@ -7,6 +7,7 @@ import SinisterGeneralDocumentation from "../models/sinisterGeneralDocumentation
 import SinisterCar from "../models/sinisterCar";
 
 import Ramo from "../models/ramo";
+import Policy from "../models/policy";
 
 import JSZip from 'jszip';
 import Docxtemplater from 'docxtemplater';
@@ -72,10 +73,9 @@ let sinisterController = function (app, control={auth, passport, acl}){
       Sinister.find(filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
-
-            Ramo.populate(docs, {path: "ramo"},function(err, docs){
-               res.send({msg: "OK", sinisters: docs});
-            });
+            Policy.populate(docs, {path: "policy"},function(err, docs){
+                res.send({msg: "OK", sinisters: docs});
+             });
             
          } else {
             let error=global.error(err, 0, req.controller);
