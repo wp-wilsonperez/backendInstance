@@ -135,6 +135,7 @@ let sinisterController = function (app, control={auth, passport, acl}){
                      $sinisterGeneralDocumentation[index]["dateUpdate"] = $moment;
                      $sinisterGeneralDocumentation[index]["userUpdate"] = req.user.idUser;
                   })
+                  let sinisterGeneralDocumentation = new SinisterGeneralDocumentation();
                   sinisterGeneralDocumentation.insertMany($sinisterGeneralDocumentation, (err, docs) => {
                   });
                }
