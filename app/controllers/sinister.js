@@ -102,6 +102,7 @@ let sinisterController = function (app, control={auth, passport, acl}){
    app.post('/sinister/add', [control.auth, controller, control.acl], (req, res) => {
 
       let $data = req.body.sinister;
+      console.log($data);
       let $sinisterData = $data;
       let $sinisterGeneral = $data.item;
       let $sinisterGeneralDocumentation = $data.item.items;
@@ -124,7 +125,7 @@ let sinisterController = function (app, control={auth, passport, acl}){
             $sinisterGeneral["userCreate"] = req.user.idUser;
             $sinisterGeneral["dateUpdate"] = $moment;
             $sinisterGeneral["userUpdate"] = req.user.idUser;
-            let sinisterGeneral = new SinisterCar($sinisterGeneral);
+            let sinisterGeneral = new SinisterGeneral($sinisterGeneral);
             sinisterGeneral.save((err, doc) => {
                if(!err){
                   $sinisterGeneralDocumentation.forEach(function (item, index) {
@@ -135,8 +136,8 @@ let sinisterController = function (app, control={auth, passport, acl}){
                      $sinisterGeneralDocumentation[index]["dateUpdate"] = $moment;
                      $sinisterGeneralDocumentation[index]["userUpdate"] = req.user.idUser;
                   })
-                  let sinisterGeneralDocumentation = new SinisterGeneralDocumentation();
-                  sinisterGeneralDocumentation.insertMany($sinisterGeneralDocumentation, (err, docs) => {
+                  //let sinisterGeneralDocumentation = new SinisterGeneralDocumentation();
+                  SinisterGeneralDocumentation.insertMany($sinisterGeneralDocumentation, (err, docs) => {
                   });
                }
             });
