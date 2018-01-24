@@ -58,7 +58,7 @@ let sinisterController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.get('/sinister/list', [control.auth, controller, control.acl], (req, res) => {
+   app.get('/sinister/list', (req, res) => {
 
       let typeList = app.locals.typeList;
       let filter = {};
@@ -73,9 +73,9 @@ let sinisterController = function (app, control={auth, passport, acl}){
       Sinister.find(filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
-            Policy.populate(docs, {path: "policy"},function(err, docs){
-                res.send({msg: "OK", sinisters: docs});
-             });
+            Ramo.populate(docs, {path: "ramo"},function(err, docs){
+               res.send({msg: "OK", sinisters: docs});
+            });
             
          } else {
             let error=global.error(err, 0, req.controller);
@@ -104,6 +104,7 @@ let sinisterController = function (app, control={auth, passport, acl}){
       let $data = req.body.sinister;
       console.log($data);
       let $sinisterData = $data;
+      $sinisterData.ramo = $sinisterData.idRamo;
       let $sinisterGeneral = $data.item;
       let $sinisterGeneralDocumentation = $data.item.items;
       let $moment = moment();
