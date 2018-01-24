@@ -151,7 +151,8 @@ let billingController = function (app, control={auth, passport, acl}){
                            let $walletPayment =[];
                            let $expirationDate = $billinData.firstPaymentDate;
                            let $paymentValue = $billinData.valueEqualPayments;
-                           for(let i = 0; i < $billinData.equalPayments; i++){
+                           let $total = parseInt($billinData.equalPayments);
+                           for(let i = 0; i < $total; i++){
                               let obj= {
                                   idWallet:docWallet._id,
                                   wallet:docWallet._id,
@@ -163,10 +164,16 @@ let billingController = function (app, control={auth, passport, acl}){
                                   dateUpdate:$moment,
                                   userUpdate:req.user.idUser
                               }
-                              $walletPayment.push(obj);
-                              $expirationDate = moment($expirationDate).add(1, 'month');
+                              $walletPayment[i] = obj;
+                              
+                              $expirationDate = moment($expirationDate).add(1, 'month').format('YYYY-MM-DD');
+
+                              let walletPayment = new WalletPayment(obj);
+                              walletPayment.save((err, docWalletPayment) => {
+                              });
+
                            }
-                           WalletPayment.insertMany($walletPayment, (err, docsWalletPayment) => { });
+                           //WalletPayment.insertMany($walletPayment, (err, docsWalletPayment) => { });
                         });
                         findAction(function(docs){
                            res.send({msg: "OK", update: docs});
