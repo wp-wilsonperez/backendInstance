@@ -2,17 +2,17 @@
 import mongoose from 'mongoose';
 
 let SinisterGeneralDocumentationSchema = new mongoose.Schema({
-	idSinisterGeneral: {type: String, require: true},
+	idSinisterGeneral: {type: String},
 	sinisterGeneral: { type: mongoose.Schema.ObjectId, ref: "SinisterGeneral"},
-	idSinisterDocumentationRamo: {type: String, require: true},
+	idSinisterDocumentationRamo: {type: String},
 	sinisterDocumentationRamo: { type: mongoose.Schema.ObjectId, ref: "sinisterDocumentationRamo"},
 	quantity: {type: Number},
 	description: { type: String},
 	sendDate: {type: Date},
 	responsibleReception: {type: String},
 	receptionDate: {type: Date},
-	numberAllBilling: {type: Number, require: true},
-	totalBillingValue: {type: Number, require: true},
+	numberAllBilling: {type: Number},
+	totalBillingValue: {type: Number},
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},

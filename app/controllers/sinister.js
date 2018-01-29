@@ -102,14 +102,15 @@ let sinisterController = function (app, control={auth, passport, acl}){
    app.post('/sinister/add', [control.auth, controller, control.acl], (req, res) => {
 
       let $data = req.body.sinister;
-      console.log($data);
+      //console.log($data);
+      //return res.send($data);
       let $sinisterData = $data;
       $sinisterData.ramo = $sinisterData.idRamo;
       let $sinisterGeneral = $data.item;
       let $sinisterGeneralDocumentation = $data.item.items;
       let $moment = moment();
-      delete($sinisterData.item);
-      delete($sinisterGeneralDocumentation.items);
+      /*delete($sinisterData.item);
+      delete($sinisterGeneralDocumentation.items);*/
       $sinisterData["dateCreate"] = $moment;
       $sinisterData["userCreate"] = req.user.idUser;
       $sinisterData["branchCreate"] = req.user.idBranch;
@@ -120,7 +121,7 @@ let sinisterController = function (app, control={auth, passport, acl}){
       sinister.save((err, doc) => {
          if(!err){
             control.log(req.route.path, req.user);
-            $sinisterGeneral["idSinister"] = doc._id;
+            /*$sinisterGeneral["idSinister"] = doc._id;
             $sinisterGeneral["sinister"] = doc._id;
             $sinisterGeneral["dateCreate"] = $moment;
             $sinisterGeneral["userCreate"] = req.user.idUser;
@@ -141,11 +142,14 @@ let sinisterController = function (app, control={auth, passport, acl}){
                   SinisterGeneralDocumentation.insertMany($sinisterGeneralDocumentation, (err, docs) => {
                   });
                }
-            });
+            });*/
             findAction(function(docs){
+               console.log("OK");
                res.send({msg: "OK", update: docs});
             });
          } else {
+            console.log("ERROR");
+            console.log(err);
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
          }            
@@ -158,30 +162,8 @@ let sinisterController = function (app, control={auth, passport, acl}){
       let filter = {
          _id: req.params.id
       }
-
-      let update = {
-         idPolicy: req.body.idPolicy,
-         policyData: req.body.policyData,
-         idPolicyAnnex: req.body.idPolicyAnnex,
-         annexData: req.body.annexData,
-         idClient: req.body.idClient,
-         clientData: req.body.clientData,
-         compName: req.body.compName,
-         clientInsured: req.body.clientInsured,
-         beneficiary: req.body.beneficiary,
-         dateSinester: req.body.dateSinester,
-         dateNotification: req.body.dateNotification,
-         trackingDate: req.body.trackingDate,
-         beneficiary: req.body.beneficiary,
-         idRamo: req.body.idRamo,
-         ramo: req.body.idRamo,
-         sinisterState: req.body.sinisterState,
-         settlementDate: req.body.settlementDate,
-         approvalDate: req.body.approvalDate,
-         checkApproved: req.body.checkApproved,
-         dateUpdate: moment(),
-         userUpdate: req.user.idUser
-      };
+      let $data = req.body.sinister;
+      let update = $data;
 
       Sinister.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {

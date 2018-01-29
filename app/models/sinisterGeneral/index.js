@@ -2,7 +2,7 @@
 import mongoose from 'mongoose';
 
 let SinisterGeneralSchema = new mongoose.Schema({
-	idSinister: {type: String, require: true},
+	idSinister: {type: String},
 	sinister: { type: mongoose.Schema.ObjectId, ref: "Sinister"},
 	workshop: {type: String},
 	arrangement: { type: String},
