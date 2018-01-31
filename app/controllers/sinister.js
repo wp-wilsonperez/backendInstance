@@ -202,8 +202,13 @@ let sinisterController = function (app, control={auth, passport, acl}){
    app.post('/sinister/report', [control.auth, controller, control.acl], (req, res) => {
 
       let $filter =  global.filter(req.body.filter);
+      let $excel =  req.body.excel;
       Sinister.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+
+            if($excel==false){
+               return res.send({msg: "OK", sinisters: docs});
+            }
 
          /*Ramo.populate(docs, {path: "ramo"},function(err, docs){
          City.populate(docs, {path: "city"},function(err, docs){

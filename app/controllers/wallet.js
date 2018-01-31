@@ -170,8 +170,13 @@ let walletController = function (app, control={auth, passport, acl}){
    app.post('/wallet/report', [control.auth, controller, control.acl], (req, res) => {
 
       let $filter =  global.filter(req.body.filter);
+      let $excel =  req.body.excel;
       Wallet.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+
+            if($excel==false){
+               return res.send({msg: "OK", wallets: docs});
+            }
 
          /*Ramo.populate(docs, {path: "ramo"},function(err, docs){
          City.populate(docs, {path: "city"},function(err, docs){

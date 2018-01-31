@@ -305,6 +305,7 @@ let policyController = function (app, control={auth, passport, acl}){
    app.post('/policy/report', [control.auth, controller, control.acl], (req, res) => {
 
       let $filter =  global.filter(req.body.filter);
+      let $excel =  req.body.excel;
       Policy.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
 
@@ -312,6 +313,10 @@ let policyController = function (app, control={auth, passport, acl}){
          City.populate(docs, {path: "city"},function(err, docs){
          Branch.populate(docs, {path: "branchCreate"},function(err, docs){
          PolicyType.populate(docs, {path: "policyType"},function(err, docs){
+
+            if($excel==false){
+               return res.send({msg: "OK", policies: docs});
+            }
 
             var file = 'policy.xlsx';
             var outPutFile = moment().format('YYYY-MM-DD-h:mm:ss') + file;

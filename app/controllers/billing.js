@@ -279,8 +279,13 @@ let billingController = function (app, control={auth, passport, acl}){
    app.post('/billing/report', [control.auth, controller, control.acl], (req, res) => {
 
       let $filter =  global.filter(req.body.filter);
+      let $excel =  req.body.excel;
       Billing.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+
+            if($excel==false){
+               return res.send({msg: "OK", billings: docs});
+            }
 
          /*Ramo.populate(docs, {path: "ramo"},function(err, docs){
          City.populate(docs, {path: "city"},function(err, docs){

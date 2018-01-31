@@ -160,8 +160,13 @@ let renewalController = function (app, control={auth, passport, acl}){
    app.post('/renewal/report', [control.auth, controller, control.acl], (req, res) => {
 
       let $filter =  global.filter(req.body.filter);
+      let $excel =  req.body.excel;
       Renewal.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
+
+            if($excel==false){
+               return res.send({msg: "OK", renewals: docs});
+            }
 
          /*Ramo.populate(docs, {path: "ramo"},function(err, docs){
          City.populate(docs, {path: "city"},function(err, docs){
