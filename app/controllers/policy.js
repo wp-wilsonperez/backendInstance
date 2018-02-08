@@ -377,6 +377,77 @@ let policyController = function (app, control={auth, passport, acl}){
 
    });
 
+   app.post('/policy/reportsupercompany', [control.auth, controller, control.acl], (req, res) => {
+
+      let $filter =  global.filter(req.body.filter);
+      let $excel =  req.body.excel;
+      Policy.find($filter, function (err, docs) {
+         if (typeof docs !== 'undefined') {
+
+         Insurance.populate(docs, {path: "insurance"},function(err, docs){
+         Ramo.populate(docs, {path: "ramo"},function(err, docs){
+
+            if($excel==false){
+               return res.send({msg: "OK", policies: docs});
+            }
+
+            var file = 'supercompany.xlsx';
+            var outPutFile = moment().format('YYYY-MM-DD-h:mm:ss') + file;
+            var pathDownload = __dirname+'/../../public/download/';
+            var workbook = excelbuilder.createWorkbook(pathDownload, outPutFile)
+            var sheet1 = workbook.createSheet('sheet1', 10, 12);
+
+            var cols = [2,3,4,5,6,7,8,9];
+            var rowIni = 2;
+            sheet1.set(cols[0], rowIni, 'Agencia');
+            sheet1.set(cols[1], rowIni, 'Ciudad');
+            sheet1.set(cols[2], rowIni, 'Nombre Cliente');
+            sheet1.set(cols[3], rowIni, 'Numero de Poliza');
+            sheet1.set(cols[4], rowIni, 'Nombre Ramo');
+            sheet1.set(cols[5], rowIni, 'Estado de Poliza');
+            sheet1.set(cols[6], rowIni, 'Fecha de Inicio de Vigencia');
+            sheet1.set(cols[7], rowIni, 'Fecha de fin de Vigencia');
+
+            console.log(docs);
+            let $length = docs.length;
+            for (var i = 0; i < $length; i++) {
+               rowIni++;
+               let $cliente = '';
+                  if(docs[i].typeRecipient == 'CLIENTE'){
+                     $cliente = docs[i].recipient.name+' '+docs[i].recipient.lastName
+                  }
+               sheet1.set(cols[0], rowIni, docs[i].branchCreate.name);
+               sheet1.set(cols[1], rowIni, docs[i].city.name);
+               sheet1.set(cols[2], rowIni, $cliente);
+               sheet1.set(cols[3], rowIni, docs[i].policyNumber);
+               sheet1.set(cols[4], rowIni, docs[i].ramo.name);
+               sheet1.set(cols[5], rowIni, docs[i].policyType.name);
+               sheet1.set(cols[6], rowIni, docs[i].startDate);
+               sheet1.set(cols[7], rowIni, docs[i].finishDate);
+            }
+
+            workbook.save(function(err1, resp1){
+               if (!err1){
+                  console.log('congratulations, your workbook created');
+                  res.send({msg: "OK", doc_name: outPutFile});
+               }
+               else{ 
+                  workbook.cancel();
+                  res.send({msg: "ERROR", err: err1});
+               }
+            });
+
+         });
+         });
+
+         } else {
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
+         }
+      });
+
+   });
+
 }
 
 export default policyController

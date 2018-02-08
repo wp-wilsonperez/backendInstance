@@ -410,6 +410,10 @@ global.filter = function(query){
    $params.forEach(function (item, index) {
       if(item.condition == "="){
         $filter[item.field] = item.value;
+      }else if(item.condition == "<="){
+        $filter[item.field] = {"$lte": item.value};
+      }else if(item.condition == ">="){
+        $filter[item.field] = {"$gte": item.value};
       }else if(item.condition == "or"){
         let filterOR = [];
         $item.fields.forEach(function (item2, index2) {
