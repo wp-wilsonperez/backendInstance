@@ -3,6 +3,7 @@ import moment from 'moment';
 import multer from 'multer';
 
 import Client from "../models/client";
+import Car from "../models/car";
 import JSZip from 'jszip';
 import Docxtemplater from 'docxtemplater';
 import excelbuilder from 'msexcel-builder';
@@ -273,6 +274,107 @@ let uploadController = function (app, control={auth, passport, acl}){
                
             }
             console.log($erroData);
+
+            workbook.save(function(err1, resp1){
+               if (!err1){
+                  console.log('congratulations, your workbook created');
+                  res.send({msg: "OK", doc_name: outPutFile});
+               }
+               else{ 
+                  workbook.cancel();
+                  res.send({msg: "ERROR", err: err1});
+               }
+            });
+
+         } else {
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
+         }
+         
+      });
+
+   });
+
+   app.post('/upload/car', [control.auth, controller], (req, res) => {
+
+      let $data = req.body.data;
+
+      upload(req , res , async function(err) {
+         if(!err){
+            let $data = req.body.data;
+            var $file = __dirname+'/../../public/download/'+req.file.filename;
+
+            var workbook = XLSX.readFile($file);
+            var sheet_name_list = workbook.SheetNames;
+            var xlsData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
+            console.log(xlsData);
+            var $erroData = [];
+
+
+            var file = 'autosFallidos.xlsx';
+            var outPutFile = moment().format('YYYY-MM-DD-h:mm:ss') + file;
+            var pathDownload = __dirname+'/../../public/download/';
+            var workbook = excelbuilder.createWorkbook(pathDownload, outPutFile)
+            var sheet1 = workbook.createSheet('sheet1', 15, 1000);
+
+            var cols = [2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+            var rowIni = 2;
+            sheet1.set(cols[0], rowIni, 'doc');
+            sheet1.set(cols[1], rowIni, 'idRamo');
+            sheet1.set(cols[2], rowIni, 'chasis');
+            sheet1.set(cols[4], rowIni, 'motor');
+            sheet1.set(cols[5], rowIni, 'placa');
+            sheet1.set(cols[6], rowIni, 'carUse');
+            sheet1.set(cols[7], rowIni, 'extras');
+            sheet1.set(cols[8], rowIni, 'extrasValue');
+            sheet1.set(cols[9], rowIni, 'idCarBrand');
+            sheet1.set(cols[10], rowIni, 'idCarModel');
+            sheet1.set(cols[11], rowIni, 'idCarColor');
+
+            for (var i=0; i < xlsData.length ; i++) {
+               //var client = await Client.save(xlsData[i]);
+               let $carData = xlsData[i];
+               //console.log(  );
+               let filter = {doc: $carData.doc};
+               console.log(filter);
+               let exist = await Client.findOne(filter);
+               filter = {"$or": [{'chasis': $carData.chasis}, {'motor': $carData.motor}, {'placa': $carData.placa}]};
+               let exist2 = await Car.findOne(filter);
+               console.log("---------------------exist");
+               console.log(exist);
+               console.log("---------------------exist2");
+               console.log(typeof(exist2));
+               console.log(typeof(null));
+               //console.log(exist);
+               if(exist!=null && exist2==null) {
+                  $carData['idClient'] = exist._id;
+                  $carData['client'] = exist._id;
+                  let car = new Car($carData);
+                  var carResult = await car.save();
+                  console.log("YES");
+               }else {
+                  console.log("NO");
+                  $erroData.push($carData);
+
+                  //let $length = docs.length;
+                  //for (var i = 0; i < $length; i++) {
+                     rowIni++;
+                     sheet1.set(cols[0], rowIni, 'doc');
+                     sheet1.set(cols[1], rowIni, 'idRamo');
+                     sheet1.set(cols[2], rowIni, 'chasis');
+                     sheet1.set(cols[4], rowIni, 'motor');
+                     sheet1.set(cols[5], rowIni, 'placa');
+                     sheet1.set(cols[6], rowIni, 'carUse');
+                     sheet1.set(cols[7], rowIni, 'extras');
+                     sheet1.set(cols[8], rowIni, 'extrasValue');
+                     sheet1.set(cols[9], rowIni, 'idCarBrand');
+                     sheet1.set(cols[10], rowIni, 'idCarModel');
+                     sheet1.set(cols[11], rowIni, 'idCarColor');
+                  //}
+               }
+               
+            }
+            //console.log($erroData);
 
             workbook.save(function(err1, resp1){
                if (!err1){
