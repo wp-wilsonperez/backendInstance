@@ -77,9 +77,6 @@ let renewalController = function (app, control={auth, passport, acl}){
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };
-
-      
-
       Policy.findById(req.body.idPolicy, function (err1, doc1) {
          if (!err1) {
             
