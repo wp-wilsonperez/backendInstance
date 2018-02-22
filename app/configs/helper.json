@@ -334,5 +334,21 @@
       "99097f2c1c" : "Sucursal",
       "99097f2c1d" : "Global"
     }
+  },
+  "sendingStatus" : {
+    "list":[
+      {
+        "id": "99097f2c1f",
+        "name": "Creación"
+      },
+      {
+        "id": "99097f2c1c",
+        "name": "Enviado"
+      }
+    ],
+    "one":{
+      "99097f2c1f" : "Creación",
+      "99097f2c1c" : "Enviado"
+    }
   }
 }
