@@ -5,6 +5,7 @@ import Wallet from "../models/wallet";
 
 import JSZip from 'jszip';
 import Docxtemplater from 'docxtemplater';
+import excelbuilder from 'msexcel-builder';
 var xlsx = require('xlsx');
 import fs from 'fs';
 import path from 'path';
