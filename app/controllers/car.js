@@ -31,30 +31,29 @@ let carController = function (app, control={auth, passport, acl}){
          }
       });
    }
+   
+   app.post('/car/filter',[control.auth, controller], (req, res) => {
+    let filter =  req.body.filter;
+        Car.find(filter, function (err, docs) {
+            if (typeof docs !== 'undefined') {
+                control.log(req.route.path, req.user);
 
-   app.get('/car/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
-      Car.find($filter, function (err, docs) {
-         if (typeof docs !== 'undefined') {
-            control.log(req.route.path, req.user);
-
-            Client.populate(docs, {path: "client"},function(err, docs){
-               Ramo.populate(docs, {path: "ramo"},function(err, docs){
-                  CarBrand.populate(docs, {path: "carBrand"},function(err, docs){
-                     CarModel.populate(docs, {path: "carModel"},function(err, docs){
-                        res.send({msg: "OK", cars: docs});
-                     });
-                  });
-               });
-            });
-            
-         } else {
+                Client.populate(docs, {path: "client"},function(err, docs){
+                    Ramo.populate(docs, {path: "ramo"},function(err, docs){
+                       CarBrand.populate(docs, {path: "carBrand"},function(err, docs){
+                          CarModel.populate(docs, {path: "carModel"},function(err, docs){
+                             res.send({msg: "OK", cars: docs});
+                          });
+                       });
+                    });
+                 });
+            } else {
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
-         }
-      });
-
-   });
+            }
+        });
+    
+    });
 
    app.get('/car/list', [control.auth, controller, control.acl], (req, res) => {
 
