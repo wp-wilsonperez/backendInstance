@@ -10,6 +10,7 @@ import User from "../models/user";
 import Branch from "../models/branch";
 import City from "../models/city";
 import PolicyType from "../models/policyType";
+import PercentageRamo from "../models/percentageRamo";
 
 import JSZip from 'jszip';
 import Docxtemplater from 'docxtemplater';
@@ -385,7 +386,7 @@ let policyController = function (app, control={auth, passport, acl}){
          if (typeof docs !== 'undefined') {
 
          Insurance.populate(docs, {path: "insurance"},function(err, docs){
-         Ramo.populate(docs, {path: "ramo"},function(err, docs){
+         Ramo.populate(docs, {path: "ramo"}, async function(err, docs){
 
             if($excel==false){
                return res.send({msg: "OK", policies: docs});
@@ -399,31 +400,40 @@ let policyController = function (app, control={auth, passport, acl}){
 
             var cols = [2,3,4,5,6,7,8,9];
             var rowIni = 2;
-            sheet1.set(cols[0], rowIni, 'Agencia');
-            sheet1.set(cols[1], rowIni, 'Ciudad');
-            sheet1.set(cols[2], rowIni, 'Nombre Cliente');
-            sheet1.set(cols[3], rowIni, 'Numero de Poliza');
-            sheet1.set(cols[4], rowIni, 'Nombre Ramo');
-            sheet1.set(cols[5], rowIni, 'Estado de Poliza');
-            sheet1.set(cols[6], rowIni, 'Fecha de Inicio de Vigencia');
-            sheet1.set(cols[7], rowIni, 'Fecha de fin de Vigencia');
+            sheet1.set(cols[0], rowIni, 'Nombre Aseguradora');
+            sheet1.set(cols[1], rowIni, 'Ramo');
+            sheet1.set(cols[2], rowIni, 'Valor Prima');
+            sheet1.set(cols[3], rowIni, 'Valor Comisión');
 
-            console.log(docs);
+            //console.log(docs);
             let $length = docs.length;
+            let totalPrima=0;
+            let comision=0;
+            let valorComision=0;
+
             for (var i = 0; i < $length; i++) {
+               $filter =  {"idPolicy": docs[i]._id};
+               let policyAnnex = await PolicyAnnex.find($filter);
+               $filter =  {"idRamo": docs[i].idRamo, "idInsurance": docs[i].idInsurance};
+               let percentageRamo = await PercentageRamo.findOne($filter);
+               console.log(policyAnnex);
+               console.log(percentageRamo);
+               
+               if(percentageRamo){ comision = parseFloat(percentageRamo.value)}
+               let $lengthAnnex = policyAnnex.length;
+               for (var j = 0; j < $lengthAnnex; j++) {
+                  totalPrima+=parseFloat(policyAnnex[j].totalPrima);
+               }
+               valorComision=(totalPrima*comision)/100;
+               console.log(totalPrima);
+               console.log(comision);
+               console.log(valorComision);
+
                rowIni++;
-               let $cliente = '';
-                  if(docs[i].typeRecipient == 'CLIENTE'){
-                     $cliente = docs[i].recipient.name+' '+docs[i].recipient.lastName
-                  }
-               sheet1.set(cols[0], rowIni, docs[i].branchCreate.name);
-               sheet1.set(cols[1], rowIni, docs[i].city.name);
-               sheet1.set(cols[2], rowIni, $cliente);
-               sheet1.set(cols[3], rowIni, docs[i].policyNumber);
-               sheet1.set(cols[4], rowIni, docs[i].ramo.name);
-               sheet1.set(cols[5], rowIni, docs[i].policyType.name);
-               sheet1.set(cols[6], rowIni, docs[i].startDate);
-               sheet1.set(cols[7], rowIni, docs[i].finishDate);
+               sheet1.set(cols[0], rowIni, docs[i].insurance.bussinesName);
+               sheet1.set(cols[1], rowIni, docs[i].ramo.name);
+               sheet1.set(cols[2], rowIni, totalPrima);
+               sheet1.set(cols[3], rowIni, valorComision);
             }
 
             workbook.save(function(err1, resp1){
