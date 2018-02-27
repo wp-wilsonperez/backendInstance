@@ -350,5 +350,21 @@
       "99097f2c1f" : "Creación",
       "99097f2c1c" : "Enviado"
     }
+  },
+  "pickupStatus" : {
+    "list":[
+      {
+        "id": "99097f2c1f",
+        "name": "Creado"
+      },
+      {
+        "id": "99097f2c1c",
+        "name": "Realizado"
+      }
+    ],
+    "one":{
+      "99097f2c1f" : "Creado",
+      "99097f2c1c" : "Realizado"
+    }
   }
 }
