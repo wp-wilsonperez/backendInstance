@@ -431,9 +431,12 @@ let policyController = function (app, control={auth, passport, acl}){
                   sheet1.align(cols[0], rowIni, 'center');
                   sheet1.set(cols[0], rowIni, 'TODOS LOS RAMOS DEL SISTEMA');
                   rowIni++;
+                  sheet1.font(cols[1], rowIni, {bold:'true', color: '#DF0101'});
                   sheet1.set(cols[1], rowIni, 'Total');
-                  sheet1.set(cols[2], rowIni, totalPrimaResume);
-                  sheet1.set(cols[3], rowIni, valorComisionResume);
+                  sheet1.font(cols[2], rowIni, {bold:'true', color: '#DF0101'});
+                  sheet1.set(cols[2], rowIni, totalPrimaResume.toFixed(2));
+                  sheet1.font(cols[3], rowIni, {bold:'true', color: '#DF0101'});
+                  sheet1.set(cols[3], rowIni, valorComisionResume.toFixed(2));
 
                   totalPrimaResume=0;
                   valorComisionResume=0;
@@ -450,7 +453,8 @@ let policyController = function (app, control={auth, passport, acl}){
                for (var j = 0; j < $lengthAnnex; j++) {
                   totalPrima+=parseFloat(policyAnnex[j].totalPrima);
                }
-               valorComision=(totalPrima*comision)/100;
+               //valorComision= Math.round( ((totalPrima*comision)/100) , 2);
+               valorComision = Number(Math.round(((totalPrima*comision)/100)+'e2')+'e-2');
                console.log(totalPrima);
                console.log(comision);
                console.log(valorComision);
@@ -460,8 +464,8 @@ let policyController = function (app, control={auth, passport, acl}){
                rowIni++;
                sheet1.set(cols[0], rowIni, docs[i].insurance.bussinesName);
                sheet1.set(cols[1], rowIni, docs[i].ramo.name);
-               sheet1.set(cols[2], rowIni, totalPrima);
-               sheet1.set(cols[3], rowIni, valorComision);
+               sheet1.set(cols[2], rowIni, totalPrima.toFixed(2));
+               sheet1.set(cols[3], rowIni, valorComision.toFixed(2));
             }
 
             if($length>0){
@@ -471,9 +475,12 @@ let policyController = function (app, control={auth, passport, acl}){
                sheet1.align(cols[0], rowIni, 'center');
                sheet1.set(cols[0], rowIni, 'TODOS LOS RAMOS DEL SISTEMA');
                rowIni++;
+               sheet1.font(cols[1], rowIni, {bold:'true', color: '#DF0101'});
                sheet1.set(cols[1], rowIni, 'Total');
-               sheet1.set(cols[2], rowIni, totalPrimaResume);
-               sheet1.set(cols[3], rowIni, valorComisionResume);
+               sheet1.font(cols[2], rowIni, {bold:'true', color: '#DF0101'});
+               sheet1.set(cols[2], rowIni, totalPrimaResume.toFixed(2));
+               sheet1.font(cols[3], rowIni, {bold:'true', color: '#DF0101'});
+               sheet1.set(cols[3], rowIni, valorComisionResume.toFixed(2));
             }
             sheet1.merge({col:1,row:1},{col:5,row:1});
 
