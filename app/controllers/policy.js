@@ -393,7 +393,7 @@ let policyController = function (app, control={auth, passport, acl}){
             }
 
             var file = 'supercompany.xlsx';
-            var outPutFile = moment().format('YYYY-MM-DD-h:mm:ss') + file;
+            var outPutFile = moment().format('YYYY-MM-DD-h.mm.ss') + file;
             var pathDownload = __dirname+'/../../public/download/';
             var workbook = excelbuilder.createWorkbook(pathDownload, outPutFile)
             var sheet1 = workbook.createSheet('sheet1', 10, 12);
@@ -411,7 +411,33 @@ let policyController = function (app, control={auth, passport, acl}){
             let comision=0;
             let valorComision=0;
 
+            let totalPrimaResume=0;
+            let valorComisionResume=0;
+
+            let idInsurance="";
+            if($length>0){
+               idInsurance= docs[0].idInsurance;
+            }
+
             for (var i = 0; i < $length; i++) {
+               if(idInsurance != docs[i].idInsurance){
+                  totalPrima=0;
+                  comision=0;
+                  valorComision=0;
+                  idInsurance= docs[i].idInsurance;
+
+                  rowIni++;
+                  sheet1.merge({col:cols[0],row:rowIni},{col:cols[3],row:rowIni});
+                  sheet1.align(cols[0], rowIni, 'center');
+                  sheet1.set(cols[0], rowIni, 'TODOS LOS RAMOS DEL SISTEMA');
+                  rowIni++;
+                  sheet1.set(cols[1], rowIni, 'Total');
+                  sheet1.set(cols[2], rowIni, totalPrimaResume);
+                  sheet1.set(cols[3], rowIni, valorComisionResume);
+
+                  totalPrimaResume=0;
+                  valorComisionResume=0;
+               }
                $filter =  {"idPolicy": docs[i]._id};
                let policyAnnex = await PolicyAnnex.find($filter);
                $filter =  {"idRamo": docs[i].idRamo, "idInsurance": docs[i].idInsurance};
@@ -428,6 +454,8 @@ let policyController = function (app, control={auth, passport, acl}){
                console.log(totalPrima);
                console.log(comision);
                console.log(valorComision);
+               totalPrimaResume+=totalPrima;
+               valorComisionResume+=valorComision;
 
                rowIni++;
                sheet1.set(cols[0], rowIni, docs[i].insurance.bussinesName);
@@ -435,6 +463,19 @@ let policyController = function (app, control={auth, passport, acl}){
                sheet1.set(cols[2], rowIni, totalPrima);
                sheet1.set(cols[3], rowIni, valorComision);
             }
+
+            if($length>0){
+
+               rowIni++;
+               sheet1.merge({col:cols[0],row:rowIni},{col:cols[3],row:rowIni});
+               sheet1.align(cols[0], rowIni, 'center');
+               sheet1.set(cols[0], rowIni, 'TODOS LOS RAMOS DEL SISTEMA');
+               rowIni++;
+               sheet1.set(cols[1], rowIni, 'Total');
+               sheet1.set(cols[2], rowIni, totalPrimaResume);
+               sheet1.set(cols[3], rowIni, valorComisionResume);
+            }
+            sheet1.merge({col:1,row:1},{col:5,row:1});
 
             workbook.save(function(err1, resp1){
                if (!err1){
