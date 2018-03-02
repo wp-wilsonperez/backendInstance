@@ -2,6 +2,16 @@
 import moment from 'moment';
 
 import Wallet from "../models/wallet";
+import WalletPayment from "../models/walletPayment";
+
+import Billing from "../models/billing";
+import BillingPolicy from "../models/billingPolicy";
+
+import Policy from "../models/policy";
+import Ramo from "../models/ramo";
+import Branch from "../models/branch";
+
+import City from "../models/city";
 
 import JSZip from 'jszip';
 import Docxtemplater from 'docxtemplater';
@@ -168,11 +178,23 @@ let walletController = function (app, control={auth, passport, acl}){
 
    });
 
+
    app.post('/wallet/report', [control.auth, controller, control.acl], (req, res) => {
 
       let $filter =  global.filter(req.body.filter);
       let $excel =  req.body.excel;
-      Wallet.find($filter, function (err, docs) {
+
+      BillingPolicy.find($filter, function (err, docs) {
+
+      Billing.populate(docs, {path: "billing"}, function(err, docs){
+      Policy.populate(docs, {path: "policy"}, function(err, docs){
+      Branch.populate(docs, {path: "branchCreate"}, function(err, docs){
+      Ramo.populate(docs, {path: "policy.ramo"}, function(err, docs){
+      City.populate(docs, {path: "billing.detailsClientBilling.city"},function(err, docs){
+      //Billing.find($filter, function (err, docs) {
+
+      //City.populate(docs, {path: "detailsClientBilling.city"},function(err, docs){
+
          if (typeof docs !== 'undefined') {
 
             if($excel==false){
@@ -199,25 +221,22 @@ let walletController = function (app, control={auth, passport, acl}){
             sheet1.set(cols[4], rowIni, 'Nombre Ramo');
             sheet1.set(cols[5], rowIni, 'Fecha de Inicio de Vigencia');
             sheet1.set(cols[6], rowIni, 'Fecha de fin de Vigencia');
-            sheet1.set(cols[7], rowIni, 'Fecha de Factura');
 
             console.log(docs);
             let $length = docs.length;
             for (var i = 0; i < $length; i++) {
                rowIni++;
                let $cliente = '';
-                  if(docs[i].typeRecipient == 'CLIENTE'){
-                     $cliente = docs[i].recipient.name+' '+docs[i].recipient.lastName
+                  if(docs[i].policy.typeRecipient == 'CLIENTE'){
+                     $cliente = docs[i].policy.recipient.name+' '+docs[i].policy.recipient.lastName
                   }
-               sheet1.set(cols[0], rowIni, docs[i]);
-               /*sheet1.set(cols[0], rowIni, docs[i].branchCreate.name);
-               sheet1.set(cols[1], rowIni, docs[i].city.name);
+               sheet1.set(cols[0], rowIni, docs[i].branchCreate.name);
+               sheet1.set(cols[1], rowIni, docs[i].billing.detailsClientBilling.city.name);
                sheet1.set(cols[2], rowIni, $cliente);
-               sheet1.set(cols[3], rowIni, docs[i].policyNumber);
-               sheet1.set(cols[4], rowIni, docs[i].ramo.name);
-               sheet1.set(cols[5], rowIni, docs[i].policyType.name);
-               sheet1.set(cols[6], rowIni, docs[i].startDate);
-               sheet1.set(cols[7], rowIni, docs[i].finishDate);*/
+               sheet1.set(cols[3], rowIni, docs[i].policy.policyNumber);
+               sheet1.set(cols[4], rowIni, docs[i].policy.ramo.name);
+               sheet1.set(cols[5], rowIni, moment(docs[i].policy.startDate).format('YYYY-MM-DD'));
+               sheet1.set(cols[6], rowIni, moment(docs[i].policy.finishDate).format('YYYY-MM-DD'));
             }
 
             workbook.save(function(err1, resp1){
@@ -240,6 +259,13 @@ let walletController = function (app, control={auth, passport, acl}){
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
          }
+
+      });
+      });
+      });
+      });
+      });
+
       });
 
    });

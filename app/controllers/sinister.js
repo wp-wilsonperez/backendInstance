@@ -6,14 +6,23 @@ import SinisterGeneral from "../models/sinisterGeneral";
 import SinisterGeneralDocumentation from "../models/sinisterGeneralDocumentation";
 import SinisterCar from "../models/sinisterCar";
 
-import Ramo from "../models/ramo";
 import Policy from "../models/policy";
+import Ramo from "../models/ramo";
+import Branch from "../models/branch";
+
+import Client from "../models/client";
+import Business from "../models/business";
+import Insurance from "../models/insurance";
+
+import City from "../models/city";
 
 import JSZip from 'jszip';
 import Docxtemplater from 'docxtemplater';
 import excelbuilder from 'msexcel-builder';
 import fs from 'fs';
 import path from 'path';
+
+import helper from "../configs/helper.json";
 
 const pathRender = `download`;
 const pathDownload = `./public/${pathRender}`;
@@ -203,7 +212,15 @@ let sinisterController = function (app, control={auth, passport, acl}){
 
       let $filter =  global.filter(req.body.filter);
       let $excel =  req.body.excel;
+
       Sinister.find($filter, function (err, docs) {
+
+      Branch.populate(docs, {path: "branchCreate"}, function(err, docs){
+      City.populate(docs, {path: "policyData.recipient.city"},function(err, docs){
+      //Billing.find($filter, function (err, docs) {
+
+      //City.populate(docs, {path: "detailsClientBilling.city"},function(err, docs){
+
          if (typeof docs !== 'undefined') {
 
             if($excel==false){
@@ -219,38 +236,41 @@ let sinisterController = function (app, control={auth, passport, acl}){
             var outPutFile = moment().format('YYYY-MM-DD-h:mm:ss') + file;
             var pathDownload = __dirname+'/../../public/download/';
             var workbook = excelbuilder.createWorkbook(pathDownload, outPutFile)
-            var sheet1 = workbook.createSheet('sheet1', 15, 17);
+            var sheet1 = workbook.createSheet('sheet1', 12, 15);
 
-            var cols = [2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+            var cols = [2,3,4,5,6,7,8,9,10,11,12];
             var rowIni = 2;
             sheet1.set(cols[0], rowIni, 'Agencia');
             sheet1.set(cols[1], rowIni, 'Ciudad');
             sheet1.set(cols[2], rowIni, 'Nombre Cliente');
-            sheet1.set(cols[4], rowIni, 'Numero de Poliza');
-            sheet1.set(cols[5], rowIni, 'Numero de Siniestro');
-            sheet1.set(cols[6], rowIni, 'Nombre Ramo');
-            sheet1.set(cols[7], rowIni, 'Fecha de Inicio de Vigencia');
-            sheet1.set(cols[8], rowIni, 'Fecha de fin de Vigencia');
-            sheet1.set(cols[9], rowIni, 'Fecha de Siniestro');
-            sheet1.set(cols[10], rowIni, 'Fecha de Notificacion');
+            sheet1.set(cols[3], rowIni, 'Numero de Factura');
+            //sheet1.set(cols[4], rowIni, 'Numero de Siniestro');
+            sheet1.set(cols[4], rowIni, 'Estado de Siniestro');
+            sheet1.set(cols[5], rowIni, 'Nombre Ramo');
+            sheet1.set(cols[6], rowIni, 'Fecha de Inicio de Vigencia');
+            sheet1.set(cols[7], rowIni, 'Fecha de fin de Vigencia');
+            sheet1.set(cols[8], rowIni, 'Fecha de Siniestro');
+            sheet1.set(cols[9], rowIni, 'Fecha de Notificaión');
 
             console.log(docs);
             let $length = docs.length;
             for (var i = 0; i < $length; i++) {
                rowIni++;
                let $cliente = '';
-                  if(docs[i].typeRecipient == 'CLIENTE'){
-                     $cliente = docs[i].recipient.name+' '+docs[i].recipient.lastName
+                  if(docs[i].policyData.typeRecipient == 'CLIENTE'){
+                     $cliente = docs[i].policyData.recipient.name+' '+docs[i].policyData.recipient.lastName
                   }
-               sheet1.set(cols[0], rowIni, docs[i]);
-               /*sheet1.set(cols[0], rowIni, docs[i].branchCreate.name);
-               sheet1.set(cols[1], rowIni, docs[i].city.name);
+               sheet1.set(cols[0], rowIni, docs[i].branchCreate.name);
+               sheet1.set(cols[1], rowIni, docs[i].policyData.recipient.city.name);
                sheet1.set(cols[2], rowIni, $cliente);
-               sheet1.set(cols[3], rowIni, docs[i].policyNumber);
-               sheet1.set(cols[4], rowIni, docs[i].ramo.name);
-               sheet1.set(cols[5], rowIni, docs[i].policyType.name);
-               sheet1.set(cols[6], rowIni, docs[i].startDate);
-               sheet1.set(cols[7], rowIni, docs[i].finishDate);*/
+               sheet1.set(cols[3], rowIni, docs[i].policyData.policyNumber);
+               //sheet1.set(cols[4], rowIni, docs[i].policy.sinisterNumber);
+               sheet1.set(cols[4], rowIni, helper.sinisterState.one[docs[i].sinisterState]);
+               sheet1.set(cols[5], rowIni, docs[i].policyData.ramo.name);
+               sheet1.set(cols[6], rowIni, moment(docs[i].policyData.startDate).format('YYYY-MM-DD'));
+               sheet1.set(cols[7], rowIni, moment(docs[i].policyData.finishDate).format('YYYY-MM-DD'));
+               sheet1.set(cols[8], rowIni, moment(docs[i].dateSinister).format('YYYY-MM-DD'));
+               sheet1.set(cols[9], rowIni, moment(docs[i].dateNotification).format('YYYY-MM-DD'));
             }
 
             workbook.save(function(err1, resp1){
@@ -273,6 +293,10 @@ let sinisterController = function (app, control={auth, passport, acl}){
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
          }
+
+      });
+      });
+
       });
 
    });
