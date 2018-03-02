@@ -333,18 +333,17 @@ let billingController = function (app, control={auth, passport, acl}){
             for (var i = 0; i < $length; i++) {
                rowIni++;
                let $cliente = '';
-                  if(docs[i].typeRecipient == 'CLIENTE'){
-                     $cliente = docs[i].recipient.name+' '+docs[i].recipient.lastName
+                  if(docs[i].policy.typeRecipient == 'CLIENTE'){
+                     $cliente = docs[i].policy.recipient.name+' '+docs[i].policy.recipient.lastName
                   }
-               sheet1.set(cols[0], rowIni, docs[i]);
-               /*sheet1.set(cols[0], rowIni, docs[i].branchCreate.name);
-               sheet1.set(cols[1], rowIni, docs[i].city.name);
+               sheet1.set(cols[0], rowIni, docs[i].branchCreate.name);
+               sheet1.set(cols[1], rowIni, docs[i].billing.detailsClientBilling.city.name);
                sheet1.set(cols[2], rowIni, $cliente);
-               sheet1.set(cols[3], rowIni, docs[i].policyNumber);
-               sheet1.set(cols[4], rowIni, docs[i].ramo.name);
-               sheet1.set(cols[5], rowIni, docs[i].policyType.name);
-               sheet1.set(cols[6], rowIni, docs[i].startDate);
-               sheet1.set(cols[7], rowIni, docs[i].finishDate);*/
+               sheet1.set(cols[3], rowIni, docs[i].policy.policyNumber);
+               sheet1.set(cols[4], rowIni, docs[i].policy.ramo.name);
+               sheet1.set(cols[5], rowIni, moment(docs[i].policy.startDate).format('YYYY-MM-DD'));
+               sheet1.set(cols[6], rowIni, moment(docs[i].policy.finishDate).format('YYYY-MM-DD'));
+               sheet1.set(cols[7], rowIni, moment(docs[i].billing.billingDate).format('YYYY-MM-DD'));
             }
 
             workbook.save(function(err1, resp1){
