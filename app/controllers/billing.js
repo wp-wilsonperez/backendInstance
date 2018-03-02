@@ -6,9 +6,15 @@ import BillingPolicy from "../models/billingPolicy";
 import Wallet from "../models/wallet";
 import WalletPayment from "../models/walletPayment";
 
+import Policy from "../models/policy";
+import Ramo from "../models/ramo";
+import Branch from "../models/branch";
+
 import Client from "../models/client";
 import Business from "../models/business";
 import Insurance from "../models/insurance";
+
+import City from "../models/city";
 
 import JSZip from 'jszip';
 import Docxtemplater from 'docxtemplater';
@@ -129,8 +135,10 @@ let billingController = function (app, control={auth, passport, acl}){
                   $billingPolicy.forEach(function (item, index) {
                      $billingPolicy[index]["idBilling"]=doc._id;
                      $billingPolicy[index]["billing"]=doc._id;
+                     $billingPolicy[index]["policy"]=$billingPolicy[index]["idPolicy"];
                      $billingPolicy[index]["dateCreate"] = $moment;
                      $billingPolicy[index]["userCreate"] = req.user.idUser;
+                     $billingPolicy[index]["branchCreate"] = req.user.idBranch;
                      $billingPolicy[index]["dateUpdate"] = $moment;
                      $billingPolicy[index]["userUpdate"] = req.user.idUser;
                   })
@@ -280,7 +288,18 @@ let billingController = function (app, control={auth, passport, acl}){
 
       let $filter =  global.filter(req.body.filter);
       let $excel =  req.body.excel;
-      Billing.find($filter, function (err, docs) {
+
+      BillingPolicy.find($filter, function (err, docs) {
+
+      Billing.populate(docs, {path: "billing"}, function(err, docs){
+      Policy.populate(docs, {path: "policy"}, function(err, docs){
+      Branch.populate(docs, {path: "branchCreate"}, function(err, docs){
+      Ramo.populate(docs, {path: "policy.ramo"}, function(err, docs){
+      City.populate(docs, {path: "billing.detailsClientBilling.city"},function(err, docs){
+      //Billing.find($filter, function (err, docs) {
+
+      //City.populate(docs, {path: "detailsClientBilling.city"},function(err, docs){
+
          if (typeof docs !== 'undefined') {
 
             if($excel==false){
@@ -348,6 +367,13 @@ let billingController = function (app, control={auth, passport, acl}){
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
          }
+
+      });
+      });
+      });
+      });
+      });
+
       });
 
    });
