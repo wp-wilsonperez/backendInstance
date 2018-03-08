@@ -42,7 +42,7 @@ let binnacleExpirationDateController = function (app, control={auth, passport, a
    });
 
    app.get('/binnacleExpirationDate/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  global.filter(req.body.filter);
+      let $filter =  {};
 
       BinnacleExpirationDate.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {

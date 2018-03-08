@@ -47,7 +47,7 @@ let annexMedicalBusinessController = function (app, control={auth, passport, acl
    });
 
    app.get('/annexMedicalBusiness/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  global.filter(req.body.filter);
+      let $filter =  {};
 
       AnnexMedicalBusiness.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {

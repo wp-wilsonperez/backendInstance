@@ -52,7 +52,7 @@ let authorizationTimeController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/authorizationTime/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  global.filter(req.body.filter);
+      let $filter =  {};
 
       AuthorizationTime.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {

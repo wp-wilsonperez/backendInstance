@@ -33,7 +33,7 @@ let bankController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/bank/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  global.filter(req.body.filter);
+      let $filter =  {};
 
       Bank.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {

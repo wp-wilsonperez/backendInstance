@@ -41,7 +41,7 @@ let billingPolicyController = function (app, control={auth, passport, acl}){
     });
 
    app.get('/billingPolicy/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  global.filter(req.body.filter);
+      let $filter =  {};
 
       BillingPolicy.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {

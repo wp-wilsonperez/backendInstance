@@ -35,7 +35,7 @@ let businessController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/business/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  global.filter(req.body.filter);
+      let $filter =  {};
 
       Business.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {

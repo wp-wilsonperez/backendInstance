@@ -56,7 +56,7 @@ let carController = function (app, control={auth, passport, acl}){
     });
 
    app.get('/car/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  global.filter(req.body.filter);
+      let $filter =  {};
 
       Car.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {

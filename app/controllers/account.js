@@ -44,7 +44,7 @@ let accountController = function (app, control={auth, passport, acl}){
    }
 
    app.post('/account/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.body.filter);
+      let $filter =  {global.filter(req.body.filter)};
       Account.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -59,7 +59,7 @@ let accountController = function (app, control={auth, passport, acl}){
 
    app.get('/account/list', [control.auth, controller, control.acl], (req, res) => {
 
-      let $filter =  global.filter(req.body.filter);
+      let $filter =  {};
 
       Account.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {

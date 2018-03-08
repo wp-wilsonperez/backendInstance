@@ -61,7 +61,7 @@ let billingController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/billing/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  global.filter(req.body.filter);
+      let $filter =  {};
 
       let typeList = app.locals.typeList;
       if(typeList=="99097f2c1f"){
