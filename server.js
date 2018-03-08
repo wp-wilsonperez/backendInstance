@@ -434,6 +434,7 @@ global.filter = function(query){
         $filter["$or"] = $filterOR;
       }
    });
+   $filter['dateDelete']={ '$exists': false };
    console.log($filter);
    return $filter;
 }

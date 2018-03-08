@@ -23,7 +23,7 @@ let binnacleExpirationDateController = function (app, control={auth, passport, a
       });
    }
 
-   app.get('/binnacleExpirationDate/filter',[control.auth, controller], (req, res) => {
+   app.post('/binnacleExpirationDate/filter',[control.auth, controller], (req, res) => {
       let $filter =  global.filter(req.query.filter);
       BinnacleExpirationDate.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
@@ -42,8 +42,9 @@ let binnacleExpirationDateController = function (app, control={auth, passport, a
    });
 
    app.get('/binnacleExpirationDate/list', [control.auth, controller, control.acl], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
 
-      BinnacleExpirationDate.find({}, function (err, docs) {
+      BinnacleExpirationDate.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 
@@ -133,6 +134,26 @@ let binnacleExpirationDateController = function (app, control={auth, passport, a
          _id: req.params.id
       }
 
+      let update = {
+         dateDelete: moment()
+      };
+
+      BinnacleExpirationDate.findOneAndUpdate(filter, update, function (err, doc) {
+         if (!err) {
+            findAction(function(docs){
+               control.log(req.route.path, req.user);
+               res.send({msg: "OK", update: docs});
+            });
+         } else {
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
+         }
+      });
+
+      /*let filter = {
+         _id: req.params.id
+      }
+
       BinnacleExpirationDate.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
@@ -143,7 +164,7 @@ let binnacleExpirationDateController = function (app, control={auth, passport, a
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
          }            
-      });
+      });*/
 
    });
 

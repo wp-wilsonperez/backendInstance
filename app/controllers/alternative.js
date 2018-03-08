@@ -19,7 +19,7 @@ let alternativeController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/alternative/filter',[control.auth, controller], (req, res) => {
+   app.post('/alternative/filter',[control.auth, controller], (req, res) => {
       let $filter =  global.filter(req.query.filter);
       Alternative.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
@@ -35,8 +35,9 @@ let alternativeController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/alternative/list', [control.auth, controller, control.acl], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
 
-      Alternative.find({}, function (err, docs) {
+      Alternative.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             res.send({msg: "OK", alternatives: docs});
@@ -119,6 +120,26 @@ let alternativeController = function (app, control={auth, passport, acl}){
          _id: req.params.id
       }
 
+      let update = {
+         dateDelete: moment()
+      };
+
+      Alternative.findOneAndUpdate(filter, update, function (err, doc) {
+         if (!err) {
+            findAction(function(docs){
+               control.log(req.route.path, req.user);
+               res.send({msg: "OK", update: docs});
+            });
+         } else {
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
+         }
+      });
+
+      /*let filter = {
+         _id: req.params.id
+      }
+
       Alternative.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
@@ -129,7 +150,7 @@ let alternativeController = function (app, control={auth, passport, acl}){
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
          }            
-      });
+      });*/
 
    });
 

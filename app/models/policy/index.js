@@ -34,7 +34,8 @@ let PolicySchema = new mongoose.Schema({
 	branchCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},
 	userUpdate: {type: String, require: true},
-	idPlan:{type: String}
+	idPlan:{type: String},
+	dateDelete: {type: Date}
 });
 
 

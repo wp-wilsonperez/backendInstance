@@ -21,7 +21,8 @@ let InsuranceSchema = new mongoose.Schema({
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},
-	userUpdate: {type: String, require: true}
+	userUpdate: {type: String, require: true},
+	dateDelete: {type: Date}
 });
 
 InsuranceSchema.plugin(uniqueValidator);

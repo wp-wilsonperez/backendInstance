@@ -18,7 +18,7 @@ let businessController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/business/filter',[control.auth, controller], (req, res) => {
+   app.post('/business/filter',[control.auth, controller], (req, res) => {
       let $filter =  global.filter(req.query.filter);
       User.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
@@ -35,8 +35,9 @@ let businessController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/business/list', [control.auth, controller, control.acl], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
 
-      Business.find({}, function (err, docs) {
+      Business.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 
@@ -129,6 +130,26 @@ let businessController = function (app, control={auth, passport, acl}){
          _id: req.params.id
       }
 
+      let update = {
+         dateDelete: moment()
+      };
+
+      Business.findOneAndUpdate(filter, update, function (err, doc) {
+         if (!err) {
+            findAction(function(docs){
+               control.log(req.route.path, req.user);
+               res.send({msg: "OK", update: docs});
+            });
+         } else {
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
+         }
+      });
+
+      /*let filter = {
+         _id: req.params.id
+      }
+
       Business.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
@@ -138,7 +159,7 @@ let businessController = function (app, control={auth, passport, acl}){
          } else {
             res.send({msg: 'ERR', err: err});
          }            
-      });
+      });*/
 
    });
 

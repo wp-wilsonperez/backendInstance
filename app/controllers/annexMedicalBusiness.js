@@ -26,7 +26,7 @@ let annexMedicalBusinessController = function (app, control={auth, passport, acl
       });
    }
 
-   app.get('/annexMedicalBusiness/filter',[control.auth, controller], (req, res) => {
+   app.post('/annexMedicalBusiness/filter',[control.auth, controller], (req, res) => {
       let $filter =  global.filter(req.query.filter);
       AnnexMedicalBusiness.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
@@ -47,8 +47,9 @@ let annexMedicalBusinessController = function (app, control={auth, passport, acl
    });
 
    app.get('/annexMedicalBusiness/list', [control.auth, controller, control.acl], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
 
-      AnnexMedicalBusiness.find({}, function (err, docs) {
+      AnnexMedicalBusiness.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 
@@ -170,6 +171,26 @@ let annexMedicalBusinessController = function (app, control={auth, passport, acl
          _id: req.params.id
       }
 
+      let update = {
+         dateDelete: moment()
+      };
+
+      AnnexMedicalBusiness.findOneAndUpdate(filter, update, function (err, doc) {
+         if (!err) {
+            findAction(function(docs){
+               control.log(req.route.path, req.user);
+               res.send({msg: "OK", update: docs});
+            });
+         } else {
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
+         }
+      });
+
+      /*let filter = {
+         _id: req.params.id
+      }
+
       AnnexMedicalBusiness.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
@@ -180,7 +201,7 @@ let annexMedicalBusinessController = function (app, control={auth, passport, acl
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
          }            
-      });
+      });*/
 
    });
 

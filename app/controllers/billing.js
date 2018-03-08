@@ -44,7 +44,7 @@ let billingController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/billing/filter',[control.auth, controller], (req, res) => {
+   app.post('/billing/filter',[control.auth, controller], (req, res) => {
       let $filter =  global.filter(req.query.filter);
       Billing.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
@@ -61,9 +61,9 @@ let billingController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/billing/list', [control.auth, controller, control.acl], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
 
       let typeList = app.locals.typeList;
-      let filter = {};
       if(typeList=="99097f2c1f"){
          filter = {"userCreate": req.user.idUser};
       } else if(typeList=="99097f2c1c"){
@@ -270,6 +270,26 @@ let billingController = function (app, control={auth, passport, acl}){
          _id: req.params.id
       }
 
+      let update = {
+         dateDelete: moment()
+      };
+
+      Billing.findOneAndUpdate(filter, update, function (err, doc) {
+         if (!err) {
+            findAction(function(docs){
+               control.log(req.route.path, req.user);
+               res.send({msg: "OK", update: docs});
+            });
+         } else {
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
+         }
+      });
+
+      /*let filter = {
+         _id: req.params.id
+      }
+
       Billing.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
@@ -280,7 +300,7 @@ let billingController = function (app, control={auth, passport, acl}){
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
          }            
-      });
+      });*/
 
    });
 

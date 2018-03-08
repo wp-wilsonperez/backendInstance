@@ -21,7 +21,7 @@ let branchController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/branch/filter',[control.auth, controller], (req, res) => {
+   app.post('/branch/filter',[control.auth, controller], (req, res) => {
       let $filter =  global.filter(req.query.filter);
       Branch.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
@@ -38,8 +38,9 @@ let branchController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/branch/list', [control.auth, controller, control.acl], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
 
-      Branch.find({}, function (err, docs) {
+      Branch.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             City.populate(docs, {path: "city"},function(err, docs){
                control.log(req.route.path, req.user);
@@ -135,6 +136,26 @@ let branchController = function (app, control={auth, passport, acl}){
          _id: req.params.id
       }
 
+      let update = {
+         dateDelete: moment()
+      };
+
+      Branch.findOneAndUpdate(filter, update, function (err, doc) {
+         if (!err) {
+            findAction(function(docs){
+               control.log(req.route.path, req.user);
+               res.send({msg: "OK", update: docs});
+            });
+         } else {
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
+         }
+      });
+
+      /*let filter = {
+         _id: req.params.id
+      }
+
       Branch.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
@@ -145,7 +166,7 @@ let branchController = function (app, control={auth, passport, acl}){
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
          }            
-      });
+      });*/
 
    });
 

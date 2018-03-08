@@ -26,7 +26,7 @@ let annexMedicalBusinessItemController = function (app, control={auth, passport,
       });
    }
 
-   app.get('/annexMedicalBusinessItem/filter',[control.auth, controller], (req, res) => {
+   app.post('/annexMedicalBusinessItem/filter',[control.auth, controller], (req, res) => {
       let $filter =  global.filter(req.query.filter);
       AnnexMedicalBusinessItem.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
@@ -47,8 +47,9 @@ let annexMedicalBusinessItemController = function (app, control={auth, passport,
    });
 
    app.get('/annexMedicalBusinessItem/list', [control.auth, controller, control.acl], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
 
-      AnnexMedicalBusinessItem.find({}, function (err, docs) {
+      AnnexMedicalBusinessItem.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 
@@ -152,6 +153,26 @@ let annexMedicalBusinessItemController = function (app, control={auth, passport,
          _id: req.params.id
       }
 
+      let update = {
+         dateDelete: moment()
+      };
+
+      AnnexMedicalBusinessItem.findOneAndUpdate(filter, update, function (err, doc) {
+         if (!err) {
+            findAction(function(docs){
+               control.log(req.route.path, req.user);
+               res.send({msg: "OK", update: docs});
+            });
+         } else {
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
+         }
+      });
+
+      /*let filter = {
+         _id: req.params.id
+      }
+
       AnnexMedicalBusinessItem.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
@@ -162,7 +183,7 @@ let annexMedicalBusinessItemController = function (app, control={auth, passport,
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
          }            
-      });
+      });*/
 
    });
 
