@@ -180,6 +180,26 @@ let policyMedicalBusinessController = function (app, control={auth, passport, ac
          _id: req.params.id
       }
 
+      let update = {
+         dateDelete: moment()
+      };
+
+      PolicyMedicalBusiness.findOneAndUpdate(filter, update, function (err, doc) {
+         if (!err) {
+            findAction(function(docs){
+               control.log(req.route.path, req.user);
+               res.send({msg: "OK", update: docs});
+            });
+         } else {
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
+         }
+      });
+
+      /*let filter = {
+         _id: req.params.id
+      }
+
       PolicyMedicalBusiness.findByIdAndRemove(filter, function (err, doc) {
          if(!err){
             findAction(function(docs){
@@ -190,7 +210,7 @@ let policyMedicalBusinessController = function (app, control={auth, passport, ac
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
          }            
-      });
+      });*/
 
    });
 

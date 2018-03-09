@@ -58,7 +58,6 @@ let accountController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/account/list', [control.auth, controller, control.acl], (req, res) => {
-
       let $filter =  {};
 
       Account.find($filter, function (err, docs) {

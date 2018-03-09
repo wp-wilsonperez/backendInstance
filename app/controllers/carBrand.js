@@ -18,7 +18,7 @@ let carBrandController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/carBrand/filter',[control.auth, controller], (req, res) => {
+   app.post('/carBrand/filter',[control.auth, controller], (req, res) => {
       let $filter =  global.filter(req.query.filter);
       CarBrand.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
