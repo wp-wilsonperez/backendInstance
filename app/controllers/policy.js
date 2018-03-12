@@ -402,7 +402,8 @@ let policyController = function (app, control={auth, passport, acl}){
 
       let $filter =  global.filter(req.body.filter);
       let $excel =  req.body.excel;
-      Policy.find($filter, function (err, docs) {
+      let $sort =  {"sort": {"idInsurance": 1, "idRamo": 1}};
+      Policy.find($filter, null, $sort, function (err, docs) {
          if (typeof docs !== 'undefined') {
 
          Insurance.populate(docs, {path: "insurance"},function(err, docs){
@@ -435,11 +436,24 @@ let policyController = function (app, control={auth, passport, acl}){
             let valorComisionResume=0;
 
             let idInsurance="";
+            let idRamo="";
             if($length>0){
                idInsurance= docs[0].idInsurance;
+               idRamo= docs[0].idRamo;
             }
 
+            let insurancename="",ramoName="";
+
             for (var i = 0; i < $length; i++) {
+               if(idRamo != docs[i].idRamo){
+                  idRamo= docs[i].idRamo;
+                  
+                  rowIni++;
+                  sheet1.set(cols[0], rowIni, insurancename);
+                  sheet1.set(cols[1], rowIni, ramoName);
+                  sheet1.set(cols[2], rowIni, totalPrima.toFixed(2));
+                  sheet1.set(cols[3], rowIni, valorComision.toFixed(2));
+               }
                if(idInsurance != docs[i].idInsurance){
                   totalPrima=0;
                   comision=0;
@@ -480,15 +494,18 @@ let policyController = function (app, control={auth, passport, acl}){
                console.log(valorComision);
                totalPrimaResume+=totalPrima;
                valorComisionResume+=valorComision;
+               insurancename=docs[i].insurance.bussinesName;
+               ramoName=docs[i].ramo.name;
 
-               rowIni++;
-               sheet1.set(cols[0], rowIni, docs[i].insurance.bussinesName);
-               sheet1.set(cols[1], rowIni, docs[i].ramo.name);
-               sheet1.set(cols[2], rowIni, totalPrima.toFixed(2));
-               sheet1.set(cols[3], rowIni, valorComision.toFixed(2));
             }
 
             if($length>0){
+
+               rowIni++;
+                  sheet1.set(cols[0], rowIni, insurancename);
+                  sheet1.set(cols[1], rowIni, ramoName);
+                  sheet1.set(cols[2], rowIni, totalPrima.toFixed(2));
+                  sheet1.set(cols[3], rowIni, valorComision.toFixed(2));
 
                rowIni++;
                sheet1.merge({col:cols[0],row:rowIni},{col:cols[3],row:rowIni});
