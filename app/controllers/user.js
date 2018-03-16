@@ -276,6 +276,8 @@ let userController = function (app, control={auth, passport, acl}){
       }
 
       let update = {
+         cedula: moment(),
+         mail: moment(),
          dateDelete: moment()
       };
 

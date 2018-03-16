@@ -190,6 +190,7 @@ let insuranceController = function (app, control={auth, passport, acl}){
       }
 
       let update = {
+         ruc: moment(),
          dateDelete: moment()
       };
 

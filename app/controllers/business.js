@@ -131,6 +131,7 @@ let businessController = function (app, control={auth, passport, acl}){
       }
 
       let update = {
+         name: moment(),
          dateDelete: moment()
       };
 

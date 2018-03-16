@@ -137,6 +137,8 @@ let branchController = function (app, control={auth, passport, acl}){
       }
 
       let update = {
+         //"$inc": {"name": moment()},
+         name: moment(),
          dateDelete: moment()
       };
 

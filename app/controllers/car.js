@@ -190,6 +190,9 @@ let carController = function (app, control={auth, passport, acl}){
       }
 
       let update = {
+         chasis: moment(),
+         motor: moment(),
+         placa: moment(),
          dateDelete: moment()
       };
 
