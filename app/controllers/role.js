@@ -13,15 +13,16 @@ let roleController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      Role.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Role.find($filter, function (err, docs) {
          if (!err) {
             callback(docs)
          }
       });
    }
 
-   app.get('/role/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/role/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       Role.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -35,7 +36,7 @@ let roleController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/role/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+      let $filter =  global.filter(null);
       Role.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);

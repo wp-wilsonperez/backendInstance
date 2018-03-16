@@ -12,7 +12,8 @@ let ramoController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      Ramo.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Ramo.find($filter, function (err, docs) {
          if (!err) {
             callback(docs)
          }
@@ -34,8 +35,8 @@ let ramoController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/ramo/list', [control.auth, controller, control.acl], (req, res) => {
-
-      Ramo.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Ramo.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             res.send({msg: "OK", ramos: docs});

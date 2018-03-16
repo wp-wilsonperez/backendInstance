@@ -11,7 +11,8 @@ let businessController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      Business.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Business.find($filter, function (err, docs) {
          if (!err) {
             callback(docs)
          }
@@ -19,8 +20,8 @@ let businessController = function (app, control={auth, passport, acl}){
    }
 
    app.post('/business/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
-      User.find($filter, function (err, docs) {
+      let $filter =  global.filter(req.body.filter);
+      Business.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 
@@ -35,8 +36,7 @@ let businessController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/business/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  {};
-
+      let $filter =  global.filter(null);
       Business.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);

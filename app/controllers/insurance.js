@@ -35,7 +35,8 @@ let insuranceController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      Insurance.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Insurance.find($filter, function (err, docs) {
          if (!err) {
             callback(docs)
          }
@@ -58,7 +59,8 @@ let insuranceController = function (app, control={auth, passport, acl}){
 
    app.get('/insurance/list', [control.auth, controller, control.acl], (req, res) => {
 
-      Insurance.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Insurance.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             res.send({msg: "OK", insurances: docs});

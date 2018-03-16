@@ -47,7 +47,8 @@ let userController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      User.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      User.find($filter, function (err, docs) {
          if (!err) {
             Role.populate(docs, {path: "role"},function(err, docs){
                Branch.populate(docs, {path: "branch"},function(err, docs){
@@ -165,8 +166,8 @@ let userController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/user/list', [control.auth, controller, control.acl], (req, res) => {
-
-      User.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      User.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             Role.populate(docs, {path: "role"},function(err, docs){

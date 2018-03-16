@@ -64,14 +64,16 @@ let policyController = function (app, control={auth, passport, acl}){
 
    app.get('/policy/list', [control.auth, controller, control.acl], (req, res) => {
 
+      let $filter =  global.filter(null);
+
       let typeList = app.locals.typeList;
-      let filter = {};
+      //let filter = {};
       if(typeList=="99097f2c1f"){
-         filter = {"userCreate": req.user.idUser};
+         $filter["userCreate"] =  req.user.idUser;
       } else if(typeList=="99097f2c1c"){
-         filter = {"branchCreate": req.user.idBranch};
+         $filter["branchCreate"] = req.user.idBranch;
       } else {
-         filter = {};
+         //filter = {};
       }
 
       Policy.find(filter, function (err, docs) {

@@ -16,7 +16,8 @@ let carController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      Car.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Car.find($filter, function (err, docs) {
          if (!err) {
             
             Client.populate(docs, {path: "client"},function(err, docs){
@@ -56,9 +57,8 @@ let carController = function (app, control={auth, passport, acl}){
     });
 
    app.get('/car/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  {};
-
-      Car.find($filter, function (err, docs) {
+      let $filter =  global.filter(null);
+        Car.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 

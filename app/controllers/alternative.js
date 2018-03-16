@@ -11,7 +11,8 @@ let alternativeController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      Alternative.find({}, function (err, docs) {
+      let $filter =  global.filter(req.body.filter);
+      Alternative.find($filter, function (err, docs) {
          if (!err) {
             
             callback(docs);
@@ -20,7 +21,7 @@ let alternativeController = function (app, control={auth, passport, acl}){
    }
 
    app.post('/alternative/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+      let $filter =  global.filter(req.body.filter);
       Alternative.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -35,8 +36,7 @@ let alternativeController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/alternative/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  {};
-
+      let $filter =  global.filter(req.query.filter);
       Alternative.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
