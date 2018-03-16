@@ -17,11 +17,13 @@ import {Strategy as BearerStrategy} from 'passport-http-bearer';
 
 import jsonLogs from './app/configs/logs';
 
+import Config from './app/configs/app';
+
 
 const port = process.env.PORT || 3001;
 const app = express();
 
-mongoose.connect('mongodb://localhost/instance1');
+mongoose.connect(Config.mongoose);
 app.set('views', __dirname + '/app/views');
 app.set('view engine', 'ejs');
 app.use(favicon(__dirname + '/public/images/favicon.ico'));

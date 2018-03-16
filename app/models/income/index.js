@@ -2,7 +2,9 @@
 import mongoose from 'mongoose';
 import autoIncrement from 'mongoose-auto-increment';
 
-const connection = mongoose.connect('mongodb://localhost/instance1');
+import Config from './../../configs/app';
+
+const connection = mongoose.connect(Config.mongoose);
 autoIncrement.initialize(connection);
 
 let IncomeSchema = new mongoose.Schema({

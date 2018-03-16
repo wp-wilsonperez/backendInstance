@@ -16,6 +16,7 @@ let PolicyAnnexSchema = new mongoose.Schema({
 	totalValue: {type: Number},
 	hasBilling: {type: Boolean},
 	isBilling: {type: Boolean},
+	futureYears: {type: Boolean},
 	itemAnnex: {
 		idRamo: {type: String},
 		items: [{

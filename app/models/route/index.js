@@ -1,8 +1,9 @@
 
 import mongoose from 'mongoose';
 import autoIncrement from 'mongoose-auto-increment';
+import Config from './../../configs/app';
 
-const connection = mongoose.connect('mongodb://localhost/instance1');
+const connection = mongoose.connect(Config.mongoose);
 autoIncrement.initialize(connection);
 
 let RouteSchema = new mongoose.Schema({

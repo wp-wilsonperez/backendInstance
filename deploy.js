@@ -14,7 +14,9 @@ import Plan from './app/models/plan';
 import Alternative from './app/models/alternative';
 import FrequencyPayment from './app/models/frequencyPayment';
 
-mongoose.connect('mongodb://localhost/instance1');
+import Config from './app/configs/app';
+
+mongoose.connect(Config.mongoose);
 const $total=12;
 let $execute=0;
 function answer (text, cant) {
