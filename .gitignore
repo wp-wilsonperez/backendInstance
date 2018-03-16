@@ -23,6 +23,7 @@ public/uploads/account/*
 public/uploads/business/*
 public/download/*
 nodemailer.json
+app.json
 node_modules
 ignore
 *.log

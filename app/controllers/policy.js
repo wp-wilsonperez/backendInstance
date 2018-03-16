@@ -507,10 +507,10 @@ let policyController = function (app, control={auth, passport, acl}){
                   sheet1.set(cols[2], rowIni, totalPrima.toFixed(2));
                   sheet1.set(cols[3], rowIni, valorComision.toFixed(2));
 
-               rowIni++;
+               /*rowIni++;
                sheet1.merge({col:cols[0],row:rowIni},{col:cols[3],row:rowIni});
                sheet1.align(cols[0], rowIni, 'center');
-               sheet1.set(cols[0], rowIni, 'TODOS LOS RAMOS DEL SISTEMA');
+               sheet1.set(cols[0], rowIni, 'TODOS LOS RAMOS DEL SISTEMA');*/
                rowIni++;
                sheet1.font(cols[1], rowIni, {bold:'true', color: '#DF0101'});
                sheet1.set(cols[1], rowIni, 'Total');
@@ -519,7 +519,6 @@ let policyController = function (app, control={auth, passport, acl}){
                sheet1.font(cols[3], rowIni, {bold:'true', color: '#DF0101'});
                sheet1.set(cols[3], rowIni, valorComisionResume.toFixed(2));
             }
-            sheet1.merge({col:1,row:1},{col:5,row:1});
 
             workbook.save(function(err1, resp1){
                if (!err1){
