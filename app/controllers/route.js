@@ -16,7 +16,8 @@ let routeController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      Route.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Route.find($filter, function (err, docs) {
          if (!err) {
 
             User.populate(docs, {path: "userSend"},function(err, docs){
@@ -26,8 +27,8 @@ let routeController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/route/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/route/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       Route.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -43,18 +44,8 @@ let routeController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/route/list', [control.auth, controller, control.acl], (req, res) => {
-
-      let typeList = app.locals.typeList;
-      let filter = {};
-      if(typeList=="99097f2c1f"){
-         filter = {"userCreate": req.user.idUser};
-      } else if(typeList=="99097f2c1c"){
-         filter = {"branchCreate": req.user.idBranch};
-      } else {
-         filter = {};
-      }
-
-      Route.find(filter, function (err, docs) {
+      let $filter =  global.filter(null);
+      Route.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             User.populate(docs, {path: "userSend"},function(err, docs){

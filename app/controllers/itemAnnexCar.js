@@ -14,7 +14,8 @@ let itemAnnexCarController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      ItemAnnexCar.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      ItemAnnexCar.find($filter, function (err, docs) {
          if (!err) {
             
             PolicyAnnex.populate(docs, {path: "policyAnnex"},function(err, docs){
@@ -26,8 +27,8 @@ let itemAnnexCarController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/itemAnnexCar/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/itemAnnexCar/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       ItemAnnexCar.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -47,8 +48,8 @@ let itemAnnexCarController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/itemAnnexCar/list', [control.auth, controller, control.acl], (req, res) => {
-
-      ItemAnnexCar.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      ItemAnnexCar.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 

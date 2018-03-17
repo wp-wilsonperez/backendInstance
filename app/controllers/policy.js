@@ -33,7 +33,8 @@ let policyController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      Policy.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Policy.find($filter, function (err, docs) {
          if (!err) {
             Insurance.populate(docs, {path: "insurance"},function(err, docs){
                Ramo.populate(docs, {path: "ramo"},function(err, docs){
@@ -44,8 +45,8 @@ let policyController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/policy/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/policy/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       Policy.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -63,20 +64,8 @@ let policyController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/policy/list', [control.auth, controller, control.acl], (req, res) => {
-
       let $filter =  global.filter(null);
-
-      let typeList = app.locals.typeList;
-      //let filter = {};
-      if(typeList=="99097f2c1f"){
-         $filter["userCreate"] =  req.user.idUser;
-      } else if(typeList=="99097f2c1c"){
-         $filter["branchCreate"] = req.user.idBranch;
-      } else {
-         //filter = {};
-      }
-
-      Policy.find(filter, function (err, docs) {
+      Policy.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             Insurance.populate(docs, {path: "insurance"},function(err, docs){

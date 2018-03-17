@@ -12,7 +12,8 @@ let subItemAnnexController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      SubItemAnnex.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      SubItemAnnex.find($filter, function (err, docs) {
          if (!err) {
 
          ItemAnnex.populate(docs, {path: "itemAnnex"},function(err, docs){
@@ -22,8 +23,8 @@ let subItemAnnexController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/subItemAnnex/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/subItemAnnex/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       SubItemAnnex.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -39,8 +40,8 @@ let subItemAnnexController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/subItemAnnex/list', [control.auth, controller, control.acl], (req, res) => {
-
-      SubItemAnnex.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      SubItemAnnex.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             ItemAnnex.populate(docs, {path: "itemAnnex"},function(err, docs){

@@ -93,8 +93,8 @@ let apiClientController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.get('/apiClientPolicy/list', [control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/apiClientPolicy/list', [control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       Policy.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -109,8 +109,8 @@ let apiClientController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.get('/apiClientWallet/list', [control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/apiClientWallet/list', [control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       Wallet.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);

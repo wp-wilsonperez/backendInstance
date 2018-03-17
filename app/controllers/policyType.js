@@ -11,15 +11,16 @@ let policyTypeController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      PolicyType.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      PolicyType.find($filter, function (err, docs) {
          if (!err) {
             callback(docs)
          }
       });
    }
 
-   app.get('/policyType/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/policyType/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       PolicyType.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -33,8 +34,8 @@ let policyTypeController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/policyType/list', [control.auth, controller, control.acl], (req, res) => {
-
-      PolicyType.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      PolicyType.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             res.send({msg: "OK", policyTypes: docs});

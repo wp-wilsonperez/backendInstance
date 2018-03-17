@@ -11,15 +11,16 @@ let typeClientController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      TypeClient.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      TypeClient.find($filter, function (err, docs) {
          if (!err) {
             callback(docs)
          }
       });
    }
 
-   app.get('/typeClient/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/typeClient/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       TypeClient.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -33,8 +34,8 @@ let typeClientController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/typeClient/list', [control.auth, controller, control.acl], (req, res) => {
-
-      TypeClient.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      TypeClient.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             res.send({msg: "OK", typeClients: docs});

@@ -14,7 +14,8 @@ let walletPaymentBinnacleController = function (app, control={auth, passport, ac
    }
 
    function findAction (callback){
-      WalletPaymentBinnacle.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      WalletPaymentBinnacle.find($filter, function (err, docs) {
          if (!err) {
             
             callback(docs);
@@ -22,8 +23,8 @@ let walletPaymentBinnacleController = function (app, control={auth, passport, ac
       });
    }
 
-   app.get('/walletPaymentBinnacle/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/walletPaymentBinnacle/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       WalletPaymentBinnacle.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -38,8 +39,8 @@ let walletPaymentBinnacleController = function (app, control={auth, passport, ac
    });
 
    app.get('/walletPaymentBinnacle/list', [control.auth, controller, control.acl], (req, res) => {
-
-      WalletPaymentBinnacle.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      WalletPaymentBinnacle.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             res.send({msg: "OK", walletPaymentBinnacles: docs});

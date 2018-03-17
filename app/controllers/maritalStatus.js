@@ -11,15 +11,16 @@ let maritalStatusController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      MaritalStatus.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      MaritalStatus.find($filter, function (err, docs) {
          if (!err) {
             callback(docs)
          }
       });
    }
 
-   app.get('/maritalStatus/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/maritalStatus/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       MaritalStatus.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -33,8 +34,8 @@ let maritalStatusController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/maritalStatus/list', [control.auth, controller, control.acl], (req, res) => {
-
-      MaritalStatus.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      MaritalStatus.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             res.send({msg: "OK", maritalStatus: docs});

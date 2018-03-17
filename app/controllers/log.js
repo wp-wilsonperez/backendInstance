@@ -9,8 +9,8 @@ let logController = function (app, control={auth, passport, acl}){
    }
 
    app.get('/log/list', [control.auth, controller, control.acl], (req, res) => {
-
-      Log.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Log.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             res.send({msg: "OK", logs: docs});
          } else {

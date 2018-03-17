@@ -14,7 +14,8 @@ let sinisterDocumentationRamoController = function (app, control={auth, passport
    }
 
    function findAction (callback){
-      SinisterDocumentationRamo.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      SinisterDocumentationRamo.find($filter, function (err, docs) {
          if (!err) {
 
             callback(docs);
@@ -42,8 +43,8 @@ let sinisterDocumentationRamoController = function (app, control={auth, passport
    });
 
    app.get('/sinisterDocumentationRamo/list', [control.auth, controller, control.acl], (req, res) => {
-
-      SinisterDocumentationRamo.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      SinisterDocumentationRamo.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             SinisterDocumentation.populate(docs, {path: "sinisterDocumentation"},function(err, docs){

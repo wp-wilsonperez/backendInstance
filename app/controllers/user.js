@@ -147,8 +147,8 @@ let userController = function (app, control={auth, passport, acl}){
       
    });
 
-   app.get('/user/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/user/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       User.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);

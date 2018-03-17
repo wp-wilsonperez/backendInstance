@@ -11,15 +11,16 @@ let frequencyPaymentController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      FrequencyPayment.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      FrequencyPayment.find($filter, function (err, docs) {
          if (!err) {
             callback(docs)
          }
       });
    }
 
-   app.get('/frequencyPayment/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/frequencyPayment/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       FrequencyPayment.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -33,8 +34,8 @@ let frequencyPaymentController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/frequencyPayment/list', [control.auth, controller, control.acl], (req, res) => {
-
-      FrequencyPayment.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      FrequencyPayment.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             res.send({msg: "OK", frequencyPayments: docs});

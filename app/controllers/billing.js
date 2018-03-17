@@ -37,7 +37,8 @@ let billingController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      Billing.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Billing.find($filter, function (err, docs) {
          if (!err) {
             callback(docs);
          }
@@ -45,7 +46,7 @@ let billingController = function (app, control={auth, passport, acl}){
    }
 
    app.post('/billing/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+      let $filter =  global.filter(req.body.filter);
       Billing.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -61,18 +62,8 @@ let billingController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/billing/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  {};
-
-      let typeList = app.locals.typeList;
-      if(typeList=="99097f2c1f"){
-         filter = {"userCreate": req.user.idUser};
-      } else if(typeList=="99097f2c1c"){
-         filter = {"branchCreate": req.user.idBranch};
-      } else {
-         filter = {};
-      }
-
-      Billing.find(filter, function (err, docs) {
+      let $filter =  global.filter(null);
+      Billing.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 

@@ -14,7 +14,8 @@ let tasaController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      Tasa.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Tasa.find($filter, function (err, docs) {
          if (!err) {
             Insurance.populate(docs, {path: "insurance"},function(err, docs){
                Deductible.populate(docs, {path: "deductible"},function(err, docs){
@@ -46,8 +47,8 @@ let tasaController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/tasa/list', [control.auth, controller, control.acl], (req, res) => {
-
-      Tasa.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Tasa.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             Insurance.populate(docs, {path: "insurance"},function(err, docs){

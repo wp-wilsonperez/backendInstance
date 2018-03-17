@@ -35,7 +35,8 @@ let walletController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      Wallet.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Wallet.find($filter, function (err, docs) {
          if (!err) {
 
             callback(docs);
@@ -43,8 +44,8 @@ let walletController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/wallet/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/wallet/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       Wallet.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -59,18 +60,8 @@ let walletController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/wallet/list', [control.auth, controller, control.acl], (req, res) => {
-
-      let typeList = app.locals.typeList;
-      let filter = {};
-      if(typeList=="99097f2c1f"){
-         filter = {"userCreate": req.user.idUser};
-      } else if(typeList=="99097f2c1c"){
-         filter = {"branchCreate": req.user.idBranch};
-      } else {
-         filter = {};
-      }
-
-      Wallet.find(filter, function (err, docs) {
+      let $filter =  global.filter(null);
+      Wallet.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 

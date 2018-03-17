@@ -20,7 +20,7 @@ let bankController = function (app, control={auth, passport, acl}){
    }
 
    app.post('/bank/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+      let $filter =  global.filter(req.body.filter);
       Bank.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);

@@ -37,7 +37,8 @@ let letterAccidentController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      LetterAccident.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      LetterAccident.find($filter, function (err, docs) {
          if (!err) {
             Insurance.populate(docs, {path: "insurance"},function(err, docs){
                Ramo.populate(docs, {path: "ramo"},function(err, docs){
@@ -48,8 +49,8 @@ let letterAccidentController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/letterAccident/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/letterAccident/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       LetterAccident.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -67,8 +68,8 @@ let letterAccidentController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/letterAccident/list', [control.auth, controller, control.acl], (req, res) => {
-
-      LetterAccident.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      LetterAccident.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             Insurance.populate(docs, {path: "insurance"},function(err, docs){

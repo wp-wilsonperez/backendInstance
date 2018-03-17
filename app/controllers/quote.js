@@ -14,7 +14,8 @@ let quoteController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      Quote.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Quote.find($filter, function (err, docs) {
          if (!err) {
             BankInsurance.populate(docs, {path: "bankInsurance"},function(err, docs){
                Deductible.populate(docs, {path: "deductible"},function(err, docs){
@@ -27,8 +28,8 @@ let quoteController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/quote/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/quote/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       Quote.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -48,8 +49,8 @@ let quoteController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/quote/list', [control.auth, controller, control.acl], (req, res) => {
-
-      Quote.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Quote.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             BankInsurance.populate(docs, {path: "bankInsurance"},function(err, docs){

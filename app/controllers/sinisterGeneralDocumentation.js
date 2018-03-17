@@ -11,7 +11,8 @@ let sinisterGeneralDocumentationController = function (app, control={auth, passp
    }
 
    function findAction (callback){
-      SinisterGeneralDocumentation.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      SinisterGeneralDocumentation.find($filter, function (err, docs) {
          if (!err) {
             
             callback(docs);
@@ -19,8 +20,8 @@ let sinisterGeneralDocumentationController = function (app, control={auth, passp
       });
    }
 
-   app.get('/sinisterGeneralDocumentation/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/sinisterGeneralDocumentation/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       SinisterGeneralDocumentation.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -36,8 +37,8 @@ let sinisterGeneralDocumentationController = function (app, control={auth, passp
    });
 
    app.get('/sinisterGeneralDocumentation/list', [control.auth, controller, control.acl], (req, res) => {
-
-      SinisterGeneralDocumentation.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      SinisterGeneralDocumentation.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 

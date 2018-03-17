@@ -14,7 +14,8 @@ let walletPaymentController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      WalletPayment.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      WalletPayment.find($filter, function (err, docs) {
          if (!err) {
             
             Wallet.populate(docs, {path: "wallet"},function(err, docs){
@@ -24,8 +25,8 @@ let walletPaymentController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/walletPayment/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/walletPayment/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       WalletPayment.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -43,8 +44,8 @@ let walletPaymentController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/walletPayment/list', [control.auth, controller, control.acl], (req, res) => {
-
-      WalletPayment.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      WalletPayment.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 

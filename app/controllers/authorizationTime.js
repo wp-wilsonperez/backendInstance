@@ -15,7 +15,8 @@ let authorizationTimeController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      AuthorizationTime.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      AuthorizationTime.find($filter, function (err, docs) {
          if (!err) {
             
             Ramo.populate(docs, {path: "ramo"},function(err, docs){
@@ -30,7 +31,7 @@ let authorizationTimeController = function (app, control={auth, passport, acl}){
    }
 
    app.post('/authorizationTime/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+      let $filter =  global.filter(req.body.filter);
       AuthorizationTime.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -52,8 +53,7 @@ let authorizationTimeController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/authorizationTime/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  {};
-
+      let $filter =  global.filter(null);
       AuthorizationTime.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);

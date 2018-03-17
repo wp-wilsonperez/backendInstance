@@ -14,7 +14,8 @@ let annexMedicalBusinessItemController = function (app, control={auth, passport,
    }
 
    function findAction (callback){
-      AnnexMedicalBusinessItem.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      AnnexMedicalBusinessItem.find($filter, function (err, docs) {
          if (!err) {
             
             AnnexMedicalBusiness.populate(docs, {path: "annexMedicalBusiness"},function(err, docs){
@@ -27,7 +28,7 @@ let annexMedicalBusinessItemController = function (app, control={auth, passport,
    }
 
    app.post('/annexMedicalBusinessItem/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+      let $filter =  global.filter(req.body.filter);
       AnnexMedicalBusinessItem.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -47,8 +48,7 @@ let annexMedicalBusinessItemController = function (app, control={auth, passport,
    });
 
    app.get('/annexMedicalBusinessItem/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  {};
-
+      let $filter =  global.filter(null);
       AnnexMedicalBusinessItem.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);

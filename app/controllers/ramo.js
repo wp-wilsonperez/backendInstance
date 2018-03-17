@@ -20,8 +20,8 @@ let ramoController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/ramo/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/ramo/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       Ramo.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);

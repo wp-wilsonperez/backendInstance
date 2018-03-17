@@ -11,15 +11,16 @@ let paymentTypeController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      PaymentType.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      PaymentType.find($filter, function (err, docs) {
          if (!err) {
             callback(docs)
          }
       });
    }
 
-   app.get('/paymentType/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/paymentType/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       PaymentType.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -33,8 +34,8 @@ let paymentTypeController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/paymentType/list', [control.auth, controller, control.acl], (req, res) => {
-
-      PaymentType.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      PaymentType.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             res.send({msg: "OK", paymentTypes: docs});

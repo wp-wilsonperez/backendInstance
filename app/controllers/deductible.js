@@ -13,7 +13,8 @@ let deductibleController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      Deductible.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Deductible.find($filter, function (err, docs) {
          if (!err) {
 
             Ramo.populate(docs, {path: "ramo"},function(err, docs){
@@ -44,8 +45,8 @@ let deductibleController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/deductible/list', [control.auth, controller, control.acl], (req, res) => {
-
-      Deductible.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Deductible.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             Ramo.populate(docs, {path: "ramo"},function(err, docs){

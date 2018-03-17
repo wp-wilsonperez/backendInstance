@@ -12,15 +12,16 @@ let settingController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      Setting.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Setting.find($filter, function (err, docs) {
          if (!err) {
             callback(docs)
          }
       });
    }
 
-   app.get('/setting/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/setting/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       Setting.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -34,8 +35,8 @@ let settingController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/setting/list', [control.auth, controller, control.acl], (req, res) => {
-
-      Setting.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Setting.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             res.send({msg: "OK", settings: docs});

@@ -15,7 +15,8 @@ let planAssociationController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      PlanAssociation.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      PlanAssociation.find($filter, function (err, docs) {
          if (!err) {
             
             Plan.populate(docs, {path: "plan"},function(err, docs){
@@ -48,8 +49,8 @@ let planAssociationController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/planAssociation/list', [control.auth, controller, control.acl], (req, res) => {
-
-      PlanAssociation.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      PlanAssociation.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 

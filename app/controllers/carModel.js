@@ -16,7 +16,8 @@ let carModelController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      CarModel.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      CarModel.find($filter, function (err, docs) {
          if (!err) {
             
             Country.populate(docs, {path: "country"},function(err, docs){
@@ -32,8 +33,8 @@ let carModelController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/carModel/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/carModel/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       CarModel.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -57,8 +58,8 @@ let carModelController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/carModel/list', [control.auth, controller, control.acl], (req, res) => {
-
-      CarModel.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      CarModel.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 

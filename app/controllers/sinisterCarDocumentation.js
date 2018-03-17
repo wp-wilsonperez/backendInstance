@@ -13,7 +13,8 @@ let sinisterCarDocumentationController = function (app, control={auth, passport,
    }
 
    function findAction (callback){
-      SinisterCarDocumentation.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      SinisterCarDocumentation.find($filter, function (err, docs) {
          if (!err) {
             
             SinisterCar.populate(docs, {path: "sinisterCar"},function(err, docs){
@@ -23,8 +24,8 @@ let sinisterCarDocumentationController = function (app, control={auth, passport,
       });
    }
 
-   app.get('/sinisterCarDocumentation/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/sinisterCarDocumentation/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       SinisterCarDocumentation.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -42,8 +43,8 @@ let sinisterCarDocumentationController = function (app, control={auth, passport,
    });
 
    app.get('/sinisterCarDocumentation/list', [control.auth, controller, control.acl], (req, res) => {
-
-      SinisterCarDocumentation.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      SinisterCarDocumentation.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 

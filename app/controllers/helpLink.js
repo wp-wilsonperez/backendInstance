@@ -11,15 +11,16 @@ let helpLinkController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      HelpLink.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      HelpLink.find($filter, function (err, docs) {
          if (!err) {
             callback(docs)
          }
       });
    }
 
-   app.get('/helpLink/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/helpLink/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       HelpLink.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -33,8 +34,8 @@ let helpLinkController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/helpLink/list', [control.auth, controller, control.acl], (req, res) => {
-
-      HelpLink.find({}, function (err, docs) {
+      let $filter =  global.filter($filter);
+      HelpLink.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             res.send({msg: "OK", helpLinks: docs});

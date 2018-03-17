@@ -11,7 +11,8 @@ let planController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      Plan.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Plan.find($filter, function (err, docs) {
          if (!err) {
             
             callback(docs);
@@ -19,8 +20,8 @@ let planController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/plan/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/plan/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       Plan.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -36,8 +37,8 @@ let planController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/plan/list', [control.auth, controller, control.acl], (req, res) => {
-
-      Plan.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Plan.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 

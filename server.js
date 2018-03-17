@@ -408,7 +408,7 @@ function ensureAuth (req, res, next){
    passport.authenticate('bearer', { session: false })
 }
 
-global.filter = function(query){
+global.filter = function(query, session){
    /*
       req.param.filter
       [
@@ -436,6 +436,15 @@ global.filter = function(query){
         $filter["$or"] = $filterOR;
       }
    });
+   console.log(app.locals);
+    if(app.locals.typeList){
+      let typeList=app.locals.typeList;
+      if(typeList=="99097f2c1f"){
+         $filter["userCreate"] = app.locals.session.idUser;
+      } else if(typeList=="99097f2c1c"){
+         $filter["branchCreate"] = app.locals.session.idBranch;
+      }
+    }
    $filter['dateDelete']={ '$exists': false };
    console.log($filter);
    return $filter;
@@ -535,9 +544,12 @@ function ensureACL (req, res, next){
          if($grant[$controller]){
             if($grant[$controller][$action]){
               app.locals.typeList = null;
+              app.locals.session = null;
+
               if($grant[$controller]['typeList']){
                 req.typeList = null;
                 app.locals.typeList = $grant[$controller]['typeList'];
+                app.locals.session = {"idUser": req.user.idUser, "idBranch": req.user.idBranch};
               }
               return next();
             }

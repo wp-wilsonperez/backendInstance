@@ -11,7 +11,8 @@ let sinisterCarController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      SinisterCar.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      SinisterCar.find($filter, function (err, docs) {
          if (!err) {
             
             callback(docs);
@@ -19,8 +20,8 @@ let sinisterCarController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/sinisterCar/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/sinisterCar/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       SinisterCar.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -36,8 +37,8 @@ let sinisterCarController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/sinisterCar/list', [control.auth, controller, control.acl], (req, res) => {
-
-      SinisterCar.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      SinisterCar.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 

@@ -14,7 +14,8 @@ let billingPolicyController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      BillingPolicy.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      BillingPolicy.find($filter, function (err, docs) {
          if (!err) {
             
             Billing.populate(docs, {path: "billing"},function(err, docs){
@@ -41,8 +42,7 @@ let billingPolicyController = function (app, control={auth, passport, acl}){
     });
 
    app.get('/billingPolicy/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  {};
-
+      let $filter =  global.filter(null);
       BillingPolicy.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);

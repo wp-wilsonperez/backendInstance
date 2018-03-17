@@ -14,7 +14,8 @@ let noRenewalRamoController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      NoRenewalRamo.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      NoRenewalRamo.find($filter, function (err, docs) {
          if (!err) {
             
             NoRenewal.populate(docs, {path: "noRenewal"},function(err, docs){
@@ -26,8 +27,8 @@ let noRenewalRamoController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/noRenewalRamo/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/noRenewalRamo/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       NoRenewalRamo.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -47,8 +48,8 @@ let noRenewalRamoController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/noRenewalRamo/list', [control.auth, controller, control.acl], (req, res) => {
-
-      NoRenewalRamo.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      NoRenewalRamo.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 

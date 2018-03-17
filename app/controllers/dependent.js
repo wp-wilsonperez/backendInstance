@@ -37,7 +37,8 @@ let dependentController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      Dependent.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Dependent.find($filter, function (err, docs) {
          if (!err) {
             
             Client.populate(docs, {path: "client"},function(err, docs){
@@ -47,8 +48,8 @@ let dependentController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/dependent/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/dependent/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       Dependent.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -66,8 +67,8 @@ let dependentController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/dependent/list', [control.auth, controller, control.acl], (req, res) => {
-
-      Dependent.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Dependent.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 

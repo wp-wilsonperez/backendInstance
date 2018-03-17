@@ -13,7 +13,8 @@ let incomeController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      Income.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Income.find($filter, function (err, docs) {
          if (!err) {
             User.populate(docs, {path: "userAddress"},function(err, docs){
                callback(docs);
@@ -22,8 +23,8 @@ let incomeController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/income/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/income/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       Income.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -39,18 +40,8 @@ let incomeController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/income/list', [control.auth, controller, control.acl], (req, res) => {
-
-      let typeList = app.locals.typeList;
-      let filter = {};
-      if(typeList=="99097f2c1f"){
-         filter = {"userCreate": req.user.idUser};
-      } else if(typeList=="99097f2c1c"){
-         filter = {"branchCreate": req.user.idBranch};
-      } else {
-         filter = {};
-      }
-
-      Income.find(filter, function (err, docs) {
+      let $filter =  global.filter(null);
+      Income.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             User.populate(docs, {path: "userAddress"},function(err, docs){

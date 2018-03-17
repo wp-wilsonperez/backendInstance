@@ -11,15 +11,16 @@ let cityController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      City.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      City.find($filter, function (err, docs) {
          if (!err) {
             callback(docs)
          }
       });
    }
 
-   app.get('/city/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/city/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       City.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -33,8 +34,8 @@ let cityController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/city/list', [control.auth, controller, control.acl], (req, res) => {
-
-      City.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      City.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             res.send({msg: "OK", cities: docs});

@@ -46,7 +46,8 @@ let clientController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      Client.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Client.find($filter, function (err, docs) {
          if (!err) {
 
             TypeClient.populate(docs, {path: "typeClient"},function(err, docs){
@@ -81,8 +82,8 @@ let clientController = function (app, control={auth, passport, acl}){
     });
 
    app.get('/client/list', [control.auth, controller, control.acl], (req, res) => {
-
-      Client.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Client.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             TypeClient.populate(docs, {path: "typeClient"},function(err, docs){

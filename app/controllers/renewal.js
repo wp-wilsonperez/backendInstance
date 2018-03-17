@@ -13,7 +13,8 @@ let renewalController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      Renewal.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Renewal.find($filter, function (err, docs) {
          if (!err) {
             
             callback(docs);
@@ -21,8 +22,8 @@ let renewalController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/renewal/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/renewal/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       Renewal.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -36,8 +37,8 @@ let renewalController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/renewal/list', [control.auth, controller, control.acl], (req, res) => {
-
-      Renewal.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Renewal.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             res.send({msg: "OK", renewals: docs});

@@ -13,7 +13,8 @@ let deprecationController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      Deprecation.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Deprecation.find($filter, function (err, docs) {
          if (!err) {
             Ramo.populate(docs, {path: "ramo"},function(err, docs){
                Branch.populate(docs, {path: "branch"},function(err, docs){
@@ -24,8 +25,8 @@ let deprecationController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/deprecation/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/deprecation/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       Deprecation.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -44,8 +45,8 @@ let deprecationController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/deprecation/list', [control.auth, controller, control.acl], (req, res) => {
-
-      Deprecation.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      Deprecation.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             Ramo.populate(docs, {path: "ramo"},function(err, docs){

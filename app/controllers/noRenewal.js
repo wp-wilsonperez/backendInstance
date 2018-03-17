@@ -12,7 +12,8 @@ let noRenewalController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      NoRenewal.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      NoRenewal.find($filter, function (err, docs) {
          if (!err) {
             
             callback(docs);
@@ -20,8 +21,8 @@ let noRenewalController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/noRenewal/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/noRenewal/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       NoRenewal.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -35,8 +36,8 @@ let noRenewalController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/noRenewal/list', [control.auth, controller, control.acl], (req, res) => {
-
-      NoRenewal.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      NoRenewal.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             res.send({msg: "OK", noRenewal: docs});

@@ -14,7 +14,8 @@ let sinisterMedicalDocumentationController = function (app, control={auth, passp
    }
 
    function findAction (callback){
-      SinisterMedicalDocumentation.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      SinisterMedicalDocumentation.find($filter, function (err, docs) {
          if (!err) {
             
             SinisterMedical.populate(docs, {path: "sinisterMedical"},function(err, docs){
@@ -26,8 +27,8 @@ let sinisterMedicalDocumentationController = function (app, control={auth, passp
       });
    }
 
-   app.get('/sinisterMedicalDocumentation/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/sinisterMedicalDocumentation/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       SinisterMedicalDocumentation.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -47,8 +48,8 @@ let sinisterMedicalDocumentationController = function (app, control={auth, passp
    });
 
    app.get('/sinisterMedicalDocumentation/list', [control.auth, controller, control.acl], (req, res) => {
-
-      SinisterMedicalDocumentation.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      SinisterMedicalDocumentation.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 

@@ -13,7 +13,8 @@ let binnacleExpirationDateController = function (app, control={auth, passport, a
    }
 
    function findAction (callback){
-      BinnacleExpirationDate.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      BinnacleExpirationDate.find($filter, function (err, docs) {
          if (!err) {
             
             ExpirationDate.populate(docs, {path: "expirationDate"},function(err, docs){
@@ -24,7 +25,7 @@ let binnacleExpirationDateController = function (app, control={auth, passport, a
    }
 
    app.post('/binnacleExpirationDate/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+      let $filter =  global.filter(req.body.filter);
       BinnacleExpirationDate.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -42,8 +43,7 @@ let binnacleExpirationDateController = function (app, control={auth, passport, a
    });
 
    app.get('/binnacleExpirationDate/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  {};
-
+      let $filter =  global.filter(null);
       BinnacleExpirationDate.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);

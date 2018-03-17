@@ -11,15 +11,16 @@ let carTypeController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      CarType.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      CarType.find($filter, function (err, docs) {
          if (!err) {
             callback(docs)
          }
       });
    }
 
-   app.get('/carType/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/carType/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       CarType.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -33,8 +34,8 @@ let carTypeController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/carType/list', [control.auth, controller, control.acl], (req, res) => {
-
-      CarType.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      CarType.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             res.send({msg: "OK", carTypes: docs});

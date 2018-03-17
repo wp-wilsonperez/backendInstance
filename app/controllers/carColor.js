@@ -11,7 +11,8 @@ let carColorController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      CarColor.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      CarColor.find($filter, function (err, docs) {
          if (!err) {
             callback(docs)
          }
@@ -33,8 +34,7 @@ let carColorController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/carColor/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  {};
-
+      let $filter =  global.filter(null);
       CarColor.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);

@@ -14,20 +14,19 @@ let bankInsuranceController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      BankInsurance.find({}, function (err, docs) {
-         if (!err) {
+      let $filter =  global.filter(req.body.filter);
+      BankInsurance.find($filter, function (err, docs) {
             
             Bank.populate(docs, {path: "bank"},function(err, docs){
                Insurance.populate(docs, {path: "insurance"},function(err, docs){
                   callback(docs);
                });
             });
-         }
       });
    }
 
    app.post('/bankInsurance/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+      let $filter =  global.filter(req.body.filter);
       BankInsurance.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -47,8 +46,7 @@ let bankInsuranceController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/bankInsurance/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  {};
-
+      let $filter =  global.filter(null);
       BankInsurance.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);

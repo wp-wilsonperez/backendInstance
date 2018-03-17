@@ -11,7 +11,8 @@ let carBrandController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      CarBrand.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      CarBrand.find($filter, function (err, docs) {
          if (!err) {
             callback(docs)
          }
@@ -19,7 +20,7 @@ let carBrandController = function (app, control={auth, passport, acl}){
    }
 
    app.post('/carBrand/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+      let $filter =  global.filter(req.body.filter);
       CarBrand.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -33,8 +34,7 @@ let carBrandController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/carBrand/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  {};
-
+      let $filter =  global.filter(null);
       CarBrand.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);

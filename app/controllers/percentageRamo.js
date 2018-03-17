@@ -13,7 +13,8 @@ let percentageRamoController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      PercentageRamo.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      PercentageRamo.find($filter, function (err, docs) {
          if (!err) {
             Ramo.populate(docs, {path: "ramo"},function(err, docs){
                Insurance.populate(docs, {path: "insurance"},function(err, docs){
@@ -24,8 +25,8 @@ let percentageRamoController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/percentageRamo/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/percentageRamo/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       PercentageRamo.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -43,8 +44,8 @@ let percentageRamoController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/percentageRamo/list', [control.auth, controller, control.acl], (req, res) => {
-
-      PercentageRamo.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      PercentageRamo.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
             Ramo.populate(docs, {path: "ramo"},function(err, docs){

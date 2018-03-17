@@ -43,8 +43,8 @@ let insuranceController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/insurance/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/insurance/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       Insurance.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -58,7 +58,6 @@ let insuranceController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/insurance/list', [control.auth, controller, control.acl], (req, res) => {
-
       let $filter =  global.filter(null);
       Insurance.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {

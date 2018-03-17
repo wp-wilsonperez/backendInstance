@@ -15,7 +15,8 @@ let clearanceTimeController = function (app, control={auth, passport, acl}){
    }
 
    function findAction (callback){
-      ClearanceTime.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      ClearanceTime.find($filter, function (err, docs) {
          if (!err) {
             
             Ramo.populate(docs, {path: "ramo"},function(err, docs){
@@ -29,8 +30,8 @@ let clearanceTimeController = function (app, control={auth, passport, acl}){
       });
    }
 
-   app.get('/clearanceTime/filter',[control.auth, controller], (req, res) => {
-      let $filter =  global.filter(req.query.filter);
+   app.post('/clearanceTime/filter',[control.auth, controller], (req, res) => {
+      let $filter =  global.filter(req.body.filter);
       ClearanceTime.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
@@ -52,8 +53,8 @@ let clearanceTimeController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/clearanceTime/list', [control.auth, controller, control.acl], (req, res) => {
-
-      ClearanceTime.find({}, function (err, docs) {
+      let $filter =  global.filter(null);
+      ClearanceTime.find($filter, function (err, docs) {
          if (typeof docs !== 'undefined') {
             control.log(req.route.path, req.user);
 
