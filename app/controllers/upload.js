@@ -208,7 +208,8 @@ let uploadController = function (app, control={auth, passport, acl}){
       upload(req , res , async function(err) {
          if(!err){
             let $data = req.body.data;
-            let $file = `${pathDownload}/${req.file.filename}`;
+            var $file = __dirname+'/../../public/download/'+req.file.filename;
+            //let $file = `${pathDownload}/${req.file.filename}`;
 
             var workbook = XLSX.readFile($file);
             var sheet_name_list = workbook.SheetNames;
@@ -256,19 +257,19 @@ let uploadController = function (app, control={auth, passport, acl}){
                   //let $length = docs.length;
                   //for (var i = 0; i < $length; i++) {
                      rowIni++;
-                     sheet1.set(cols[0], rowIni, clientData.name);
-                     sheet1.set(cols[1], rowIni, clientData.lastName);
-                     sheet1.set(cols[2], rowIni, clientData.doc);
-                     sheet1.set(cols[4], rowIni, clientData.docType);
-                     sheet1.set(cols[5], rowIni, clientData.phones);
-                     sheet1.set(cols[6], rowIni, clientData.checkPhones);
-                     sheet1.set(cols[7], rowIni, clientData.detailPhones);
-                     sheet1.set(cols[8], rowIni, clientData.cellPhone);
-                     sheet1.set(cols[9], rowIni, clientData.checkCellPhone);
-                     sheet1.set(cols[10], rowIni, clientData.mail);
-                     sheet1.set(cols[11], rowIni, clientData.checkMail);
-                     sheet1.set(cols[12], rowIni, clientData.detailMail);
-                     sheet1.set(cols[13], rowIni, clientData.address);
+                     sheet1.set(cols[0], rowIni, $clientData.name);
+                     sheet1.set(cols[1], rowIni, $clientData.lastName);
+                     sheet1.set(cols[2], rowIni, $clientData.doc);
+                     sheet1.set(cols[4], rowIni, $clientData.docType);
+                     sheet1.set(cols[5], rowIni, $clientData.phones);
+                     sheet1.set(cols[6], rowIni, $clientData.checkPhones);
+                     sheet1.set(cols[7], rowIni, $clientData.detailPhones);
+                     sheet1.set(cols[8], rowIni, $clientData.cellPhone);
+                     sheet1.set(cols[9], rowIni, $clientData.checkCellPhone);
+                     sheet1.set(cols[10], rowIni, $clientData.mail);
+                     sheet1.set(cols[11], rowIni, $clientData.checkMail);
+                     sheet1.set(cols[12], rowIni, $clientData.detailMail);
+                     sheet1.set(cols[13], rowIni, $clientData.address);
                   //}
                }
                
@@ -359,17 +360,17 @@ let uploadController = function (app, control={auth, passport, acl}){
                   //let $length = docs.length;
                   //for (var i = 0; i < $length; i++) {
                      rowIni++;
-                     sheet1.set(cols[0], rowIni, 'doc');
-                     sheet1.set(cols[1], rowIni, 'idRamo');
-                     sheet1.set(cols[2], rowIni, 'chasis');
-                     sheet1.set(cols[4], rowIni, 'motor');
-                     sheet1.set(cols[5], rowIni, 'placa');
-                     sheet1.set(cols[6], rowIni, 'carUse');
-                     sheet1.set(cols[7], rowIni, 'extras');
-                     sheet1.set(cols[8], rowIni, 'extrasValue');
-                     sheet1.set(cols[9], rowIni, 'idCarBrand');
-                     sheet1.set(cols[10], rowIni, 'idCarModel');
-                     sheet1.set(cols[11], rowIni, 'idCarColor');
+                     sheet1.set(cols[0], rowIni, $carData.doc);
+                     sheet1.set(cols[1], rowIni, $carData.idRamo);
+                     sheet1.set(cols[2], rowIni, $carData.chasis);
+                     sheet1.set(cols[4], rowIni, $carData.motor);
+                     sheet1.set(cols[5], rowIni, $carData.placa);
+                     sheet1.set(cols[6], rowIni, $carData.carUse);
+                     sheet1.set(cols[7], rowIni, $carData.extras);
+                     sheet1.set(cols[8], rowIni, $carData.extrasValue);
+                     sheet1.set(cols[9], rowIni, $carData.idCarBrand);
+                     sheet1.set(cols[10], rowIni, $carData.idCarModel);
+                     sheet1.set(cols[11], rowIni, $carData.idCarColor);
                   //}
                }
                
