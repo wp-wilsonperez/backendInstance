@@ -219,6 +219,9 @@ let userController = function (app, control={auth, passport, acl}){
          userUpdate: req.user.idUser,
          Enabled: req.body.Enabled
       };
+      if(req.body.password = ''){
+         update['password']: sha1(req.body.password)
+      }
 
       User.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
