@@ -52,7 +52,7 @@ Branch.insertMany($branchData, (err, docs) => {
 });
 /********USER********/
 let $userData = [
-   { "_id" : "599222be7f05fc0933b643f3", "name" : "Cinta", "lastName" : "Negra", "cedula" : "2222222222", "password" : "571c34f62e9ea7fba7e619d8b417aebc4d60ef4e", "mail" : "info@cintanegra.net", "phone" : "0998932898", "idRole" : "599222be7f05fc0933b643f3", "idBranch" : "599222be7f05fc0933b643f3", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "0", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "0", "userImg" : "defaultUser.jpg"}
+   { "_id" : "599222be7f05fc0933b643f3", "name" : "Cinta", "lastName" : "Negra", "cedula" : "2222222222", "password" : "571c34f62e9ea7fba7e619d8b417aebc4d60ef4e", "mail" : "info@cintanegra.net", "phone" : "0998932898", "dateBirthday" : "1990-01-01", "idRole" : "599222be7f05fc0933b643f3", "role" : "599222be7f05fc0933b643f3", "idBranch" : "599222be7f05fc0933b643f3", "branch" : "599222be7f05fc0933b643f3", "dateCreate" : "2017-01-01 00:00:00", "userCreate" : "599222be7f05fc0933b643f3", "dateUpdate" : "2017-01-01 00:00:00", "userUpdate" : "599222be7f05fc0933b643f3", "userImg" : "defaultUser.jpg", "Enabled" : 1}
 ];
 User.insertMany($userData, (err, docs) => {
    answer("user", $userData.length);

@@ -220,7 +220,7 @@ let userController = function (app, control={auth, passport, acl}){
          Enabled: req.body.Enabled
       };
       if(req.body.password = ''){
-         update['password']: sha1(req.body.password)
+         update['password']= sha1(req.body.password)
       }
 
       User.findOneAndUpdate(filter, update, function (err, doc) {
