@@ -197,6 +197,30 @@ let userController = function (app, control={auth, passport, acl}){
 
    });
 
+   app.post('/user/password/:id', [control.auth, controller], (req, res) => {
+
+      let filter = {
+         _id: req.params.id
+      }
+
+      let update = {
+         password: sha1(req.body.password)
+      };
+
+      User.findOneAndUpdate(filter, update, function (err, doc) {
+         if (!err) {
+            findAction(function(docs){
+               control.log(req.route.path, req.user);
+               res.send({msg: "OK", update: docs});
+            });
+         } else {
+            let error=global.error(err, 0, req.controller);
+            res.send({msg: 'ERROR', err: error});
+         }
+      });
+
+   });
+
    app.post('/user/edit/:id', [control.auth, controller, control.acl], (req, res) => {
 
       let filter = {
@@ -219,9 +243,6 @@ let userController = function (app, control={auth, passport, acl}){
          userUpdate: req.user.idUser,
          Enabled: req.body.Enabled
       };
-      if(req.body.password = ''){
-         update['password']= sha1(req.body.password)
-      }
 
       User.findOneAndUpdate(filter, update, function (err, doc) {
          if (!err) {
