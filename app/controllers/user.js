@@ -230,7 +230,6 @@ let userController = function (app, control={auth, passport, acl}){
       let update = {
          name: req.body.name,
          lastName: req.body.lastName,
-         cedula: req.body.cedula,
          mail: req.body.mail,
          phone: req.body.phone,
          dateBirthday: req.body.dateBirthday,
