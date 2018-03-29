@@ -94,6 +94,8 @@ let itemAnnexController = function (app, control={auth, passport, acl}){
          exclusionDate: req.body.exclusionDate,
          inclusionDate: req.body.inclusionDate,
          modificationDate: req.body.modificationDate,
+         years: req.body.years,
+         deprecationYears: req.body.deprecationYears,
          dateCreate: moment(),
          userCreate: req.user.idUser,
          dateUpdate: moment(),
@@ -141,6 +143,8 @@ let itemAnnexController = function (app, control={auth, passport, acl}){
          exclusionDate: req.body.exclusionDate,
          inclusionDate: req.body.inclusionDate,
          modificationDate: req.body.modificationDate,
+         years: req.body.years,
+         deprecationYears: req.body.deprecationYears,
          dateUpdate: moment(),
          userUpdate: req.user.idUser
       };

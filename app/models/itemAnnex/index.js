@@ -24,6 +24,13 @@ let ItemAnnexSchema = new mongoose.Schema({
 	exclusionDate: {type: Date},
 	inclusionDate: {type: Date},
 	modificationDate: {type: Date},
+	years: {type: Number},
+	deprecationYears: [ {
+			year: {type: Number},
+			value: {type: Number},
+			prima: {type: Number}
+		}
+	],
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
 	dateUpdate: {type: Date, require: true},

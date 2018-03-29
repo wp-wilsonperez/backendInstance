@@ -8,7 +8,7 @@ let DeprecationSchema = new mongoose.Schema({
 	branch: { type: mongoose.Schema.ObjectId, ref: "Branch"},
 	year: {type: Number},
 	value: {type: Number},
-	typeYear: {type: Boolean},
+	typeYear: { type: String, enum:['first_year','last_year'] },
 	activated: {type: Boolean},
 	dateCreate: {type: Date, require: true},
 	userCreate: {type: String, require: true},
