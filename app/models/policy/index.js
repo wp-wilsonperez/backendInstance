@@ -17,6 +17,7 @@ let PolicySchema = new mongoose.Schema({
 	guarantor: {type: String},
 	idDeductible: {type: String},
 	deductible: { type: mongoose.Schema.ObjectId, ref: "Deductible"},
+	futureYears: {type: Boolean},
 	insured: {type: String},
 	startDate: {type: Date},
 	finishDate: {type: Date},
