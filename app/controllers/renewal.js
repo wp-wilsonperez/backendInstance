@@ -3,6 +3,8 @@ import moment from 'moment';
 
 import Renewal from "../models/renewal";
 import Policy from "../models/policy";
+import Insurance from "../models/insurance";
+import Ramo from "../models/ramo";
 
 
 let renewalController = function (app, control={auth, passport, acl}){
@@ -36,12 +38,34 @@ let renewalController = function (app, control={auth, passport, acl}){
 
    });
 
-   app.get('/renewal/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  global.filter(null);
-      Renewal.find($filter, function (err, docs) {
-         if (typeof docs !== 'undefined') {
-            control.log(req.route.path, req.user);
-            res.send({msg: "OK", renewals: docs});
+   app.get('/renewal/list', [control.auth, controller], (req, res) => {
+      let $conditions = [
+         { 
+            "condition": "between",
+            "field": "finishDate",
+            "values": [
+               moment().startOf('month').format('YYYY-MM-DD HH:mm:ss'),
+               moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')
+            ]
+         }
+      ]
+      let $filter =  global.filter($conditions);
+      Policy.find($filter, function (err, docs) {
+         if (!err) {
+            //Insurance.populate(docs, {path: "insurance"},function(err, docs){
+               //Ramo.populate(docs, {path: "ramo"},function(err, docs){
+                  $filter =  global.filter(null);
+                  Renewal.find($filter, function (err2, docs2) {
+                     if (!err2) {
+                        control.log(req.route.path, req.user);
+                        res.send({msg: "OK", renewals: docs2, policies: docs});
+                     } else {
+                        let error=global.error(err2, 0, req.controller);
+                        res.send({msg: 'ERROR', err: error});
+                     }
+                  });
+               //});
+            //});
          } else {
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});

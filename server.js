@@ -434,6 +434,8 @@ global.filter = function(query, session){
           $filterOR[index2][item2.field] = item2.value;
         });
         $filter["$or"] = $filterOR;
+      }else if(item.condition == "between"){
+        $filter[item.field] = {"$gte": item.values[0], "$lte": item.values[1]};
       }
    });
    console.log(app.locals);
