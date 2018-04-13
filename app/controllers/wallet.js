@@ -60,12 +60,27 @@ let walletController = function (app, control={auth, passport, acl}){
    });
 
    app.get('/wallet/list', [control.auth, controller, control.acl], (req, res) => {
-      let $filter =  global.filter(null);
-      Wallet.find($filter, function (err, docs) {
-         if (typeof docs !== 'undefined') {
+      
+      let $conditions = [
+         { 
+            "condition": "between",
+            "field": "expirationDate",
+            "values": [
+               moment().startOf('month').format('YYYY-MM-DD HH:mm:ss'),
+               moment().endOf('month').format('YYYY-MM-DD HH:mm:ss')
+            ]
+         }
+      ]
+      let $filter =  global.filter($conditions);
+
+      WalletPayment.find($filter, function (err, docs) {
+         if (!err) {
             control.log(req.route.path, req.user);
 
-            res.send({msg: "OK", wallets: docs});
+            Wallet.populate(docs, {path: "wallet"},function(err, docs){
+               res.send({msg: "OK", walletPayments: docs});
+            });
+            
          } else {
             let error=global.error(err, 0, req.controller);
             res.send({msg: 'ERROR', err: error});
