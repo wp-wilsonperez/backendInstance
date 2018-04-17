@@ -8,6 +8,11 @@ import moment from 'moment';
 
 import CreditNote from "../models/creditNote";
 
+import Sinister from "../models/sinister";
+import Ramo from "../models/ramo";
+import User from "../models/user";
+import Role from "../models/role";
+
 const pathRender = `download`;
 const pathDownload = `./public/${pathRender}`;
 
@@ -382,73 +387,89 @@ let letterDocxController = function (app, control={auth, passport}){
 
    app.get('/letterDocx/sinisterNotice/:idSinister', [control.auth, controller], (req, res) => {
 
-      /*CreditNote.findById(req.params.id, function (err, doc) {
-         if (!err) {
-            res.send({msg: "OK", creditNote: doc});
-         } else {
-            res.send({msg: 'ERR', err: err});
-         }
-      });*/
-      console.log(__dirname);
-      console.log("*******************************************");
-
-      let $data = req.query;
-       //Load the docx file as a binary
-      let content = fs.readFileSync(path.resolve(__dirname+'/../letters', 'NotificacionSiniestro.docx'), 'binary');
-      let zip = new JSZip(content);
-      let doc = new Docxtemplater();
-      doc.loadZip(zip);
-
-      let data = {
-         date : "Cuenca, 04 de Octubre del 2017",
-         letter_number : "756",
-         client_name : "JUAN PEREZ",
-         insurence_name : "VAZSEGUROS",
-         policy_name : "POLIZA DE VEHICULOS",
-         policy_placa : "VH-43500",
-         policy_anexo : "02",
-         policy_number : "43500",
-         ramo_name : "Vehiculo",
-         ramo_detail : "TOYOTA COROLLA/PLATA",
-         billing_number : "25023",
-         billing_value : "467.04",
-         credit_number : "20550",
-         credit_value : "Vehiculo",
-         user_name : "Ing. Diana Moncayo V.",
-         user_role : "Jefe Dpto. de Emision"
-      };
-
-      doc.setData(data);
-
-      try {
-          // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)
-          doc.render()
+      //let $filter =  global.filter(null);
+      let $filter = {
+         _id: req.params.idSinister
       }
-      catch (error) {
-          var e = {
-              message: error.message,
-              name: error.name,
-              stack: error.stack,
-              properties: error.properties,
+      Sinister.findOne($filter, function (err, docData) {
+        //control.log(req.route.path, req.user);
+        Ramo.populate(docData, {path: "ramo"},function(err, docData){
+        User.populate(docData, {path: "userCreate"},function(err, docData){
+        Role.populate(docData, {path: "userCreate.role"},function(err, docData){
+          //res.send({msg: "OK", sinisters: docs});
+
+          console.log(__dirname);
+          console.log(docData);
+          console.log("*******************************************");
+
+          let $data = req.query;
+            //Load the docx file as a binary
+          let content = fs.readFileSync(path.resolve(__dirname+'/../letters', 'NotificacionSiniestro.docx'), 'binary');
+          //console.log(content);
+          let zip = new JSZip(content);
+          let doc = new Docxtemplater();
+          doc.loadZip(zip);
+
+          let userC = docData.userCreate.name+' '+docData.userCreate.lastName;
+          let data = {
+             dateNotification : docData.dateNotification,
+             sinisterNumber : docData.sinisterNumber,
+             compName : docData.compName,
+             recipient_name : docData.recipient.name,
+             clientInsured : docData.clientInsured,
+             beneficiary : docData.beneficiary,
+             policyNumber : docData.policyData.policyNumber,
+             annexedNumber : docData.policyData.annexedNumber,
+             policy_startDate : docData.policyData.startDate,
+             policy_finishDate : docData.policyData.finishDate,
+             sinisterDiagnosis : docData.sinisterDiagnosis,
+             deductibleValue : docData.deductibleValue,
+             valorAsegurado : docData.valorAsegurado,
+             dateSinister : docData.dateSinister,
+             userCreate : userC,
+             role : docData.userCreate.role.name,
+             idRamo: docData.idRamo
+          };
+          console.log(data);
+
+          doc.setData(data);
+
+          try {
+              // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)
+              doc.render()
           }
-          console.log(JSON.stringify({error: e}));
-          // The error thrown here contains additional information when logged with JSON.stringify (it contains a property object).
-          throw error;
-      }
+          catch (error) {
+              var e = {
+                  message: error.message,
+                  name: error.name,
+                  stack: error.stack,
+                  properties: error.properties,
+              }
+              console.log(JSON.stringify({error: e}));
+              // The error thrown here contains additional information when logged with JSON.stringify (it contains a property object).
+              throw error;
+          }
 
-      var buf = doc.getZip().generate({type: 'nodebuffer'});
+          var buf = doc.getZip().generate({type: 'nodebuffer'});
 
-      // buf is a nodejs buffer, you can either write it to a file or do anything else with it.
-      var pathCake = __dirname+'/../../public/download';
-      console.log(pathCake);
-      //fs.writeFileSync(path.resolve(pathCake, 'output.docx'), buf);
-      var outPutFile = moment().format('YYYY-MM-DD-h:mm:ss') + 'NotificacionSiniestro.docx';
-      fs.writeFile(path.resolve(pathCake, outPutFile), buf, function (err) {
-          if (err) throw err;
-          console.log('It\'s saved!');
-          //res.setHeader('Access-Control-Allow-Headers', 'X-DEBUGKIT-ID');
-          res.send({"status": "ok", "doc_name": outPutFile});
+          // buf is a nodejs buffer, you can either write it to a file or do anything else with it.
+          var pathCake = __dirname+'/../../public/download';
+          console.log(pathCake);
+          //fs.writeFileSync(path.resolve(pathCake, 'output.docx'), buf);
+          var outPutFile = moment().format('YYYY-MM-DD-h:mm:ss') + 'NotificacionSiniestro.docx';
+          fs.writeFile(path.resolve(pathCake, outPutFile), buf, function (err) {
+              if (err) throw err;
+              console.log('It\'s saved!');
+              //res.setHeader('Access-Control-Allow-Headers', 'X-DEBUGKIT-ID');
+              res.send({"status": "ok", "doc_name": outPutFile});
+          });
+
+        });
+        });
+        });
       });
+
+
 
    });
 

@@ -1,7 +1,14 @@
 
 import mongoose from 'mongoose';
+import autoIncrement from 'mongoose-auto-increment';
+
+import Config from './../../configs/app';
+
+const connection = mongoose.connect(Config.mongoose);
+autoIncrement.initialize(connection);
 
 let SinisterSchema = new mongoose.Schema({
+	sinisterNumber: {type:  Number},
 	idPolicy: {type: String},
 	policy: { type: mongoose.Schema.ObjectId, ref: "Policy"},
 	policyData: {type: Object},
@@ -25,6 +32,7 @@ let SinisterSchema = new mongoose.Schema({
 	settlementDate: {type: Date},
 	approvalDate: {type: Date},
 	checkApproved: {type: Boolean},
+	valorAsegurado: {type: Number},
 	item: {
 		idSinister: {type: String},
 		sinister: { type: mongoose.Schema.ObjectId, ref: "Sinister"},
@@ -39,13 +47,9 @@ let SinisterSchema = new mongoose.Schema({
 		others2: {type: String},
 		others3: {type: String},
 		notCovered: {type: String},
-		observationNotCovered: {type: String},
 		liquidation: {type: Number},
-		liquidationDate: {type: Date},
-		deliverDate: {type: Date},
 		idCar: {type: String},
 		carDetails: { type: Object},
-		sinisterDiagnosis: {type: String},
 		sinisterMap: {
 			longitude: {type: String},
 			latitude: {type: String}
@@ -82,5 +86,6 @@ let SinisterSchema = new mongoose.Schema({
 	dateDelete: {type: Date}
 });
 
+SinisterSchema.plugin(autoIncrement.plugin, { model: 'Sinister', field: 'sinisterNumber', startAt: 1});
 
 export default mongoose.model('Sinister', SinisterSchema)

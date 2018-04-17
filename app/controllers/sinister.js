@@ -102,7 +102,7 @@ let sinisterController = function (app, control={auth, passport, acl}){
    app.post('/sinister/add', [control.auth, controller, control.acl], (req, res) => {
 
       let $data = req.body.sinister;
-      //console.log($data);
+      console.log($data);
       //return res.send($data);
       let $sinisterData = $data;
       $sinisterData.ramo = $sinisterData.idRamo;
