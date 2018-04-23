@@ -336,7 +336,6 @@ let walletPaymentController = function (app, control={auth, passport, acl}){
 
       doc.text('XPSO-XPSO', 455, 335, {width: 120, align: 'center'})
          
-
       /*doc.addPage()
          .fontSize(25)
          .text('Here is some vector graphics...', 100, 100)
