@@ -240,7 +240,8 @@ let walletPaymentController = function (app, control={auth, passport, acl}){
       }
       var doc = new PDFDocument(optionsPDF);
       var pathCake = __dirname+'/../../public/download/';
-      var outPutFile = pathCake+moment().format('YYYY-MM-DD-h:mm:ss') + 'test.pdf';
+      var outFile = moment().format('YYYY-MM-DD-h:mm:ss') + 'Recibo_de_Caja.pdf';
+      var outPutFile = pathCake+outFile;
       doc.pipe(fs.createWriteStream(outPutFile))
 
       var $y=[1, 33, 50, 65, 80, 95, 108, 115, 128, 135, 148, 155]
@@ -348,7 +349,7 @@ let walletPaymentController = function (app, control={auth, passport, acl}){
       
       doc.end()
 
-      res.send({msg: 'OK', doc_name: outPutFile});
+      res.send({msg: 'OK', doc_name: outFile});
 
    });
 
